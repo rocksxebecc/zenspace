@@ -1731,7 +1731,7 @@
         </svg></span>
       <span class="nav-brand-name">Zenspace</span>
     </a>
-    <span class="nav-badge">Zenlab</span>
+    <span class="nav-badge">Groq</span>
     <div class="nav-spacer"></div>
     <div class="nav-pill">
       <div class="dot"></div>Agent Active
@@ -1797,8 +1797,8 @@
       <div class="chat-topbar">
         <div class="agent-icon">∑</div>
         <div class="topbar-info">
-          <h3>Zenlab</h3>
-          <p id="agentStatus">ZenLab.3 · Vision enabled · Step-by-step reasoning</p>
+          <h3>Groq Agent</h3>
+          <p id="agentStatus">Llama 3.3 / Llama 4 Scout · Vision enabled</p>
         </div>
         <div class="topbar-actions">
           <button class="icon-btn" title="Recent History" onclick="toggleHistoryPopover(event)" id="historyBtn">
@@ -1870,8 +1870,8 @@
       <div id="chatMessages">
         <div class="welcome-state" id="welcomeState">
           <div class="welcome-orb">∑</div>
-          <h2>Zen<em>lab</em></h2>
-          <p>ZenLab.3 is Zenspace's built-in science & math reasoning agent. Powered by advanced AI, it solves problems across Mathematics, Physics, Chemistry, Biology, Computer Science, and Economics — with full step-by-step explanations. Upload a photo of any problem and it will read and solve it instantly.</p>
+          <h2>Groq <em>Agent</em></h2>
+          <p>Groq Math Agent is Zenspace's built-in science & math reasoning tool. Powered by Groq's Llama 3.3 70B (for text) and Llama 4 Scout (for vision), it solves problems across Mathematics, Physics, Chemistry, Biology, Computer Science, and Economics — with full step-by-step explanations.</p>
           <div class="capability-pills">
             <span class="cap-pill">∫ Calculus</span>
             <span class="cap-pill">∑ Algebra</span>
@@ -1957,8 +1957,8 @@
             style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(139,92,246,.25);border-radius:8px;padding:8px 12px">
             <span style="font-size:1.1rem">🤖</span>
             <div>
-              <div style="font-size:.78rem;font-weight:600;color:var(--ink-1)">Advanced AI Engine</div>
-              <div style="font-size:.67rem;color:var(--ink-4)">Scientific reasoning · Ultra-fast inference</div>
+              <div style="font-size:.78rem;font-weight:600;color:var(--ink-1)">Groq API — Llama 3.3 70B</div>
+              <div style="font-size:.67rem;color:var(--ink-4)">Vision: Llama 4 Scout 17B · Ultra-fast inference</div>
             </div>
             <span
               style="margin-left:auto;font-size:.65rem;background:rgba(74,222,128,.15);color:#4ade80;border-radius:20px;padding:2px 8px;font-weight:600">FREE</span>
@@ -2708,28 +2708,19 @@ Be mathematically precise. Never make computational errors. Double-check your wo
           let errBody = {};
           try { errBody = await response.json(); } catch (_) {}
           const rawMsg = errBody?.error?.message || '';
-          
-          const cleanModelNames = (str) => {
-            if (!str) return '';
-            return str
-              .replace(/llama-3\.3-70b-versatile/gi, 'zenlab3.22v')
-              .replace(/meta-llama\/llama-4-scout-17b-16e-instruct/gi, 'zenlab3.22v')
-              .replace(/llama-3\.2-11b-vision-preview/gi, 'zenlab3.22v')
-              .replace(/(meta-)?llama-[a-zA-Z0-9.-]+/gi, 'zenlab3.22v');
-          };
 
           if (response.status === 429) {
             const match = rawMsg.match(/try again in\s+([\d.]+)s/i);
             const secs = match ? Math.ceil(parseFloat(match[1])) : null;
             throw new Error(secs
-              ? `Rate limit reached for model zenlab3.22v. Please try again in ${secs}s.`
-              : 'Rate limit reached for model zenlab3.22v. Please try again in a moment.');
+              ? `Rate limit reached for model ${activeModel}. Please try again in ${secs}s.`
+              : `Rate limit reached for model ${activeModel}. Please try again in a moment.`);
           } else if (response.status === 401 || response.status === 403) {
             throw new Error('Authentication error. Please check your API key in Settings.');
           } else if (response.status >= 500) {
-            throw new Error('The AI engine (zenlab3.22v) is temporarily unavailable. Please try again shortly.');
+            throw new Error(`The AI engine (${activeModel}) is temporarily unavailable. Please try again shortly.`);
           } else {
-            throw new Error(cleanModelNames(rawMsg) || 'Something went wrong. Please try again.');
+            throw new Error(rawMsg || 'Something went wrong. Please try again.');
           }
         }
 
@@ -2752,17 +2743,7 @@ Be mathematically precise. Never make computational errors. Double-check your wo
 
       } catch (err) {
         removeTyping(typingId);
-        
-        const cleanModelNames = (str) => {
-          if (!str) return '';
-          return str
-            .replace(/llama-3\.3-70b-versatile/gi, 'zenlab3.22v')
-            .replace(/meta-llama\/llama-4-scout-17b-16e-instruct/gi, 'zenlab3.22v')
-            .replace(/llama-3\.2-11b-vision-preview/gi, 'zenlab3.22v')
-            .replace(/(meta-)?llama-[a-zA-Z0-9.-]+/gi, 'zenlab3.22v');
-        };
-
-        const msg = cleanModelNames(err.message || 'Something went wrong. Please try again.');
+        const msg = err.message || 'Something went wrong. Please try again.';
         appendError(msg);
         const retryMatch = msg.match(/in (\d+)s/);
         document.getElementById('agentStatus').textContent = retryMatch
@@ -2816,7 +2797,7 @@ Be mathematically precise. Never make computational errors. Double-check your wo
     <div class="msg-av agent">∑</div>
     <div class="msg-body" style="max-width:90%">
       <div class="msg-meta">
-        ZenLab · ${timestamp()}
+        Groq Agent · ${timestamp()}
         ${elapsed ? `· <span style="color:var(--green)">${elapsed}s</span>` : ''}
         ${domainTag}
       </div>
@@ -3201,8 +3182,8 @@ Be mathematically precise. Never make computational errors. Double-check your wo
       container.innerHTML = `
     <div class="welcome-state" id="welcomeState">
       <div class="welcome-orb">∑</div>
-      <h2>Zen<em>lab</em></h2>
-      <p>ZenLab.3 is Zenspace’s built-in science &amp; math reasoning agent. Powered by advanced AI, it solves problems across Mathematics, Physics, Chemistry, Biology, Computer Science, and Economics — with full step-by-step explanations. Upload a photo of any problem and it will read and solve it instantly.</p>
+      <h2>Groq <em>Agent</em></h2>
+      <p>Groq Math Agent is Zenspace’s built-in science &amp; math reasoning tool. Powered by Groq's Llama 3.3 70B (for text) and Llama 4 Scout (for vision), it solves problems across Mathematics, Physics, Chemistry, Biology, Computer Science, and Economics — with full step-by-step explanations.</p>
       <div class="capability-pills">
         <span class="cap-pill">∫ Calculus</span>
         <span class="cap-pill">∑ Algebra</span>
@@ -3216,7 +3197,7 @@ Be mathematically precise. Never make computational errors. Double-check your wo
         <span class="cap-pill">📸 Image Scan</span>
       </div>
     </div>`;
-      document.getElementById('agentStatus').textContent = 'ZenLab.3 · Vision enabled · Step-by-step reasoning';
+      document.getElementById('agentStatus').textContent = 'Llama 3.3 / Llama 4 Scout · Vision enabled';
     }
 
     // ── FOLLOW UP ─────────────────────────────────────────────────
