@@ -2173,7 +2173,7 @@
 
     // ── API KEY MANAGEMENT ────────────────────────────────────────
     const GROQ_MODEL = 'llama-3.3-70b-versatile';         // text-only (fast)
-    const GROQ_VISION_MODEL = 'llama-3.2-11b-vision-preview'; // vision-capable
+    const GROQ_VISION_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct'; // vision-capable
     const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
     // Default key — users can override in Settings with their own Groq key
     const DEFAULT_GROQ_KEY = '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';
@@ -2713,8 +2713,9 @@ Be mathematically precise. Never make computational errors. Double-check your wo
             if (!str) return '';
             return str
               .replace(/llama-3\.3-70b-versatile/gi, 'zenlab3.22v')
+              .replace(/meta-llama\/llama-4-scout-17b-16e-instruct/gi, 'zenlab3.22v')
               .replace(/llama-3\.2-11b-vision-preview/gi, 'zenlab3.22v')
-              .replace(/llama-[a-zA-Z0-9.-]+/gi, 'zenlab3.22v');
+              .replace(/(meta-)?llama-[a-zA-Z0-9.-]+/gi, 'zenlab3.22v');
           };
 
           if (response.status === 429) {
@@ -2756,8 +2757,9 @@ Be mathematically precise. Never make computational errors. Double-check your wo
           if (!str) return '';
           return str
             .replace(/llama-3\.3-70b-versatile/gi, 'zenlab3.22v')
+            .replace(/meta-llama\/llama-4-scout-17b-16e-instruct/gi, 'zenlab3.22v')
             .replace(/llama-3\.2-11b-vision-preview/gi, 'zenlab3.22v')
-            .replace(/llama-[a-zA-Z0-9.-]+/gi, 'zenlab3.22v');
+            .replace(/(meta-)?llama-[a-zA-Z0-9.-]+/gi, 'zenlab3.22v');
         };
 
         const msg = cleanModelNames(err.message || 'Something went wrong. Please try again.');
