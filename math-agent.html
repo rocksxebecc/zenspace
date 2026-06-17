@@ -2712,10 +2712,21 @@ Be mathematically precise. Never make computational errors. Double-check your wo
           if (response.status === 429) {
             const match = rawMsg.match(/try again in\s+([\d.]+)s/i);
             const secs = match ? Math.ceil(parseFloat(match[1])) : null;
+            // Roll back failed user message so history stays clean
+            STATE.messages.pop();
+            // Restore images so user can retry without re-uploading
+            if (displayImages && displayImages.length) {
+              STATE.pendingImages = [...displayImages];
+              const strip = document.getElementById('previewStrip');
+              strip.innerHTML = '';
+              STATE.pendingImages.forEach((img, i) => addPreviewThumb(img.dataUrl || `data:${img.mimeType};base64,${img.base64}`, i));
+              strip.style.display = 'flex';
+            }
+            removeTyping(typingId);
             appendRateLimitError(secs);
             document.getElementById('agentStatus').textContent = secs
-              ? `Rate limited — retry in ${secs}s`
-              : 'Rate limited — retry in a moment';
+              ? `Rate limited \u2014 retry in ${secs}s`
+              : 'Rate limited \u2014 retry in a moment';
             STATE.isLoading = false;
             sendBtn.disabled = false;
             input.focus();
@@ -2748,12 +2759,22 @@ Be mathematically precise. Never make computational errors. Double-check your wo
 
       } catch (err) {
         removeTyping(typingId);
+        // Roll back the failed user message so history stays clean for next attempt
+        STATE.messages.pop();
+        // Restore images so user can retry without re-uploading
+        if (displayImages && displayImages.length) {
+          STATE.pendingImages = [...displayImages];
+          const strip = document.getElementById('previewStrip');
+          strip.innerHTML = '';
+          STATE.pendingImages.forEach((img, i) => addPreviewThumb(img.dataUrl || `data:${img.mimeType};base64,${img.base64}`, i));
+          strip.style.display = 'flex';
+        }
         const msg = err.message || 'Something went wrong. Please try again.';
         appendError(msg);
         const retryMatch = msg.match(/in (\d+)s/);
         document.getElementById('agentStatus').textContent = retryMatch
-          ? `Rate limited — retry in ${retryMatch[1]}s`
-          : 'Error — please try again';
+          ? `Rate limited \u2014 retry in ${retryMatch[1]}s`
+          : 'Error \u2014 please try again';
       }
 
       STATE.isLoading = false;
