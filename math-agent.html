@@ -1871,7 +1871,9 @@
         <div class="welcome-state" id="welcomeState">
           <div class="welcome-orb">∑</div>
           <h2>Zen <em>Agent</em></h2>
-          <p>Zen Agent is Zenspace's built-in science & math reasoning tool. Powered by Groq's Llama 3.3 70B (for text) and Llama 4 Scout (for vision), it solves problems across Mathematics, Physics, Chemistry, Biology, Computer Science, and Economics — with full step-by-step explanations.</p>
+          <p>Zen Agent is Zenspace's built-in science & math reasoning tool. Powered by Groq's Llama 3.3 70B (for text)
+            and Llama 4 Scout (for vision), it solves problems across Mathematics, Physics, Chemistry, Biology, Computer
+            Science, and Economics — with full step-by-step explanations.</p>
           <div class="capability-pills">
             <span class="cap-pill">∫ Calculus</span>
             <span class="cap-pill">∑ Algebra</span>
@@ -2176,7 +2178,7 @@
     const GROQ_VISION_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct'; // vision-capable
     const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
     // Default key — users can override in Settings with their own Groq key
-    const DEFAULT_GROQ_KEY = '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';
+    const DEFAULT_GROQ_KEY = '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';
 
 
     // ── INIT ──────────────────────────────────────────────────────
@@ -2676,7 +2678,7 @@ Be mathematically precise. Never make computational errors. Double-check your wo
             return { role: m.role, content: m.content };
           }),
         ];
-        
+
         const latestUserMsg = STATE.messages[STATE.messages.length - 1];
         const hasVision = Array.isArray(latestUserMsg?.content);
         const activeModel = hasVision ? GROQ_VISION_MODEL : GROQ_MODEL;
@@ -2706,7 +2708,7 @@ Be mathematically precise. Never make computational errors. Double-check your wo
 
         if (!response.ok) {
           let errBody = {};
-          try { errBody = await response.json(); } catch (_) {}
+          try { errBody = await response.json(); } catch (_) { }
           const rawMsg = errBody?.error?.message || '';
 
           if (response.status === 429) {
@@ -3034,11 +3036,11 @@ Be mathematically precise. Never make computational errors. Double-check your wo
         </div>
         <div style="font-size:.82rem;color:var(--ink-2);margin-bottom:10px">
           ${hasExact
-            ? `The shared API key is temporarily rate-limited. Please wait
+          ? `The shared API key is temporarily rate-limited. Please wait
                <span id="${counterId}" style="font-weight:700;color:#f97316">${secs}s</span>
                and try again.`
-            : `The shared API key is temporarily rate-limited. Please wait a moment and try again.`
-          }
+          : `The shared API key is temporarily rate-limited. Please wait a moment and try again.`
+        }
         </div>
         <div style="font-size:.76rem;color:var(--ink-3);padding:8px 10px;background:rgba(139,92,246,.07);border-radius:7px;border:1px solid rgba(139,92,246,.2)">
           🔑 Want unlimited requests? Add your own
