@@ -34,7 +34,7 @@ CREATE POLICY "Anyone read active codes" ON public.promo_codes
 -- 3. Code redemptions table (tracks who used which code)
 CREATE TABLE IF NOT EXISTS public.code_redemptions (
   id          UUID DEFAULT gen_random_uuid() PRIMARY KEY,
-  code        TEXT REFERENCES public.promo_codes(code),
+  code        TEXT REFERENCES public.promo_codes(code) ON DELETE CASCADE,
   user_id     UUID REFERENCES auth.users(id),
   redeemed_at TIMESTAMPTZ DEFAULT NOW(),
   UNIQUE(code, user_id)
