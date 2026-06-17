@@ -2705,7 +2705,31 @@ Be mathematically precise. Never make computational errors. Double-check your wo
         });
 
         if (!response.ok) {
-          throw new Error(`API error ${response.status}`);
+          let errBody = {};
+          try { errBody = await response.json(); } catch (_) {}
+          const rawMsg = errBody?.error?.message || '';
+          
+          const cleanModelNames = (str) => {
+            if (!str) return '';
+            return str
+              .replace(/llama-3\.3-70b-versatile/gi, 'zenlab3.22v')
+              .replace(/llama-3\.2-11b-vision-preview/gi, 'zenlab3.22v')
+              .replace(/llama-[a-zA-Z0-9.-]+/gi, 'zenlab3.22v');
+          };
+
+          if (response.status === 429) {
+            const match = rawMsg.match(/try again in\s+([\d.]+)s/i);
+            const secs = match ? Math.ceil(parseFloat(match[1])) : null;
+            throw new Error(secs
+              ? `Rate limit reached for model zenlab3.22v. Please try again in ${secs}s.`
+              : 'Rate limit reached for model zenlab3.22v. Please try again in a moment.');
+          } else if (response.status === 401 || response.status === 403) {
+            throw new Error('Authentication error. Please check your API key in Settings.');
+          } else if (response.status >= 500) {
+            throw new Error('The AI engine (zenlab3.22v) is temporarily unavailable. Please try again shortly.');
+          } else {
+            throw new Error(cleanModelNames(rawMsg) || 'Something went wrong. Please try again.');
+          }
         }
 
         const data = await response.json();
@@ -2727,8 +2751,21 @@ Be mathematically precise. Never make computational errors. Double-check your wo
 
       } catch (err) {
         removeTyping(typingId);
-        appendError('Error solving: ' + err.message);
-        document.getElementById('agentStatus').textContent = 'Error';
+        
+        const cleanModelNames = (str) => {
+          if (!str) return '';
+          return str
+            .replace(/llama-3\.3-70b-versatile/gi, 'zenlab3.22v')
+            .replace(/llama-3\.2-11b-vision-preview/gi, 'zenlab3.22v')
+            .replace(/llama-[a-zA-Z0-9.-]+/gi, 'zenlab3.22v');
+        };
+
+        const msg = cleanModelNames(err.message || 'Something went wrong. Please try again.');
+        appendError(msg);
+        const retryMatch = msg.match(/in (\d+)s/);
+        document.getElementById('agentStatus').textContent = retryMatch
+          ? `Rate limited — retry in ${retryMatch[1]}s`
+          : 'Error — please try again';
       }
 
       STATE.isLoading = false;
@@ -3163,22 +3200,21 @@ Be mathematically precise. Never make computational errors. Double-check your wo
     <div class="welcome-state" id="welcomeState">
       <div class="welcome-orb">∑</div>
       <h2>Zen<em>lab</em></h2>
-      <p>PhD-level mathematics powered by Llama 3.3. Handles everything from undergraduate calculus to graduate-level real analysis, algebraic topology, measure theory, abstract algebra, and beyond. Now with vision — scan or photograph any problem.</p>
+      <p>ZenLab.3 is Zenspace’s built-in science &amp; math reasoning agent. Powered by advanced AI, it solves problems across Mathematics, Physics, Chemistry, Biology, Computer Science, and Economics — with full step-by-step explanations. Upload a photo of any problem and it will read and solve it instantly.</p>
       <div class="capability-pills">
-        <span class="cap-pill">∫ Analysis</span>
+        <span class="cap-pill">∫ Calculus</span>
         <span class="cap-pill">∑ Algebra</span>
         <span class="cap-pill">⊗ Linear Algebra</span>
         <span class="cap-pill">σ Probability</span>
         <span class="cap-pill">∂ PDEs / ODEs</span>
-        <span class="cap-pill">ℕ Number Theory</span>
-        <span class="cap-pill">⌂ Topology</span>
-        <span class="cap-pill">∇ Differential Geometry</span>
-        <span class="cap-pill">∀ Logic & Proofs</span>
-        <span class="cap-pill">∞ Measure Theory</span>
-        <span class="cap-pill">📸 Vision OCR</span>
+        <span class="cap-pill">⚛️ Physics</span>
+        <span class="cap-pill">🧪 Chemistry</span>
+        <span class="cap-pill">🧬 Biology</span>
+        <span class="cap-pill">💻 Comp. Sci</span>
+        <span class="cap-pill">📸 Image Scan</span>
       </div>
     </div>`;
-      document.getElementById('agentStatus').textContent = 'PhD-level solver · Vision enabled · Step-by-step reasoning';
+      document.getElementById('agentStatus').textContent = 'ZenLab.3 · Vision enabled · Step-by-step reasoning';
     }
 
     // ── FOLLOW UP ─────────────────────────────────────────────────
