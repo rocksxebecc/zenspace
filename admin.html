@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zenspace — Admin Control Center</title>
+  <link rel="stylesheet" href="assets/zenspace.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="assets/supabase.js"></script>
+  <style>
+    body {
+      background: var(--bg);
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--ink);
+    }
+
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    .admin-sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--ink);
+      border-radius: var(--r-md);
+      display: grid;
+      place-items: center;
+      transition: background 0.3s;
+    }
+
+    html.dark .brand-icon {
+      background: var(--ink);
+    }
+
+    .brand-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--bg);
+      fill: none;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+
+    .admin-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .admin-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: none;
+      border: none;
+      border-radius: var(--r-md);
+      padding: 10px 14px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      cursor: pointer;
+      text-align: left;
+      transition: background var(--t) var(--ease), color var(--t) var(--ease);
+    }
+
+    .admin-nav-btn:hover {
+      background: var(--surface-2);
+      color: var(--ink);
+    }
+
+    .admin-nav-btn.active {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .admin-sidebar-footer {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Main Content Area */
+    .admin-main {
+      padding: 40px 48px;
+      overflow-y: auto;
+      max-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    .admin-header h2 {
+      font-size: 2.1rem;
+      font-family: var(--font-serif);
+      margin: 0;
+    }
+
+    .admin-content-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      padding: 36px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Access Codes tab specific styles */
+    .admin-create-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.2fr;
+      gap: 12px;
+      margin-bottom: 14px;
+      align-items: end;
+    }
+
+    .admin-field label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .admin-field input {
+      width: 100%;
+      height: 38px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 0 12px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      background: var(--bg);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .admin-field input:focus {
+      border-color: var(--ink);
+    }
+
+    .admin-code-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      margin-bottom: 8px;
+      background: var(--bg);
+      gap: 12px;
+    }
+
+    .admin-code-tag {
+      font-family: monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--ink);
+    }
+
+    .admin-code-meta {
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+      margin-top: 3px;
+    }
+
+    /* Analytics Stat Cards */
+    .analytics-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .analytics-stat-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .analytics-stat-card:hover {
+      border-color: var(--ink-faint);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .asc-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+    }
+
+    .asc-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .asc-sub {
+      font-size: 0.75rem;
+      color: var(--ink-faint);
+    }
+
+    /* Analytics Charts layout */
+    .chart-container-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    .chart-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .chart-card-title {
+      font-weight: 700;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-faint);
+      margin-bottom: 16px;
+    }
+
+    /* User activity list */
+    .admin-list-scroll {
+      max-height: 400px;
+      overflow-y: auto;
+      border-radius: var(--r-md);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .chart-container-row {
+        grid-template-columns: 1fr;
+      }
+      .analytics-stat-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+      .admin-sidebar {
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 20px;
+      }
+      .admin-main {
+        padding: 24px;
+      }
+      .admin-create-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+      <a href="dashboard.html" class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <span class="brand-name">ZenAdmin</span>
+      </a>
+      <nav class="admin-nav-links">
+        <button class="admin-nav-btn active" id="adminTabCodes" onclick="switchAdminTab('codes')">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:2px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          Access Codes
+        </button>
+        <button class="admin-nav-btn" id="adminTabSubs" onclick="switchAdminTab('subs')">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:2px;"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+          Subscriptions
+        </button>
+        <button class="admin-nav-btn" id="adminTabUsers" onclick="switchAdminTab('users')">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:2px;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          Users
+        </button>
+        <button class="admin-nav-btn" id="adminTabAnalytics" onclick="switchAdminTab('analytics')">
+          <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right:2px;"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          Analytics
+        </button>
+      </nav>
+      <div style="flex:1;"></div>
+      <div class="admin-sidebar-footer">
+        <a href="dashboard.html" class="btn btn-ghost btn-sm btn-full" style="justify-content:center;">← Dashboard</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <h2 id="adminTabTitle">Access Codes</h2>
+        <div style="display:flex;align-items:center;gap:16px;">
+          <button class="btn btn-ghost btn-sm" onclick="toggleDarkMode()" style="width:36px;height:36px;padding:0;border-radius:50%;display:flex;align-items:center;justify-content:center;" title="Toggle Theme">
+            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+          <div id="adminUserInitial" class="nav-avatar" style="margin-left:0;">A</div>
+        </div>
+      </header>
+
+      <div class="admin-content-card">
+        <!-- Tab: Access Codes -->
+        <div id="adminTabContentCodes">
+          <p style="font-size:0.88rem;color:var(--ink-muted);margin-bottom:24px;">
+            Create codes to grant Pro access without payment, or discount codes that reduce the subscription price.
+          </p>
+          <div class="admin-create-grid">
+            <div class="admin-field">
+              <label>Code</label>
+              <input type="text" id="adminCodeText" placeholder="e.g. ZENSPACE2024" style="text-transform:uppercase;letter-spacing:1px;font-family:monospace" />
+            </div>
+            <div class="admin-field">
+              <label>Max Uses</label>
+              <input type="number" id="adminCodeMaxUses" value="1" min="0" title="0 = unlimited" />
+            </div>
+            <div class="admin-field">
+              <label>Days</label>
+              <input type="number" id="adminCodeDays" value="36500" min="1" title="36500 = lifetime" />
+            </div>
+            <div class="admin-field">
+              <label>Discount %</label>
+              <input type="number" id="adminCodeDiscount" value="0" min="0" max="100" title="0 = free access code; 1–99 = discount on ₹99; 100 = full discount (free)" style="width:100%;" />
+            </div>
+          </div>
+          <p style="font-size:0.78rem;color:var(--ink-faint);margin:-4px 0 18px;">
+            💡 <strong>0%</strong> = full free access code &nbsp;|&nbsp; <strong>1–99%</strong> = discount applied at checkout &nbsp;|&nbsp; <strong>100%</strong> = free (no payment needed)
+          </p>
+          <div style="display:flex;gap:12px;margin-bottom:28px;align-items:center;">
+            <input type="text" id="adminCodeNotes" placeholder="Notes (optional, e.g. 'Beta tester')" style="flex:1;height:38px;border:1.5px solid var(--border);border-radius:var(--r-md);padding:0 12px;font-family:var(--font-sans);font-size:0.85rem;background:var(--bg);color:var(--ink);outline:none;" />
+            <button class="btn btn-ghost btn-sm" onclick="generateRandomCode()" style="height:38px;">Random</button>
+            <button class="btn btn-primary btn-sm" onclick="createPromoCode()" style="height:38px;">Create Code</button>
+          </div>
+          <div id="adminCodesList" class="admin-list-scroll"></div>
+        </div>
+
+        <!-- Tab: Subscriptions -->
+        <div id="adminTabContentSubs" style="display:none;">
+          <p style="font-size:0.88rem;color:var(--ink-muted);margin-bottom:24px;">
+            Manage Pro subscriptions. Cancel active access or restore cancelled accounts.
+          </p>
+          <div style="font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-faint);margin-bottom:12px;">
+            Active Subscriptions
+          </div>
+          <div id="adminSubsListActive" class="admin-list-scroll" style="margin-bottom:32px;border-bottom:1px dashed var(--border);padding-bottom:24px;"></div>
+          <div style="font-weight:700;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-faint);margin-bottom:12px;">
+            Cancelled / Inactive Subscriptions
+          </div>
+          <div id="adminSubsListInactive" class="admin-list-scroll"></div>
+        </div>
+
+        <!-- Tab: Users -->
+        <div id="adminTabContentUsers" style="display:none;">
+          <p style="font-size:0.88rem;color:var(--ink-muted);margin-bottom:16px;">
+            Search users to ban, cancel their subscription, or remove them.
+          </p>
+          <div style="position:relative;margin-bottom:20px;">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="var(--ink-faint)" stroke-width="2" stroke-linecap="round" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;">
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-4.35-4.35" />
+            </svg>
+            <input type="text" id="adminUserSearch" placeholder="Search by @username or display name…" oninput="filterAdminUsers()" style="width:100%;height:38px;padding:0 12px 0 38px;border:1.5px solid var(--border);border-radius:var(--r-md);background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:0.88rem;outline:none;box-sizing:border-box;transition:border-color .15s;" onfocus="this.style.borderColor='var(--ink)'" onblur="this.style.borderColor='var(--border)'" />
+          </div>
+          <div id="adminUsersList" class="admin-list-scroll"></div>
+        </div>
+
+        <!-- Tab: Analytics -->
+        <div id="adminTabContentAnalytics" style="display:none;">
+          <!-- Controls row -->
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;flex-wrap:wrap;">
+            <div style="display:flex;gap:6px;">
+              <button class="btn btn-sm" id="analyticsRange7" onclick="setAnalyticsRange(7)">7d</button>
+              <button class="btn btn-primary btn-sm" id="analyticsRange14" onclick="setAnalyticsRange(14)">14d</button>
+              <button class="btn btn-sm" id="analyticsRange30" onclick="setAnalyticsRange(30)">30d</button>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="loadAdminAnalytics()" style="height:32px;display:flex;align-items:center;gap:6px;" title="Refresh">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <polyline points="23 4 23 10 17 10" />
+                <polyline points="1 20 1 14 7 14" />
+                <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+              </svg>
+              Refresh
+            </button>
+            <div id="analyticsLastUpdated" style="font-size:0.75rem;color:var(--ink-faint);"></div>
+          </div>
+
+          <!-- KPI Stats -->
+          <div class="analytics-stat-grid" id="analyticsStatCards">
+            <div class="analytics-stat-card" id="statCardDAU">
+              <div class="asc-label">Today's DAU</div>
+              <div class="asc-value" id="statDAU">—</div>
+              <div class="asc-sub" id="statDAUSub"></div>
+            </div>
+            <div class="analytics-stat-card" id="statCardSessions">
+              <div class="asc-label">Sessions</div>
+              <div class="asc-value" id="statSessions">—</div>
+              <div class="asc-sub" id="statSessionsSub"></div>
+            </div>
+            <div class="analytics-stat-card" id="statCardAvgTime">
+              <div class="asc-label">Avg. Session</div>
+              <div class="asc-value" id="statAvgTime">—</div>
+              <div class="asc-sub" id="statAvgTimeSub"></div>
+            </div>
+            <div class="analytics-stat-card" id="statCardOnline">
+              <div class="asc-label">Online Now</div>
+              <div class="asc-value" id="statOnline" style="color:#22c55e;">—</div>
+              <div class="asc-sub" id="statOnlineSub"></div>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="chart-container-row">
+            <div class="chart-card">
+              <div class="chart-card-title">📈 Daily Active Users</div>
+              <div style="position:relative;height:220px;">
+                <canvas id="dauChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-card-title">⏱ Top Users — Time Spent (Minutes)</div>
+              <div style="position:relative;height:220px;">
+                <canvas id="timeSpentChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Activity Table -->
+          <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+            <div style="padding:14px 18px;border-bottom:1px solid var(--border);font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-faint);">
+              👥 User Activity
+            </div>
+            <div id="analyticsUserTable" class="admin-list-scroll" style="max-height:300px;"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="assets/zenspace.js"></script>
+  <script>
+    let user = null;
+    let _allAdminUsers = [];
+    let _allSubMap = {};
+    let _dauChartInst = null;
+    let _timeChartInst = null;
+    let _analyticsRange = 14;
+
+    const esc = str => (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+
+    // ── AUTH CHECK & BOOTSTRAP ─────────────────────────────────
+    (async () => {
+      await ZenAuth.initSupabase();
+      user = await ZenAuth.getUserProfile();
+      if (!user) { window.location.href = 'login.html'; return; }
+      if (!user.is_admin) { window.location.href = 'dashboard.html'; return; }
+
+      // Setup user profile initial on header
+      const ini = (user.name || user.email || 'A').split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
+      document.getElementById('adminUserInitial').textContent = ini;
+
+      // Load default tab
+      switchAdminTab('codes');
+    })();
+
+    function switchAdminTab(tab) {
+      const tabs = ['codes', 'subs', 'users', 'analytics'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('adminTab' + t.charAt(0).toUpperCase() + t.slice(1));
+        const content = document.getElementById('adminTabContent' + t.charAt(0).toUpperCase() + t.slice(1));
+        if (btn) btn.classList.toggle('active', t === tab);
+        if (content) content.style.display = (t === tab) ? 'block' : 'none';
+      });
+
+      // Update Header Title
+      const titles = {
+        codes: 'Access Codes',
+        subs: 'Subscriptions',
+        users: 'User Management',
+        analytics: '📊 Live Analytics'
+      };
+      document.getElementById('adminTabTitle').textContent = titles[tab] || 'Admin Panel';
+
+      // Load appropriate tab content
+      if (tab === 'codes') loadAdminCodes();
+      else if (tab === 'subs') loadAdminSubscriptions();
+      else if (tab === 'users') loadAdminUsers();
+      else if (tab === 'analytics') loadAdminAnalytics();
+    }
+
+    // ── ACCESS CODES TAB ────────────────────────────────────────
+    async function loadAdminCodes() {
+      const el = document.getElementById('adminCodesList');
+      if (!el) return;
+      el.innerHTML = '<div style="color:var(--ink-faint);font-size:0.88rem;text-align:center;padding:24px">Loading...</div>';
+
+      const client = ZenAuth.getSupabaseClient();
+      const { data, error } = await client
+        .from('promo_codes')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error || !data || !data.length) {
+        el.innerHTML = '<div style="color:var(--ink-faint);font-size:0.88rem;text-align:center;padding:24px">No codes yet. Create one above.</div>';
+        return;
+      }
+
+      el.innerHTML = data.map(c => `
+        <div class="admin-code-row">
+          <div style="flex:1;min-width:0;">
+            <div class="admin-code-tag">${esc(c.code)}</div>
+            <div class="admin-code-meta">
+              ${c.current_uses}/${c.max_uses === 0 ? '&infin;' : c.max_uses} uses &middot;
+              ${c.duration_days >= 36400 ? 'Lifetime' : c.duration_days + ' days'} &middot;
+              ${(c.discount_percentage || 0) === 0 ? '<span style="color:var(--ok)">Free access</span>' : (c.discount_percentage >= 100 ? '<span style="color:var(--ok)">100% off (free)</span>' : `<span style="color:#d97706;font-weight:600;">${c.discount_percentage}% discount</span>`)}
+              ${c.notes ? '&middot; ' + esc(c.notes) : ''}
+              &middot; ${c.is_active ? '<span style="color:var(--ok)">Active</span>' : '<span style="color:var(--error)">Inactive</span>'}
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;flex-shrink:0;">
+            <button class="btn btn-ghost btn-sm" style="height:28px;font-size:0.72rem" onclick="navigator.clipboard.writeText('${esc(c.code)}').then(()=>showToast('Copied!'))">Copy</button>
+            <button class="btn btn-ghost btn-sm" style="height:28px;font-size:0.72rem;color:var(--${c.is_active ? 'error' : 'ok'})" onclick="togglePromoCodeActive('${esc(c.code)}',${!c.is_active})">${c.is_active ? 'Disable' : 'Enable'}</button>
+            <button class="btn btn-ghost btn-sm" style="height:28px;font-size:0.72rem;color:#ef4444;border-color:rgba(239,68,68,.3);" onclick="deletePromoCode('${esc(c.code)}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function generateRandomCode() {
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      let result = '';
+      for (let i = 0; i < 10; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('adminCodeText').value = 'ZEN-' + result;
+    }
+
+    async function createPromoCode() {
+      const code = document.getElementById('adminCodeText').value.toUpperCase().trim();
+      const maxUses = parseInt(document.getElementById('adminCodeMaxUses').value) || 0;
+      const days = parseInt(document.getElementById('adminCodeDays').value) || 1;
+      const discount = parseInt(document.getElementById('adminCodeDiscount').value) || 0;
+      const notes = document.getElementById('adminCodeNotes').value.trim();
+
+      if (!code) { showToast('Please enter a code name.', 'error'); return; }
+
+      const client = ZenAuth.getSupabaseClient();
+      const { error } = await client.from('promo_codes').insert({
+        code,
+        max_uses: maxUses,
+        duration_days: days,
+        discount_percentage: discount,
+        notes: notes || null
+      });
+
+      if (error) {
+        showToast(error.message || 'Failed to create code', 'error');
+      } else {
+        showToast('Promo code created successfully!', 'success');
+        document.getElementById('adminCodeText').value = '';
+        document.getElementById('adminCodeNotes').value = '';
+        await loadAdminCodes();
+      }
+    }
+
+    async function togglePromoCodeActive(code, newState) {
+      const client = ZenAuth.getSupabaseClient();
+      await client.from('promo_codes').update({ is_active: newState }).eq('code', code);
+      await loadAdminCodes();
+    }
+
+    async function deletePromoCode(code) {
+      if (!confirm(`Delete promo code "${code}"? This cannot be undone.`)) return;
+      const client = ZenAuth.getSupabaseClient();
+      const { error } = await client.from('promo_codes').delete().eq('code', code);
+      if (error) { showToast(error.message || 'Failed to delete', 'error'); return; }
+      showToast(`Code "${code}" deleted.`, 'success');
+      await loadAdminCodes();
+    }
+
+    // ── SUBSCRIPTIONS TAB ───────────────────────────────────────
+    async function loadAdminSubscriptions() {
+      const elActive = document.getElementById('adminSubsListActive');
+      const elInactive = document.getElementById('adminSubsListInactive');
+      if (!elActive || !elInactive) return;
+
+      elActive.innerHTML = '<div style="color:var(--ink-faint);font-size:0.88rem;text-align:center;padding:24px">Loading...</div>';
+      elInactive.innerHTML = '<div style="color:var(--ink-faint);font-size:0.88rem;text-align:center;padding:24px">Loading...</div>';
+
+      const client = ZenAuth.getSupabaseClient();
+      const { data: subs, error: subError } = await client
+        .from('subscriptions')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (subError) {
+        const errHtml = `<div style="color:var(--error);font-size:0.88rem;text-align:center;padding:24px">Error: ${esc(subError.message)}</div>`;
+        elActive.innerHTML = errHtml;
+        elInactive.innerHTML = errHtml;
+        return;
+      }
+
+      let profileMap = {};
+      if (subs && subs.length) {
+        const userIds = subs.map(s => s.user_id);
+        const { data: profiles } = await client
+          .from('profiles')
+          .select('id, username, display_name')
+          .in('id', userIds);
+
+        if (profiles) {
+          profiles.forEach(p => { profileMap[p.id] = p; });
+        }
+      }
+
+      const activeSubs = (subs || []).filter(s => s.status === 'active');
+      const inactiveSubs = (subs || []).filter(s => s.status !== 'active');
+
+      // Active subs render
+      if (!activeSubs.length) {
+        elActive.innerHTML = '<div style="color:var(--ink-faint);font-size:0.88rem;text-align:center;padding:16px">No active subscriptions.</div>';
+      } else {
+        elActive.innerHTML = activeSubs.map(s => {
+          const prof = profileMap[s.user_id] || { username: 'Unknown User', display_name: 'Unknown User' };
+          const nameText = prof.display_name ? `${prof.display_name} (@${prof.username})` : `@${prof.username}`;
+          let subMeta = `Plan: ${esc(s.plan)} &middot; `;
+          subMeta += s.expires_at ? `Expires: ${new Date(s.expires_at).toLocaleDateString()}` : `Lifetime Access`;
+          return `
+            <div class="admin-code-row" style="padding:10px 16px;">
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:0.88rem;color:var(--ink);">${esc(nameText)}</div>
+                <div class="admin-code-meta" style="font-size:0.7rem;">${subMeta}</div>
+              </div>
+              <div style="flex-shrink:0;">
+                <button class="btn btn-ghost btn-sm" style="height:26px;font-size:0.72rem;color:var(--error);padding:0 10px;" onclick="cancelSubscription('${esc(s.id)}','${esc(prof.username)}')">Cancel Pro</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Inactive subs render
+      if (!inactiveSubs.length) {
+        elInactive.innerHTML = '<div style="color:var(--ink-faint);font-size:0.88rem;text-align:center;padding:16px">No inactive subscriptions.</div>';
+      } else {
+        elInactive.innerHTML = inactiveSubs.map(s => {
+          const prof = profileMap[s.user_id] || { username: 'Unknown User', display_name: 'Unknown User' };
+          const nameText = prof.display_name ? `${prof.display_name} (@${prof.username})` : `@${prof.username}`;
+          let subMeta = `Status: <span style="text-transform:capitalize;font-weight:600;">${esc(s.status)}</span> &middot; `;
+          subMeta += s.expires_at ? `Expired: ${new Date(s.expires_at).toLocaleDateString()}` : `No expiry`;
+          return `
+            <div class="admin-code-row" style="padding:10px 16px;">
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:0.88rem;color:var(--ink-faint);">${esc(nameText)}</div>
+                <div class="admin-code-meta" style="font-size:0.7rem;">${subMeta}</div>
+              </div>
+              <div style="flex-shrink:0;">
+                <button class="btn btn-ghost btn-sm" style="height:26px;font-size:0.72rem;color:var(--ok);padding:0 10px;" onclick="restoreSubscription('${esc(s.id)}','${esc(prof.username)}')">Restore Pro</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    async function cancelSubscription(subId, username) {
+      if (!confirm(`Are you sure you want to cancel the subscription for @${username}?`)) return;
+      const client = ZenAuth.getSupabaseClient();
+      const { error } = await client
+        .from('subscriptions')
+        .update({ status: 'cancelled', updated_at: new Date().toISOString() })
+        .eq('id', subId);
+
+      if (error) {
+        showToast(error.message || 'Failed to cancel', 'error');
+      } else {
+        showToast(`Subscription for @${username} cancelled.`, 'success');
+        ZenAuth.invalidateSubCache();
+        await loadAdminSubscriptions();
+      }
+    }
+
+    async function restoreSubscription(subId, username) {
+      if (!confirm(`Are you sure you want to restore the subscription for @${username}?`)) return;
+      const client = ZenAuth.getSupabaseClient();
+      const { error } = await client
+        .from('subscriptions')
+        .update({ status: 'active', updated_at: new Date().toISOString() })
+        .eq('id', subId);
+
+      if (error) {
+        showToast(error.message || 'Failed to restore', 'error');
+      } else {
+        showToast(`Subscription for @${username} restored!`, 'success');
+        ZenAuth.invalidateSubCache();
+        await loadAdminSubscriptions();
+      }
+    }
+
+    // ── USERS TAB ───────────────────────────────────────────────
+    async function loadAdminUsers() {
+      const el = document.getElementById('adminUsersList');
+      if (!el) return;
+      el.innerHTML = '<div style="color:var(--ink-faint);font-size:0.88rem;text-align:center;padding:24px">Loading users...</div>';
+
+      const client = ZenAuth.getSupabaseClient();
+      const [{ data: profiles, error }, { data: subs }] = await Promise.all([
+        client.from('profiles').select('*').order('username', { ascending: true }),
+        client.from('subscriptions').select('user_id, status, plan, expires_at')
+      ]);
+
+      if (error) {
+        el.innerHTML = `<div style="color:var(--error);font-size:0.88rem;text-align:center;padding:24px">Error: ${esc(error.message)}</div>`;
+        return;
+      }
+
+      _allSubMap = {};
+      (subs || []).forEach(s => { _allSubMap[s.user_id] = s; });
+      _allAdminUsers = profiles || [];
+      renderAdminUsersList(_allAdminUsers);
+    }
+
+    function filterAdminUsers() {
+      const q = (document.getElementById('adminUserSearch')?.value || '').toLowerCase().trim();
+      if (!q) { renderAdminUsersList(_allAdminUsers); return; }
+      const filtered = _allAdminUsers.filter(p =>
+        (p.username || '').toLowerCase().includes(q) ||
+        (p.display_name || '').toLowerCase().includes(q) ||
+        (p.email || '').toLowerCase().includes(q)
+      );
+      renderAdminUsersList(filtered);
+    }
+
+    function renderAdminUsersList(profiles) {
+      const el = document.getElementById('adminUsersList');
+      if (!el) return;
+
+      if (!profiles || !profiles.length) {
+        el.innerHTML = '<div style="color:var(--ink-faint);font-size:0.88rem;text-align:center;padding:24px">No users found.</div>';
+        return;
+      }
+
+      el.innerHTML = profiles.map(p => {
+        const isBanned = p.is_banned === true;
+        const isSelf = user && user.id === p.id;
+        const sub = _allSubMap[p.id];
+        const isPro = sub && sub.status === 'active';
+        const nameText = p.display_name ? `${p.display_name} (@${p.username || '—'})` : `@${p.username || '—'}`;
+
+        const statusBadge = isBanned
+          ? '<span style="background:rgba(239,68,68,.12);color:#ef4444;border-radius:4px;padding:2px 6px;font-size:0.68rem;font-weight:700;">Banned</span>'
+          : '<span style="background:rgba(34,197,94,.12);color:#22c55e;border-radius:4px;padding:2px 6px;font-size:0.68rem;font-weight:700;">Active</span>';
+
+        const subBadge = isPro
+          ? '<span style="background:rgba(99,102,241,.12);color:#6366f1;border-radius:4px;padding:2px 6px;font-size:0.68rem;font-weight:700;">PRO</span>'
+          : '<span style="background:rgba(148,163,184,.12);color:var(--ink-faint);border-radius:4px;padding:2px 6px;font-size:0.68rem;font-weight:700;">Free</span>';
+
+        const adminBadge = p.is_admin
+          ? '<span style="background:rgba(245,158,11,.12);color:#f59e0b;border-radius:4px;padding:2px 6px;font-size:0.68rem;font-weight:700;">Admin</span>'
+          : '';
+
+        if (isSelf) {
+          return `
+            <div class="admin-code-row" style="opacity:.75;">
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:0.88rem;color:var(--ink);margin-bottom:4px;">${esc(nameText)}</div>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">${statusBadge}${subBadge}${adminBadge}</div>
+              </div>
+              <span style="font-size:0.75rem;color:var(--ink-muted);flex-shrink:0;">You</span>
+            </div>`;
+        }
+
+        const banBtn = `<button class="btn btn-ghost btn-sm" style="height:26px;font-size:0.68rem;padding:0 10px;color:${isBanned ? 'var(--ok)' : 'var(--error)'};"
+          onclick="toggleBanUser('${esc(p.id)}',${isBanned},'${esc(p.username)}')">${isBanned ? 'Unban' : 'Ban'}</button>`;
+
+        const subBtn = sub
+          ? `<button class="btn btn-ghost btn-sm" style="height:26px;font-size:0.68rem;padding:0 10px;color:${isPro ? 'var(--error)' : 'var(--ok)'};"
+              onclick="${isPro ? `adminCancelSub('${esc(sub.user_id)}','${esc(p.username)}')` : `adminRestoreSub('${esc(sub.user_id)}','${esc(p.username)}')`}">${isPro ? 'Cancel Pro' : 'Restore Pro'}</button>`
+          : '';
+
+        const delBtn = `<button class="btn btn-ghost btn-sm" style="height:26px;font-size:0.68rem;padding:0 10px;color:#ef4444;border-color:rgba(239,68,68,.3);"
+          onclick="deleteUserFromDB('${esc(p.id)}','${esc(p.username)}')">Delete</button>`;
+
+        return `
+          <div class="admin-code-row">
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:700;font-size:0.88rem;color:var(--ink);margin-bottom:4px;">${esc(nameText)}</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">${statusBadge}${subBadge}${adminBadge}</div>
+            </div>
+            <div style="display:flex;gap:6px;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;">
+              ${banBtn}${subBtn}${delBtn}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    async function toggleBanUser(profileId, wasBanned, username) {
+      if (!confirm(`Are you sure you want to ${wasBanned ? 'unban' : 'ban'} @${username}?`)) return;
+      const client = ZenAuth.getSupabaseClient();
+      const { error } = await client.from('profiles')
+        .update({ is_banned: !wasBanned, updated_at: new Date().toISOString() })
+        .eq('id', profileId);
+      if (error) { showToast(error.message || 'Failed', 'error'); return; }
+      showToast(`User @${username} ${wasBanned ? 'unbanned' : 'banned'}.`, 'success');
+      await loadAdminUsers();
+      filterAdminUsers();
+    }
+
+    async function adminCancelSub(userId, username) {
+      if (!confirm(`Cancel Pro subscription for @${username}?`)) return;
+      const client = ZenAuth.getSupabaseClient();
+      const { data: updatedRows, error } = await client.from('subscriptions')
+        .update({ status: 'cancelled', updated_at: new Date().toISOString() })
+        .eq('user_id', userId)
+        .select('id');
+      if (error) { showToast(error.message || 'Failed', 'error'); return; }
+      if (!updatedRows || updatedRows.length === 0) { showToast('Cancel failed: subscription not found.', 'error'); return; }
+      showToast(`Subscription for @${username} cancelled.`, 'success');
+      ZenAuth.invalidateSubCache();
+      await loadAdminUsers();
+      filterAdminUsers();
+    }
+
+    async function adminRestoreSub(userId, username) {
+      if (!confirm(`Restore Pro subscription for @${username}?`)) return;
+      const client = ZenAuth.getSupabaseClient();
+      const { data: updatedRows, error } = await client.from('subscriptions')
+        .update({ status: 'active', updated_at: new Date().toISOString() })
+        .eq('user_id', userId)
+        .select('id');
+      if (error) { showToast(error.message || 'Failed', 'error'); return; }
+      if (!updatedRows || updatedRows.length === 0) { showToast('Restore failed: subscription not found.', 'error'); return; }
+      showToast(`Subscription for @${username} restored!`, 'success');
+      ZenAuth.invalidateSubCache();
+      await loadAdminUsers();
+      filterAdminUsers();
+    }
+
+    async function deleteUserFromDB(profileId, username) {
+      if (!confirm(`⚠️ PERMANENTLY DELETE @${username}?\n\nThis will remove ALL their data (notes, sessions, messages, subscriptions) and their account. This CANNOT be undone.`)) return;
+      if (!confirm(`Second confirmation: Delete @${username} forever?`)) return;
+
+      const client = ZenAuth.getSupabaseClient();
+      const delBtn = document.activeElement;
+      if (delBtn) { delBtn.textContent = 'Deleting…'; delBtn.disabled = true; }
+
+      const { data, error } = await client.rpc('admin_delete_user', { target_user_id: profileId });
+
+      if (error || data?.error) {
+        showToast((data?.error || error?.message || 'Delete failed'), 'error');
+        if (delBtn) { delBtn.textContent = 'Delete'; delBtn.disabled = false; }
+        return;
+      }
+
+      showToast(`User @${username} permanently deleted.`, 'success');
+      await loadAdminUsers();
+      filterAdminUsers();
+    }
+
+    // ── ANALYTICS TAB ───────────────────────────────────────────
+    async function loadAdminAnalytics() {
+      const client = ZenAuth.getSupabaseClient();
+      const since = new Date(Date.now() - _analyticsRange * 86400000).toISOString();
+
+      // Fetch user sessions
+      const { data: sessions, error: sessErr } = await client
+        .from('user_sessions')
+        .select('user_id, started_at, ended_at, heartbeat_at')
+        .gte('started_at', since)
+        .order('started_at', { ascending: true });
+
+      if (sessErr) {
+        document.getElementById('analyticsUserTable').innerHTML =
+          `<div style="color:var(--error);font-size:0.88rem;padding:24px">Error loading sessions: ${esc(sessErr.message)}</div>`;
+        return;
+      }
+
+      // Compute DAU per day
+      const dauMap = {};
+      (sessions || []).forEach(s => {
+        const day = s.started_at.slice(0, 10);
+        if (!dauMap[day]) dauMap[day] = new Set();
+        dauMap[day].add(s.user_id);
+      });
+
+      // Fill dates
+      const dauLabels = [], dauValues = [];
+      for (let i = _analyticsRange - 1; i >= 0; i--) {
+        const d = new Date(Date.now() - i * 86400000);
+        const key = d.toISOString().slice(0, 10);
+        dauLabels.push(d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
+        dauValues.push(dauMap[key] ? dauMap[key].size : 0);
+      }
+
+      // Compute per-user total seconds
+      const userSecMap = {};
+      (sessions || []).forEach(s => {
+        const end = s.ended_at || s.heartbeat_at || s.started_at;
+        const secs = Math.max(0, Math.round((new Date(end) - new Date(s.started_at)) / 1000));
+        userSecMap[s.user_id] = (userSecMap[s.user_id] || 0) + secs;
+      });
+
+      // Fetch profiles in sessions
+      const uniqueUserIds = [...new Set((sessions || []).map(s => s.user_id))];
+      let profileMap = {};
+      if (uniqueUserIds.length) {
+        const { data: profs } = await client
+          .from('profiles')
+          .select('id, username, display_name')
+          .in('id', uniqueUserIds);
+        (profs || []).forEach(p => { profileMap[p.id] = p; });
+      }
+
+      // Render Charts
+      renderDauChart(dauLabels, dauValues);
+
+      const topUsers = Object.entries(userSecMap)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10)
+        .map(([uid, secs]) => ({
+          name: profileMap[uid] ? (profileMap[uid].display_name || '@' + profileMap[uid].username) : 'Unknown',
+          mins: Math.round(secs / 60)
+        }));
+      renderTimeChart(topUsers.map(u => u.name), topUsers.map(u => u.mins));
+
+      // Render Table list
+      renderAnalyticsTable(sessions || [], profileMap);
+
+      // Stat cards values
+      const todayKey = new Date().toISOString().slice(0, 10);
+      const dauToday = dauMap[todayKey] ? dauMap[todayKey].size : 0;
+      const peakDAU = Math.max(0, ...dauValues);
+      const totalSessions = (sessions || []).length;
+      const allSecs = Object.values(userSecMap);
+      const avgSecs = allSecs.length ? Math.round(allSecs.reduce((a, b) => a + b, 0) / totalSessions) : 0;
+      const onlineNow = (sessions || []).filter(s => s.heartbeat_at && (Date.now() - new Date(s.heartbeat_at)) < 120000).map(s => s.user_id);
+      const uniqueOnline = new Set(onlineNow).size;
+      const fmtSecs = s => s >= 3600 ? `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m` : s >= 60 ? `${Math.floor(s / 60)}m ${s % 60}s` : `${s}s`;
+
+      const setCard = (id, val, sub) => {
+        const el = document.getElementById(id); if (el) el.textContent = val;
+        const es = document.getElementById(id + 'Sub'); if (es) es.textContent = sub;
+      };
+      setCard('statDAU', dauToday, `Peak: ${peakDAU} users`);
+      setCard('statSessions', totalSessions, `in last ${_analyticsRange} days`);
+      setCard('statAvgTime', fmtSecs(avgSecs), `per session avg`);
+      setCard('statOnline', uniqueOnline, uniqueOnline === 1 ? '1 user active' : `${uniqueOnline} users active`);
+
+      const lu = document.getElementById('analyticsLastUpdated');
+      if (lu) lu.textContent = 'Updated ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    }
+
+    function setAnalyticsRange(days) {
+      _analyticsRange = days;
+      ['7', '14', '30'].forEach(d => {
+        const btn = document.getElementById('analyticsRange' + d);
+        if (btn) btn.classList.toggle('btn-primary', String(days) === d);
+      });
+      loadAdminAnalytics();
+    }
+
+    function renderDauChart(labels, values) {
+      const ctx = document.getElementById('dauChart');
+      if (!ctx) return;
+      if (_dauChartInst) { _dauChartInst.destroy(); _dauChartInst = null; }
+      const isDark = document.documentElement.classList.contains('dark');
+      const gridCol = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+      const textCol = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.45)';
+      _dauChartInst = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Active Users',
+            data: values,
+            borderColor: '#6366f1',
+            backgroundColor: 'rgba(99,102,241,0.1)',
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#6366f1',
+            pointRadius: 3,
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.raw} users` } } },
+          scales: {
+            x: { ticks: { color: textCol, font: { size: 10 }, maxTicksLimit: 8 }, grid: { color: gridCol } },
+            y: { ticks: { color: textCol, font: { size: 10 }, stepSize: 1 }, grid: { color: gridCol }, beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    function renderTimeChart(labels, values) {
+      const ctx = document.getElementById('timeSpentChart');
+      if (!ctx) return;
+      if (_timeChartInst) { _timeChartInst.destroy(); _timeChartInst = null; }
+      const isDark = document.documentElement.classList.contains('dark');
+      const gridCol = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
+      const textCol = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.45)';
+      const barColors = ['#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#f97316', '#14b8a6', '#a855f7', '#ef4444'];
+      _timeChartInst = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Minutes',
+            data: values,
+            backgroundColor: labels.map((_, i) => barColors[i % barColors.length] + 'cc'),
+            borderColor: labels.map((_, i) => barColors[i % barColors.length]),
+            borderWidth: 1,
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { ticks: { color: textCol, font: { size: 10 } }, grid: { color: gridCol } },
+            y: { ticks: { color: textCol, font: { size: 10 } }, grid: { color: gridCol }, beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    function renderAnalyticsTable(sessions, profileMap) {
+      const el = document.getElementById('analyticsUserTable');
+      if (!el) return;
+
+      if (!sessions || !sessions.length) {
+        el.innerHTML = '<div style="color:var(--ink-faint);font-size:0.85rem;padding:20px;text-align:center">No session activity in range.</div>';
+        return;
+      }
+
+      // Show list of sessions (newest first)
+      const sorted = [...sessions].reverse();
+      el.innerHTML = sorted.map(s => {
+        const prof = profileMap[s.user_id] || { username: 'Unknown User', display_name: 'Unknown User' };
+        const nameText = prof.display_name ? `${prof.display_name} (@${prof.username})` : `@${prof.username}`;
+        const start = new Date(s.started_at);
+        const end = s.ended_at || s.heartbeat_at || s.started_at;
+        const durSecs = Math.max(0, Math.round((new Date(end) - start) / 1000));
+        const fmtDur = durSecs >= 3600 ? `${Math.floor(durSecs/3600)}h ${Math.floor((durSecs%3600)/60)}m` : durSecs >= 60 ? `${Math.floor(durSecs/60)}m ${durSecs%60}s` : `${durSecs}s`;
+        const isActive = s.heartbeat_at && (Date.now() - new Date(s.heartbeat_at)) < 120000;
+
+        return `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 18px;border-bottom:1px solid var(--border);font-size:0.82rem;background:var(--bg)">
+            <div style="min-width:0;flex:1;">
+              <span style="font-weight:700;color:var(--ink)">${esc(nameText)}</span>
+              <span style="color:var(--ink-faint);font-size:0.75rem;margin-left:8px;">${start.toLocaleString()}</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-family:monospace;color:var(--ink-muted);">${fmtDur}</span>
+              ${isActive ? '<span style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px #22c55e;" title="Active Now"></span>' : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+  </script>
+</body>
+</html>
