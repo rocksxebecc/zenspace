@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zenspace — Zenlab</title>
+  <title>Zenspace — Zen Agent</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
@@ -14,7 +14,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 
   <style>
-    /* ── ZENSPACE DESIGN TOKENS ─────────────────────────────── */
+    /* ── DESIGN TOKENS ─────────────────────────────────────── */
     :root {
       --bg: #F8F8F8;
       --bg-2: #F0F0F0;
@@ -27,14 +27,15 @@
       --border: #E0E0E0;
       --border-light: #EBEBEB;
       --border-strong: #CCCCCC;
-      --accent: #1A1A1A;
-      --accent-lt: #F0F0F0;
-      --error: #CC2200;
-      --error-lt: #FFF0EE;
-      --ok: #006633;
-      --ok-lt: #EEF8F2;
-      --warn: #996600;
-      --warn-lt: #FFF8E6;
+      --accent: #8B5CF6;
+      /* Violet */
+      --accent-lt: #F5F3FF;
+      --error: #EF4444;
+      --error-lt: #FEF2F2;
+      --ok: #10B981;
+      --ok-lt: #ECFDF5;
+      --warn: #F59E0B;
+      --warn-lt: #FEF3C7;
       --font-serif: 'Playfair Display', Georgia, serif;
       --font-sans: 'Syne', system-ui, sans-serif;
       --mono: 'DM Mono', 'Courier New', monospace;
@@ -46,8 +47,8 @@
       --r-xl: 20px;
       --r-full: 9999px;
       --shadow-sm: 0 1px 3px rgba(0, 0, 0, .06), 0 2px 8px rgba(0, 0, 0, .04);
-      --shadow-md: 0 4px 20px rgba(0, 0, 0, .10);
-      --shadow-lg: 0 8px 40px rgba(0, 0, 0, .14);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, .06);
+      --shadow-lg: 0 8px 40px rgba(0, 0, 0, .1);
     }
 
     html.dark {
@@ -62,12 +63,12 @@
       --border: #2A2A2A;
       --border-light: #222222;
       --border-strong: #404040;
-      --accent: #E8E8E8;
-      --accent-lt: #1E1E1E;
-      --error: #FF4433;
-      --error-lt: #2A1010;
-      --ok: #22AA66;
-      --ok-lt: #0A2018;
+      --accent: #A78BFA;
+      --accent-lt: #2E1065;
+      --error: #F87171;
+      --error-lt: #450A0A;
+      --ok: #34D399;
+      --ok-lt: #064E3B;
     }
 
     *,
@@ -91,7 +92,6 @@
       overflow-x: hidden;
     }
 
-    /* ── SCROLLBAR ─────────────────────────────────────── */
     ::-webkit-scrollbar {
       width: 5px;
       height: 5px;
@@ -148,8 +148,6 @@
       stroke: #fff;
       fill: none;
       stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
     }
 
     .nav-brand-name {
@@ -182,7 +180,7 @@
       font-weight: 600;
       color: var(--ok);
       background: var(--ok-lt);
-      border: 1px solid rgba(0, 102, 51, .15);
+      border: 1px solid rgba(16, 185, 129, .15);
       padding: 4px 12px;
       border-radius: var(--r-full);
     }
@@ -241,7 +239,6 @@
       font-weight: 700;
       color: #fff;
       flex-shrink: 0;
-      letter-spacing: .04em;
     }
 
     .dark-toggle {
@@ -289,44 +286,6 @@
       background: var(--bg);
     }
 
-    /* History Popover */
-    .history-popover {
-      position: absolute;
-      top: 52px;
-      left: 12px;
-      width: 300px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-lg);
-      box-shadow: var(--shadow-lg);
-      z-index: 300;
-      display: none;
-      flex-direction: column;
-      max-height: 440px;
-    }
-
-    .history-popover.show {
-      display: flex;
-    }
-
-    .history-popover-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 14px 10px;
-      font-size: .8rem;
-      font-weight: 600;
-      color: var(--ink);
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-
-    .history-popover-footer {
-      border-top: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-
-    /* ── CHAT TOPBAR ─────────────────────────────────────── */
     .chat-topbar {
       display: flex;
       align-items: center;
@@ -349,435 +308,306 @@
       flex-shrink: 0;
     }
 
-    .topbar-info {
-      flex: 1;
-    }
-
     .topbar-info h3 {
-      font-family: var(--font-serif);
-      font-size: 1rem;
+      font-size: .9rem;
       font-weight: 600;
       color: var(--ink);
-      line-height: 1.2;
     }
 
     .topbar-info p {
-      font-size: .72rem;
+      font-size: .7rem;
       color: var(--ink-muted);
       margin-top: 1px;
     }
 
     .topbar-actions {
+      margin-left: auto;
       display: flex;
-      gap: 4px;
-      align-items: center;
+      gap: 8px;
     }
 
-    /* ── MODE BAR ────────────────────────────────────────── */
-    .mode-bar {
-      display: flex;
-      gap: 4px;
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--border);
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border);
       background: var(--surface);
-      flex-shrink: 0;
-      flex-wrap: wrap;
-    }
-
-    .mode-btn {
-      font-family: var(--font-sans);
-      font-size: .75rem;
-      font-weight: 600;
-      color: var(--ink-faint);
-      background: none;
-      border: 1.5px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: 4px 10px;
-      cursor: pointer;
-      letter-spacing: .02em;
-      transition: background var(--t), color var(--t), border-color var(--t);
-    }
-
-    .mode-btn:hover {
-      background: var(--surface-2);
-      color: var(--ink);
-      border-color: var(--border-strong);
-    }
-
-    .mode-btn.active {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
-
-    /* ── SUBJECT BAR ─────────────────────────────────────── */
-    .subject-bar {
-      flex-shrink: 0;
-      border-bottom: 1px solid var(--border);
-      background: var(--surface);
-      padding: 8px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .subject-row,
-    .topic-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .topic-row {
-      display: none;
-    }
-
-    .topic-row.show {
-      display: flex;
-    }
-
-    .subject-label {
-      font-size: .62rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      flex-shrink: 0;
-      min-width: 52px;
-    }
-
-    .subj-pill,
-    .topic-pill {
-      font-family: var(--font-sans);
-      font-size: .72rem;
-      font-weight: 600;
       color: var(--ink-muted);
-      background: var(--surface-2);
-      border: 1.5px solid var(--border);
-      border-radius: var(--r-full);
-      padding: 3px 10px;
+      display: grid;
+      place-items: center;
       cursor: pointer;
-      transition: background var(--t), color var(--t), border-color var(--t);
+      transition: all var(--t);
     }
 
-    .subj-pill:hover,
-    .topic-pill:hover {
-      background: var(--surface-3);
-      color: var(--ink);
+    .icon-btn:hover {
       border-color: var(--border-strong);
+      color: var(--ink);
+      background: var(--surface-2);
     }
 
-    .subj-pill.active,
-    .topic-pill.active {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
-
-    /* ── MESSAGES ────────────────────────────────────────── */
-    #chatMessages {
+    /* ── CHAT CONTAINER ─────────────────────────────────── */
+    .chat-messages {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 20px 10px;
+      padding: 30px 40px;
       display: flex;
       flex-direction: column;
+      gap: 24px;
+      scroll-behavior: smooth;
+    }
+
+    /* Welcome state */
+    .welcome-state {
+      max-width: 580px;
+      margin: 40px auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 16px;
     }
 
+    .welcome-orb {
+      width: 64px;
+      height: 64px;
+      border-radius: var(--r-xl);
+      background: var(--accent);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      box-shadow: 0 10px 25px rgba(139, 92, 246, .25);
+      margin-bottom: 8px;
+    }
+
+    .welcome-state h2 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+    }
+
+    .welcome-state h2 em {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .welcome-state p {
+      font-size: .84rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+
+    .capability-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .cap-pill {
+      font-size: .74rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: var(--r-full);
+    }
+
+    /* Message rows */
     .msg-row {
       display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      animation: float-in .2s ease;
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
     }
 
     .msg-row.user {
-      flex-direction: row-reverse;
-    }
-
-    @keyframes float-in {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      justify-content: flex-end;
     }
 
     .msg-av {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      flex-shrink: 0;
-      background: var(--ink);
+      background: var(--surface-3);
+      color: var(--ink-muted);
       display: grid;
       place-items: center;
-      font-size: .7rem;
+      font-size: .78rem;
       font-weight: 700;
-      color: #fff;
-      letter-spacing: .04em;
+      flex-shrink: 0;
     }
 
     .msg-av.agent {
-      background: var(--surface-3);
-      color: var(--ink);
-      border: 1px solid var(--border);
-      font-size: .9rem;
+      background: var(--ink);
+      color: #fff;
     }
 
     .msg-body {
-      max-width: 76%;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 6px;
+      flex: 1;
+    }
+
+    .msg-row.user .msg-body {
+      align-items: flex-end;
     }
 
     .msg-meta {
-      font-size: .65rem;
+      font-size: .68rem;
       color: var(--ink-faint);
-      padding: 0 4px;
-    }
-
-    .msg-row.user .msg-meta {
-      text-align: right;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .msg-bubble {
-      background: var(--surface);
-      border: 1px solid var(--border);
+      padding: 14px 18px;
       border-radius: var(--r-lg);
-      padding: 12px 16px;
       font-size: .88rem;
-      line-height: 1.65;
+      line-height: 1.6;
+      max-width: 100%;
+      word-wrap: break-word;
       color: var(--ink);
+    }
+
+    .msg-bubble.user-bubble {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-top-right-radius: 2px;
+    }
+
+    .msg-bubble.agent-bubble {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      border-top-left-radius: 2px;
       box-shadow: var(--shadow-sm);
     }
 
-    .user-bubble {
-      background: var(--ink);
-      color: #fff;
-      border-color: var(--ink);
-    }
-
-    .agent-bubble {
-      background: var(--surface);
-    }
-
     .err-bubble {
+      border-left: 3px solid var(--error);
       background: var(--error-lt);
-      border-color: var(--error);
-      color: var(--error);
-    }
-
-    .msg-actions {
-      display: flex;
-      gap: 4px;
-      flex-wrap: wrap;
-      margin-top: 4px;
-    }
-
-    .act-btn {
-      font-family: var(--font-sans);
-      font-size: .65rem;
-      font-weight: 600;
-      color: var(--ink-faint);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: 3px 8px;
-      cursor: pointer;
-      transition: color var(--t), border-color var(--t), background var(--t);
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .act-btn:hover {
+      padding: 12px 16px;
+      border-radius: var(--r-md);
+      font-size: .82rem;
       color: var(--ink);
-      border-color: var(--border-strong);
+    }
+
+    /* LaTeX display override styling */
+    .katex-display {
+      margin: 0.8em 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    /* Code highlights */
+    pre {
       background: var(--surface-2);
-    }
-
-    .act-btn svg {
-      width: 10px;
-      height: 10px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
-
-    /* ── THINKING / ANSWER BLOCKS ────────────────────────── */
-    .think-block {
       border: 1px solid var(--border);
       border-radius: var(--r-md);
-      margin: 8px 0;
-      overflow: hidden;
+      padding: 12px;
+      overflow-x: auto;
+      font-family: var(--mono);
+      font-size: .78rem;
+      margin: 10px 0;
+    }
+
+    code {
+      font-family: var(--mono);
+      font-size: .84em;
       background: var(--surface-2);
+      padding: 2px 4px;
+      border-radius: var(--r-sm);
+    }
+
+    /* Reasoning/Think blocks */
+    .think-block {
+      border-left: 2px solid var(--accent);
+      background: rgba(139, 92, 246, .03);
+      padding: 10px 14px;
+      border-radius: var(--r-md);
+      margin-bottom: 8px;
     }
 
     .think-header {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-size: .72rem;
+      gap: 6px;
+      font-size: .74rem;
       font-weight: 600;
-      color: var(--ink-muted);
-      letter-spacing: .04em;
-      text-transform: uppercase;
+      color: var(--accent);
+      cursor: pointer;
       user-select: none;
-      transition: background var(--t);
     }
 
-    .think-header:hover {
-      background: var(--surface-3);
-    }
-
-    .think-spinner {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      border: 2px solid var(--border-strong);
-      border-top-color: var(--ink);
-      animation: spin .7s linear infinite;
-      flex-shrink: 0;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    .think-chevron {
-      margin-left: auto;
+    .think-header svg {
+      width: 10px;
+      height: 10px;
+      fill: currentColor;
       transition: transform .2s;
+    }
+
+    .think-content {
+      font-size: .78rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+      margin-top: 6px;
+    }
+
+    .msg-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .act-btn {
+      background: none;
+      border: none;
       font-size: .7rem;
       color: var(--ink-faint);
-    }
-
-    .think-body {
-      padding: 12px 14px;
-      font-size: .8rem;
-      line-height: 1.65;
-      color: var(--ink-muted);
-      font-family: var(--mono);
-      white-space: pre-wrap;
-      border-top: 1px solid var(--border);
-    }
-
-    .answer-block {
-      margin: 8px 0;
-    }
-
-    .answer-label {
-      font-size: .62rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      margin-bottom: 8px;
-    }
-
-    .step-num {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--ink);
-      color: #fff;
-      font-size: .65rem;
-      font-weight: 700;
-      margin-right: 6px;
-      flex-shrink: 0;
+      gap: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: color var(--t);
     }
 
-    .domain-tag {
-      display: inline-block;
-      font-size: .6rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      padding: 2px 7px;
-      border-radius: var(--r-full);
-      background: var(--surface-2);
-      color: var(--ink-faint);
-      border: 1px solid var(--border);
+    .act-btn:hover {
+      color: var(--ink);
     }
 
-    .domain-algebra {
-      background: #EEF0FF;
-      color: #4455AA;
-      border-color: #C8CCF0;
+    .act-btn svg {
+      width: 11px;
+      height: 11px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
     }
 
-    .domain-analysis {
-      background: #EEF8F2;
-      color: var(--ok);
-      border-color: #AADDC0;
+    /* Typing indicators */
+    .typing-row {
+      display: flex;
+      gap: 16px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
     }
 
-    .domain-calculus {
-      background: #FFF8E6;
-      color: var(--warn);
-      border-color: #E8D090;
-    }
-
-    .domain-linalg {
-      background: #FFF0EE;
-      color: var(--error);
-      border-color: #F0C0B8;
-    }
-
-    .domain-stats {
-      background: #F0F8FF;
-      color: #336699;
-      border-color: #AACCEE;
-    }
-
-    .domain-number {
-      background: #F8F0FF;
-      color: #7744AA;
-      border-color: #DDC0F0;
-    }
-
-    .domain-topology {
-      background: #FFF4F8;
-      color: #AA4466;
-      border-color: #F0B8CC;
-    }
-
-    .domain-geometry {
-      background: #F0FFF8;
-      color: #448866;
-      border-color: #AADDCC;
-    }
-
-    .domain-ode {
-      background: #FFFAEE;
-      color: #887733;
-      border-color: #DDCC88;
-    }
-
-    /* ── TYPING INDICATOR ────────────────────────────────── */
-    .typing-wrap {
+    .typing-bubble {
+      background: var(--surface);
+      border: 1px solid var(--border-light);
+      padding: 12px 18px;
+      border-radius: var(--r-lg);
+      border-top-left-radius: 2px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-    }
-
-    .typing-label {
-      font-size: .72rem;
-      color: var(--ink-faint);
-      font-style: italic;
+      gap: 4px;
     }
 
     .typing-dot {
@@ -785,18 +615,18 @@
       height: 6px;
       border-radius: 50%;
       background: var(--ink-faint);
-      animation: bounce .9s ease infinite;
+      animation: typing 1.4s infinite ease-in-out;
     }
 
     .typing-dot:nth-child(2) {
-      animation-delay: .15s;
+      animation-delay: .2s;
     }
 
     .typing-dot:nth-child(3) {
-      animation-delay: .3s;
+      animation-delay: .4s;
     }
 
-    @keyframes bounce {
+    @keyframes typing {
 
       0%,
       100% {
@@ -804,312 +634,197 @@
       }
 
       50% {
-        transform: translateY(-5px)
+        transform: translateY(-4px)
       }
     }
 
-    /* ── WELCOME STATE ───────────────────────────────────── */
-    .welcome-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      text-align: center;
-      padding: 40px 20px;
-      gap: 16px;
-      min-height: 320px;
-    }
-
-    .welcome-orb {
-      width: 64px;
-      height: 64px;
-      border-radius: 16px;
-      background: var(--ink);
-      display: grid;
-      place-items: center;
-      font-size: 1.8rem;
-      color: #fff;
-    }
-
-    .welcome-state h2 {
-      font-family: var(--font-serif);
-      font-size: 1.8rem;
-      color: var(--ink);
-    }
-
-    .welcome-state h2 em {
-      font-style: italic;
-    }
-
-    .welcome-state p {
-      font-size: .88rem;
-      color: var(--ink-muted);
-      max-width: 480px;
-      line-height: 1.7;
-    }
-
-    .capability-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      justify-content: center;
-      margin-top: 4px;
-    }
-
-    .cap-pill {
-      font-size: .72rem;
-      font-weight: 600;
-      color: var(--ink-muted);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 4px 10px;
-      border-radius: var(--r-full);
-    }
-
-    /* ── INPUT AREA ──────────────────────────────────────── */
-    .input-area {
-      padding: 12px 16px 16px;
+    /* ── INPUT AREA ─────────────────────────────────────── */
+    .chat-input-area {
       border-top: 1px solid var(--border);
       background: var(--surface);
+      padding: 20px 40px 24px;
       flex-shrink: 0;
+      z-index: 100;
     }
 
+    .input-box-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--r-xl);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      transition: border-color var(--t), box-shadow var(--t);
+    }
+
+    .input-box-wrapper:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, .15);
+    }
+
+    /* Preview strip */
     .preview-strip {
-      display: flex;
-      gap: 8px;
+      display: none;
       flex-wrap: wrap;
-      margin-bottom: 10px;
+      gap: 10px;
+      padding: 12px 16px 4px;
+      border-bottom: 1px solid var(--border-light);
     }
 
-    .img-preview {
+    .preview-thumb {
       position: relative;
-      width: 60px;
-      height: 60px;
+      width: 64px;
+      height: 64px;
       border-radius: var(--r-md);
-      overflow: hidden;
       border: 1px solid var(--border);
-      flex-shrink: 0;
+      overflow: hidden;
     }
 
-    .img-preview img {
+    .preview-thumb img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    .img-preview button {
+    .preview-thumb .remove-btn {
       position: absolute;
       top: 2px;
       right: 2px;
-      background: rgba(0, 0, 0, .5);
-      border: none;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
-      width: 16px;
-      height: 16px;
-      cursor: pointer;
+      background: rgba(0, 0, 0, .6);
       color: #fff;
-      font-size: .6rem;
-      line-height: 1;
-    }
-
-    .user-img-preview {
-      max-width: 200px;
-      max-height: 150px;
-      border-radius: var(--r-md);
-      border: 1px solid var(--border);
-      display: block;
-      margin-top: 8px;
+      font-size: .65rem;
+      border: none;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
     }
 
     .input-row {
       display: flex;
-      gap: 10px;
       align-items: flex-end;
+      padding: 10px 14px;
+      gap: 10px;
     }
 
-    .input-col {
+    .input-textarea {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .input-toolbar {
-      display: flex;
-      gap: 4px;
-    }
-
-    .tool-btn {
+      border: none;
+      background: transparent;
+      outline: none;
+      resize: none;
       font-family: var(--font-sans);
-      font-size: .72rem;
-      font-weight: 600;
-      letter-spacing: .02em;
-      color: var(--ink-muted);
-      background: var(--surface-2);
-      border: 1.5px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: 4px 10px;
-      cursor: pointer;
+      font-size: .9rem;
+      line-height: 1.5;
+      color: var(--ink);
+      max-height: 160px;
+      min-height: 24px;
+      padding: 4px 0;
+    }
+
+    .input-textarea::placeholder {
+      color: var(--ink-faint);
+    }
+
+    .input-actions {
       display: flex;
       align-items: center;
-      gap: 5px;
-      transition: background var(--t), color var(--t), border-color var(--t);
+      gap: 8px;
     }
 
-    .tool-btn svg {
-      width: 12px;
-      height: 12px;
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: none;
+      border: none;
+      color: var(--ink-muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: all var(--t);
+      position: relative;
+    }
+
+    .action-btn:hover {
+      background: var(--surface-2);
+      color: var(--ink);
+    }
+
+    .action-btn svg {
+      width: 16px;
+      height: 16px;
       stroke: currentColor;
       fill: none;
-      stroke-width: 1.8;
-    }
-
-    .tool-btn:hover {
-      background: var(--surface-3);
-      color: var(--ink);
-      border-color: var(--border-strong);
-    }
-
-    #mathInput {
-      font-family: var(--font-sans);
-      font-size: .88rem;
-      background: var(--surface);
-      color: var(--ink);
-      border: 1.5px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 10px 14px;
-      width: 100%;
-      resize: none;
-      outline: none;
-      line-height: 1.5;
-      transition: border-color var(--t), box-shadow var(--t);
-      min-height: 42px;
-      max-height: 200px;
-    }
-
-    #mathInput:focus {
-      border-color: var(--ink);
-      box-shadow: 0 0 0 3px rgba(0, 0, 0, .07);
-    }
-
-    #mathInput::placeholder {
-      color: var(--ink-faint);
-    }
-
-    .input-hint {
-      font-size: .68rem;
-      color: var(--ink-faint);
-    }
-
-    .input-hint kbd {
-      font-family: var(--mono);
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 1px 4px;
-      font-size: .65rem;
+      stroke-width: 2;
     }
 
     .send-btn {
-      width: 42px;
-      height: 42px;
-      border-radius: var(--r-md);
-      background: var(--ink);
-      border: none;
-      cursor: pointer;
+      background: var(--accent);
       color: #fff;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      transition: background var(--t), transform .1s;
     }
 
     .send-btn:hover {
-      background: #2A2A2A;
-    }
-
-    .send-btn:active {
-      transform: scale(.95);
-    }
-
-    .send-btn svg {
-      width: 15px;
-      height: 15px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
+      background: var(--ink);
+      color: #fff;
     }
 
     .send-btn:disabled {
-      opacity: .4;
+      background: var(--surface-3);
+      color: var(--ink-faint);
       cursor: not-allowed;
     }
 
-    /* ── ICON BUTTON ─────────────────────────────────────── */
-    .icon-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: var(--r-sm);
-      background: none;
-      border: 1px solid var(--border);
-      cursor: pointer;
+    .input-hint {
+      max-width: 800px;
+      margin: 8px auto 0;
+      font-size: .68rem;
       color: var(--ink-faint);
-      display: grid;
-      place-items: center;
-      transition: background var(--t), color var(--t), border-color var(--t);
+      display: flex;
+      justify-content: space-between;
     }
 
-    .icon-btn svg {
-      width: 13px;
-      height: 13px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2;
-    }
-
-    .icon-btn:hover {
-      background: var(--surface-2);
-      color: var(--ink);
-      border-color: var(--border-strong);
-    }
-
-    /* ── RIGHT SIDEBAR ───────────────────────────────────── */
+    /* ── RIGHT PANEL (SETTINGS/HISTORY) ─────────────────── */
     .sidebar-right {
-      width: 260px;
-      flex-shrink: 0;
-      background: var(--surface);
+      width: 300px;
       border-left: 1px solid var(--border);
+      background: var(--surface);
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      transition: transform .25s var(--ease);
+      transition: transform var(--t) var(--ease), width var(--t) var(--ease);
+      flex-shrink: 0;
     }
 
     .sidebar-right.closed {
-      transform: translateX(260px);
+      width: 0;
+      border-left: none;
+      overflow: hidden;
+      transform: translateX(300px);
+      position: absolute;
+      right: 0;
+      height: 100%;
     }
 
     .panel-tabs {
       display: flex;
       border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
+      background: var(--surface-2);
     }
 
     .panel-tab {
       flex: 1;
-      font-family: var(--font-sans);
-      font-size: .75rem;
+      padding: 12px;
+      font-size: .76rem;
       font-weight: 600;
-      color: var(--ink-faint);
       background: none;
       border: none;
-      padding: 11px 0;
-      cursor: pointer;
-      letter-spacing: .04em;
       border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color var(--t), border-color var(--t);
+      color: var(--ink-muted);
+      cursor: pointer;
+      text-align: center;
+      transition: all var(--t);
     }
 
     .panel-tab:hover {
@@ -1117,43 +832,57 @@
     }
 
     .panel-tab.active {
-      color: var(--ink);
-      border-bottom-color: var(--ink);
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      background: var(--surface);
     }
 
     .panel-pane {
       display: none;
       flex: 1;
       overflow-y: auto;
-      flex-direction: column;
+      padding: 16px;
     }
 
     .panel-pane.active {
-      display: flex;
+      display: block;
     }
 
     .panel-section {
-      padding: 14px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      margin-bottom: 18px;
     }
 
     .panel-label {
-      font-size: .62rem;
+      font-size: .68rem;
       font-weight: 700;
-      letter-spacing: .1em;
       text-transform: uppercase;
+      letter-spacing: .06em;
       color: var(--ink-faint);
-      margin-bottom: 2px;
+      margin-bottom: 8px;
     }
 
-    .setting-row {
+    .select-dropdown {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 8px 12px;
+      font-size: .78rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color var(--t);
+    }
+
+    .select-dropdown:focus {
+      border-color: var(--accent);
+    }
+
+    .setting-toggle-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-light);
     }
 
     .setting-label {
@@ -1161,559 +890,219 @@
       color: var(--ink-muted);
     }
 
-    .setting-toggle-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 3px 0;
-    }
-
-    .setting-select {
-      font-family: var(--font-sans);
-      font-size: .75rem;
-      color: var(--ink);
-      background: var(--surface-2);
-      border: 1.5px solid var(--border);
-      border-radius: var(--r-sm);
-      padding: 4px 8px;
-      outline: none;
-      transition: border-color var(--t);
-    }
-
-    .setting-select:focus {
-      border-color: var(--ink);
-    }
-
-    /* Toggle switch */
     .toggle {
-      width: 34px;
+      width: 32px;
       height: 18px;
       border-radius: var(--r-full);
       background: var(--surface-3);
-      border: 1.5px solid var(--border-strong);
-      cursor: pointer;
       position: relative;
-      transition: background var(--t), border-color var(--t);
-      flex-shrink: 0;
+      cursor: pointer;
+      transition: background var(--t);
+      border: none;
+      outline: none;
     }
 
     .toggle::after {
       content: '';
       position: absolute;
-      top: 1px;
-      left: 1px;
-      width: 13px;
-      height: 13px;
+      top: 2px;
+      left: 2px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      background: var(--ink-faint);
-      transition: transform var(--t), background var(--t);
+      background: #fff;
+      transition: transform var(--t);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
     }
 
     .toggle.on {
-      background: var(--ink);
-      border-color: var(--ink);
+      background: var(--accent);
     }
 
     .toggle.on::after {
-      transform: translateX(16px);
-      background: #fff;
+      transform: translateX(14px);
     }
 
-    /* Range input */
-    .range-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex: 1;
-    }
-
-    .range-row input[type=range] {
-      flex: 1;
-      accent-color: var(--ink);
-    }
-
-    .range-val {
-      font-size: .7rem;
-      font-family: var(--mono);
-      color: var(--ink-muted);
-      min-width: 28px;
-      text-align: right;
-    }
-
-    /* Examples grid */
-    .examples-grid {
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .ex-btn {
-      font-family: var(--font-sans);
-      font-size: .75rem;
-      text-align: left;
-      background: var(--surface-2);
-      border: 1.5px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 10px 12px;
-      cursor: pointer;
-      transition: background var(--t), border-color var(--t);
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .ex-btn:hover {
-      background: var(--surface-3);
-      border-color: var(--border-strong);
-    }
-
-    .ex-icon {
-      font-size: 1rem;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .ex-text {
-      color: var(--ink-muted);
-      line-height: 1.4;
-    }
-
-    .ex-text strong {
-      color: var(--ink);
-      font-weight: 600;
-      display: block;
-      margin-bottom: 2px;
-    }
-
-    /* Stats grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      padding: 12px;
-    }
-
-    .stat-card {
-      background: var(--surface-2);
-      border: 1px solid var(--border);
-      border-radius: var(--r-md);
-      padding: 12px;
-      text-align: center;
-    }
-
-    .stat-label {
-      font-size: .62rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-    }
-
-    .stat-val {
-      font-family: var(--font-serif);
-      font-size: 1.4rem;
-      color: var(--ink);
-      margin: 4px 0 2px;
-      line-height: 1;
-    }
-
-    .stat-sub {
-      font-size: .62rem;
-      color: var(--ink-faint);
-    }
-
-    /* History list */
-    .hist-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 6px 8px 10px;
-    }
-
-    .hist-item-row {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      border-radius: var(--r-sm);
-      transition: background var(--t);
-    }
-
-    .hist-item-row:hover {
-      background: var(--surface-2);
-    }
-
-    .hist-item-row:hover .hist-del-btn {
-      opacity: 1;
-    }
-
-    .hist-item {
-      flex: 1;
-      min-width: 0;
-      font-size: .75rem;
-      color: var(--ink-muted);
-      padding: 8px 6px 8px 10px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      text-align: left;
-      font-family: var(--font-sans);
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      overflow: hidden;
-    }
-
-    .hist-item:hover {
-      color: var(--ink);
-    }
-
-    .hist-item-text {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .hist-item-meta {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .hist-item-domain {
-      font-size: .6rem;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      opacity: .55;
-    }
-
-    .hist-item-date {
-      font-size: .58rem;
-      color: var(--ink-faint);
-    }
-
-    .hist-del-btn {
-      flex-shrink: 0;
-      background: none;
-      border: none;
-      padding: 6px 8px;
-      cursor: pointer;
-      color: var(--ink-faint);
-      opacity: 0;
-      transition: color var(--t), opacity var(--t);
-      display: flex;
-      align-items: center;
-    }
-
-    .hist-del-btn:hover {
-      color: var(--error);
-    }
-
-    /* ── CAMERA MODAL ────────────────────────────────────── */
-    .modal-overlay {
+    /* ── CAMERA OVERLAY ─────────────────────────────────── */
+    .camera-overlay {
       position: fixed;
       inset: 0;
+      background: rgba(0, 0, 0, .9);
       z-index: 1000;
-      background: rgba(0, 0, 0, .6);
-      backdrop-filter: blur(6px);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 20px;
     }
 
-    .modal-overlay.hidden {
+    .camera-overlay.hidden {
       display: none;
     }
 
-    .camera-modal {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--r-xl);
-      width: min(480px, 94vw);
-      box-shadow: var(--shadow-lg);
-      overflow: hidden;
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .modal-header h3 {
-      font-family: var(--font-serif);
-      font-size: 1.1rem;
-      color: var(--ink);
-    }
-
-    .modal-close {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: var(--ink-faint);
-      font-size: 1rem;
-      line-height: 1;
-      padding: 4px;
-      transition: color var(--t);
-    }
-
-    .modal-close:hover {
-      color: var(--ink);
-    }
-
-    .camera-view {
+    .camera-container {
       position: relative;
-      background: #000;
+      width: 90%;
+      max-width: 640px;
       aspect-ratio: 4/3;
+      border-radius: var(--r-lg);
       overflow: hidden;
+      background: #000;
+      border: 2px solid var(--border-strong);
     }
 
-    .camera-view video,
-    .camera-view canvas {
+    .camera-video {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      position: absolute;
-      inset: 0;
     }
 
-    .camera-overlay {
-      position: absolute;
-      inset: 0;
-    }
-
-    .scan-line {
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--ink), transparent);
-      animation: scan 2s ease infinite;
-    }
-
-    @keyframes scan {
-      0% {
-        top: 10%
-      }
-
-      100% {
-        top: 90%
-      }
-    }
-
-    .corner {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-color: var(--ink);
-      border-style: solid;
-      border-width: 0;
-    }
-
-    .corner.tl {
-      top: 12px;
-      left: 12px;
-      border-top-width: 2px;
-      border-left-width: 2px;
-    }
-
-    .corner.tr {
-      top: 12px;
-      right: 12px;
-      border-top-width: 2px;
-      border-right-width: 2px;
-    }
-
-    .corner.bl {
-      bottom: 12px;
-      left: 12px;
-      border-bottom-width: 2px;
-      border-left-width: 2px;
-    }
-
-    .corner.br {
-      bottom: 12px;
-      right: 12px;
-      border-bottom-width: 2px;
-      border-right-width: 2px;
-    }
-
-    .modal-body {
-      padding: 16px 20px;
-    }
-
-    .modal-actions {
+    .camera-controls {
       display: flex;
-      gap: 8px;
-      justify-content: flex-end;
+      gap: 16px;
+      z-index: 1010;
     }
 
-    .modal-btn {
-      font-family: var(--font-sans);
-      font-size: .82rem;
-      font-weight: 600;
-      padding: 8px 18px;
-      border-radius: var(--r-md);
-      cursor: pointer;
+    .cam-btn {
+      padding: 10px 24px;
+      border-radius: var(--r-full);
       border: none;
-      transition: background var(--t), transform .1s;
+      font-size: .84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--t);
     }
 
-    .modal-btn.primary {
-      background: var(--ink);
+    .cam-btn.capture {
+      background: var(--accent);
       color: #fff;
     }
 
-    .modal-btn.primary:hover {
-      background: #2A2A2A;
-    }
-
-    .modal-btn.secondary {
-      background: var(--surface-2);
-      color: var(--ink);
-      border: 1.5px solid var(--border);
-    }
-
-    .modal-btn.secondary:hover {
-      background: var(--surface-3);
-    }
-
-    .modal-hint {
-      font-size: .72rem;
-      color: var(--ink-faint);
-      margin-top: 10px;
-      line-height: 1.5;
-    }
-
-    .camera-thumb {
-      width: 56px;
-      height: 56px;
-      object-fit: cover;
-      border-radius: var(--r-sm);
-      border: 1px solid var(--border);
-    }
-
-    /* ── KATEX OVERRIDES ─────────────────────────────────── */
-    .katex {
-      font-size: 1em !important;
-    }
-
-    .katex-display {
-      margin: 12px 0 !important;
-      overflow-x: auto;
-    }
-
-    /* ── RESPONSIVE ──────────────────────────────────────── */
-    @media (max-width: 900px) {
-      .sidebar-right {
-        position: absolute;
-        right: 0;
-        top: 0;
-        height: 100%;
-        z-index: 100;
-      }
-
-      .sidebar-right.closed {
-        transform: translateX(100%);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .nav {
-        padding: 0 16px;
-      }
-
-      .mode-bar {
-        padding: 8px 12px;
-      }
-
-      #chatMessages {
-        padding: 14px 14px 8px;
-      }
-
-      .input-area {
-        padding: 10px 12px 14px;
-      }
-
-      .subject-bar {
-        display: none;
-      }
-    }
-
-    /* ── DARK MODE OVERRIDES ─────────────────────────────── */
-    html.dark .nav {
-      background: #0C0C0C;
-      border-bottom-color: #222;
-    }
-
-    html.dark .nav-user-btn {
-      background: #1E1E1E;
-      border-color: #2A2A2A;
-    }
-
-    html.dark .mode-btn.active {
-      background: #F0F0F0;
-      color: #0C0C0C;
-      border-color: #F0F0F0;
-    }
-
-    html.dark .send-btn {
-      background: #F0F0F0;
-      color: #0C0C0C;
-    }
-
-    html.dark .send-btn:hover {
+    .cam-btn.capture:hover {
       background: #fff;
+      color: #000;
     }
 
-    html.dark .nav-brand-icon {
-      background: #F0F0F0;
+    .cam-btn.cancel {
+      background: rgba(255, 255, 255, .15);
+      color: #fff;
     }
 
-    html.dark .nav-brand-icon svg {
-      stroke: #0C0C0C;
+    .cam-btn.cancel:hover {
+      background: rgba(255, 255, 255, .3);
     }
 
-    html.dark .nav-avatar {
-      background: #F0F0F0;
-      color: #0C0C0C;
+    /* ── DOMAIN PILLS & STATS ──────────────────────────── */
+    .subject-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 40px;
+      border-bottom: 1px solid var(--border-light);
+      background: var(--surface);
+      scrollbar-width: none;
     }
 
-    html.dark .agent-icon {
-      background: #F0F0F0;
-      color: #0C0C0C;
+    .subject-bar::-webkit-scrollbar {
+      display: none;
     }
 
-    html.dark .step-num {
-      background: #F0F0F0;
-      color: #0C0C0C;
+    .subj-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: var(--r-full);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: .74rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      cursor: pointer;
+      transition: all var(--t);
+      white-space: nowrap;
     }
 
-    html.dark .toggle.on {
-      background: #F0F0F0;
-      border-color: #F0F0F0;
+    .subj-pill:hover {
+      border-color: var(--border-strong);
+      color: var(--ink);
     }
 
-    html.dark .toggle.on::after {
-      background: #0C0C0C;
+    .subj-pill.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #fff;
     }
 
-    html.dark .welcome-orb {
-      background: #F0F0F0;
-      color: #0C0C0C;
+    html.dark .subj-pill.active {
+      background: #fff;
+      border-color: #fff;
+      color: #000;
     }
 
-    html.dark .user-bubble {
-      background: #F0F0F0;
-      color: #0C0C0C;
-      border-color: #F0F0F0;
+    .topic-bar {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 6px 40px 10px;
+      border-bottom: 1px solid var(--border-light);
+      background: var(--surface);
+      scrollbar-width: none;
     }
 
-    html.dark .nav-pill {
-      background: rgba(34, 170, 102, .15);
-      border-color: rgba(34, 170, 102, .25);
+    .topic-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .topic-pill {
+      font-size: .68rem;
+      font-weight: 500;
+      color: var(--ink-faint);
+      border: 1px solid transparent;
+      background: var(--surface-2);
+      padding: 4px 10px;
+      border-radius: var(--r-full);
+      cursor: pointer;
+      transition: all var(--t);
+      white-space: nowrap;
+    }
+
+    .topic-pill:hover {
+      background: var(--surface-3);
+      color: var(--ink-muted);
+    }
+
+    .topic-pill.active {
+      border-color: var(--accent);
+      background: var(--accent-lt);
+      color: var(--accent);
+    }
+
+    /* History list item */
+    .hist-item {
+      padding: 10px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border-light);
+      background: var(--surface);
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-size: .74rem;
+      line-height: 1.4;
+      color: var(--ink-muted);
+      transition: all var(--t);
+    }
+
+    .hist-item:hover {
+      border-color: var(--border-strong);
+      color: var(--ink);
+    }
+
+    .hist-item-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      font-size: .64rem;
+      color: var(--ink-faint);
     }
   </style>
 </head>
@@ -1723,12 +1112,13 @@
   <!-- ══ NAVBAR ══ -->
   <nav class="nav">
     <a href="dashboard.html" class="nav-brand">
-      <span class="nav-brand-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round">
+      <span class="nav-brand-icon">
+        <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2L2 7l10 5 10-5-10-5z" />
           <path d="M2 17l10 5 10-5" />
           <path d="M2 12l10 5 10-5" />
-        </svg></span>
+        </svg>
+      </span>
       <span class="nav-brand-name">Zenspace</span>
     </a>
     <span class="nav-badge">Zen Agent</span>
@@ -1750,436 +1140,279 @@
   <!-- ══ LAYOUT ══ -->
   <div class="layout">
 
-    <!-- MAIN CHAT -->
+    <!-- MAIN CHAT AREA -->
     <main class="main">
-      <!-- History Popover -->
-      <div class="history-popover" id="historyPopover">
-        <div class="history-popover-header">
-          <div>
-            <div>Recent Problems</div>
-            <div id="histCount" style="font-size:.67rem;font-weight:400;color:var(--ink-faint);margin-top:1px;"></div>
-          </div>
-          <button class="icon-btn" onclick="toggleHistoryPopover(event)"
-            style="padding:4px;border:none;background:none;cursor:pointer;">
-            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        </div>
-        <div class="hist-list" id="histList">
-          <div style="font-size:.72rem;color:var(--ink-faint);padding:16px 10px;text-align:center;">No history yet</div>
-        </div>
-        <div class="history-popover-footer" style="padding:8px 12px;">
-          <div id="histClearConfirm" style="display:none;text-align:center;">
-            <div style="font-size:.72rem;color:var(--ink-muted);margin-bottom:6px;">Delete all history?</div>
-            <div style="display:flex;gap:6px;">
-              <button onclick="confirmClearHistory()"
-                style="flex:1;padding:5px 0;font-size:.72rem;font-weight:700;background:var(--error);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:var(--font-sans);">Yes,
-                clear all</button>
-              <button onclick="cancelClearHistory()"
-                style="flex:1;padding:5px 0;font-size:.72rem;font-weight:600;background:var(--surface-2);color:var(--ink-muted);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:var(--font-sans);">Cancel</button>
-            </div>
-          </div>
-          <button id="histClearBtn"
-            style="color:var(--error);width:100%;justify-content:center;font-size:.72rem;display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:6px;border:1px solid rgba(204,34,0,.15);background:rgba(204,34,0,.05);cursor:pointer;font-family:var(--font-sans);font-weight:600;"
-            onclick="clearAllHistory()">
-            <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;">
-              <polyline points="3 6 5 6 21 6" />
-              <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
-            </svg>
-            Clear All History
-          </button>
-        </div>
-      </div>
 
-      <!-- Topbar -->
-      <div class="chat-topbar">
-        <div class="agent-icon">∑</div>
-        <div class="topbar-info">
-          <h3>Zen Agent</h3>
-          <p id="agentStatus">Llama 3.3 / Llama 4 Scout · Vision enabled</p>
-        </div>
-        <div class="topbar-actions">
-          <button class="icon-btn" title="Recent History" onclick="toggleHistoryPopover(event)" id="historyBtn">
-            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;">
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
-            </svg>
-          </button>
-          <button class="icon-btn" title="Download conversation" onclick="downloadChat()">
-            <svg viewBox="0 0 24 24">
-              <polyline points="8 17 12 21 16 17" />
-              <line x1="12" y1="12" x2="12" y2="21" />
-              <path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29" />
-            </svg>
-          </button>
-          <button class="icon-btn" title="Clear chat" onclick="clearChat()">
-            <svg viewBox="0 0 24 24">
-              <polyline points="1 4 1 10 7 10" />
-              <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
-            </svg>
-          </button>
-          <button class="icon-btn" title="Toggle Settings & Examples" onclick="toggleRightSidebar()"
-            id="toggleSettingsBtn">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="3" />
-              <path
-                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-            </svg>
-          </button>
-          <button class="icon-btn" title="Toggle Light/Dark Theme" onclick="toggleTheme()" id="themeToggleBtn">
-            <svg viewBox="0 0 24 24" id="themeIcon"
-              style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;">
-              <path
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z" />
-            </svg>
-          </button>
-        </div>
-      </div>
+      <!-- Subject pill selector -->
+      <div class="subject-bar" id="subjectBar"></div>
 
-      <!-- Mode bar -->
-      <div class="mode-bar">
-        <button class="mode-btn active" onclick="setMode('step-by-step',this)">Step-by-Step</button>
-        <button class="mode-btn" onclick="setMode('direct',this)">Direct Answer</button>
-        <button class="mode-btn" onclick="setMode('proof',this)">Formal Proof</button>
-        <button class="mode-btn" onclick="setMode('verify',this)">Verify</button>
-        <button class="mode-btn" onclick="setMode('explore',this)">Deep Explore</button>
-        <button class="mode-btn" onclick="setMode('phd',this)">⚡ Agent Mode</button>
-      </div>
+      <!-- Sub-topic suggestion bar -->
+      <div class="topic-bar" id="topicBar"></div>
 
-      <!-- Subject Selector Bar -->
-      <div class="subject-bar" id="subjectBar">
-        <div class="subject-row">
-          <span class="subject-label">Subject</span>
-          <button class="subj-pill active" data-subj="math" onclick="selectSubject('math',this)">📐 Mathematics</button>
-          <button class="subj-pill" data-subj="physics" onclick="selectSubject('physics',this)">⚛️ Physics</button>
-          <button class="subj-pill" data-subj="chemistry" onclick="selectSubject('chemistry',this)">🧪
-            Chemistry</button>
-          <button class="subj-pill" data-subj="biology" onclick="selectSubject('biology',this)">🧬 Biology</button>
-          <button class="subj-pill" data-subj="cs" onclick="selectSubject('cs',this)">💻 Comp. Sci</button>
-          <button class="subj-pill" data-subj="economics" onclick="selectSubject('economics',this)">📊
-            Economics</button>
-        </div>
-        <div class="topic-row show" id="topicRow">
-          <span class="subject-label">Topic</span>
-        </div>
-      </div>
-
-      <!-- Messages -->
-      <div id="chatMessages">
+      <!-- Chat list -->
+      <div class="chat-messages" id="chatMessages">
         <div class="welcome-state" id="welcomeState">
           <div class="welcome-orb">∑</div>
           <h2>Zen <em>Agent</em></h2>
           <p>Zen Agent is Zenspace's built-in science & math reasoning tool. Powered by Groq's Llama 3.3 70B (for text)
             and Llama 4 Scout (for vision), it solves problems across Mathematics, Physics, Chemistry, Biology, Computer
             Science, and Economics — with full step-by-step explanations.</p>
-          <div class="capability-pills">
-            <span class="cap-pill">∫ Calculus</span>
-            <span class="cap-pill">∑ Algebra</span>
-            <span class="cap-pill">⊗ Linear Algebra</span>
-            <span class="cap-pill">σ Probability</span>
-            <span class="cap-pill">∂ PDEs / ODEs</span>
-            <span class="cap-pill">⚛️ Physics</span>
-            <span class="cap-pill">🧪 Chemistry</span>
-            <span class="cap-pill">🧬 Biology</span>
-            <span class="cap-pill">💻 Comp. Sci</span>
-            <span class="cap-pill">📸 Image Scan</span>
-          </div>
+          <div class="capability-pills" id="welcomePills"></div>
         </div>
       </div>
 
-      <!-- Input area -->
-      <div class="input-area">
-        <!-- Image preview strip -->
-        <div class="preview-strip" id="previewStrip" style="display:none"></div>
+      <!-- Input box -->
+      <div class="chat-input-area">
+        <div class="input-box-wrapper">
+          <div class="preview-strip" id="previewStrip"></div>
+          <div class="input-row">
 
-        <div class="input-row">
-          <div class="input-col">
-            <div class="input-toolbar">
-              <button class="tool-btn" id="cameraBtn" onclick="openCamera()" title="Scan with camera">
+            <button class="action-btn" onclick="openCamera()" title="Snap photo">
+              <svg viewBox="0 0 24 24">
+                <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
+                <circle cx="12" cy="13" r="4" />
+              </svg>
+            </button>
+            <button class="action-btn" onclick="document.getElementById('fileInput').click()" title="Upload image">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+            </button>
+            <input type="file" id="fileInput" accept="image/*" multiple style="display:none"
+              onchange="handleFileUpload(event)">
+
+            <textarea class="input-textarea" id="mathInput" rows="1"
+              placeholder="Ask any scientific or mathematical question... or snap a photo" oninput="autoResize(this)"
+              onkeydown="handleKey(event)"></textarea>
+
+            <div class="input-actions">
+              <button class="action-btn send-btn" id="sendBtn" onclick="sendMessage()">
                 <svg viewBox="0 0 24 24">
-                  <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
-                  <circle cx="12" cy="13" r="4" />
+                  <line x1="22" y1="2" x2="11" y2="13" />
+                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
                 </svg>
-                Scan
-              </button>
-              <label class="tool-btn" for="imageUpload" title="Upload image of problem">
-                <svg viewBox="0 0 24 24">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                  <polyline points="17 8 12 3 7 8" />
-                  <line x1="12" y1="3" x2="12" y2="15" />
-                </svg>
-                Upload
-                <input type="file" id="imageUpload" accept="image/*" multiple style="display:none"
-                  onchange="handleImageUpload(event)">
-              </label>
-              <button class="tool-btn" id="latexBtn" onclick="toggleLatexHelper()" title="LaTeX helper">
-                <svg viewBox="0 0 24 24">
-                  <path d="M4 7V4h16v3" />
-                  <path d="M9 20h6" />
-                  <path d="M12 4v16" />
-                </svg>
-                LaTeX
               </button>
             </div>
-            <textarea id="mathInput" rows="1"
-              placeholder="Ask any scientific or mathematical question… or snap a photo of a problem ↑"
-              onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
-            <div class="input-hint">
-              <kbd>Enter</kbd> send · <kbd>Shift+Enter</kbd> newline · Supports LaTeX $…$ and $$…$$
-            </div>
+
           </div>
-          <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="Send">
-            <svg viewBox="0 0 24 24">
-              <line x1="22" y1="2" x2="11" y2="13" />
-              <polygon points="22 2 15 22 11 13 2 9 22 2" />
-            </svg>
-          </button>
+        </div>
+        <div class="input-hint">
+          <span>Enter to send · Shift+Enter newline · Supports LaTeX via $...$ and $$...$$</span>
+          <span style="cursor:pointer;text-decoration:underline" onclick="toggleSidebar()">Settings & History</span>
         </div>
       </div>
+
     </main>
 
-    <!-- RIGHT PANEL -->
-    <aside class="sidebar-right closed">
+    <!-- RIGHT PANEL (SETTINGS/HISTORY) -->
+    <aside class="sidebar-right closed" id="sidebarRight">
       <div class="panel-tabs">
         <button class="panel-tab active" onclick="switchPanel('settings',this)">Settings</button>
-        <button class="panel-tab" onclick="switchPanel('examples',this)">Examples</button>
-        <button class="panel-tab" onclick="switchPanel('stats',this)">Stats</button>
+        <button class="panel-tab" onclick="switchPanel('history',this)">History</button>
       </div>
 
-      <!-- Settings pane -->
+      <!-- Settings panel -->
       <div class="panel-pane active" id="pane-settings">
-
-        <!-- ── API KEY ────────────────────────────────────── -->
         <div class="panel-section"
-          style="background:rgba(139,92,246,.08);border-radius:10px;padding:12px 14px;margin-bottom:2px">
-          <div class="panel-label" style="color:var(--accent-2);margin-bottom:6px">⚡ AI Engine</div>
+          style="background:rgba(139,92,246,.08);border-radius:10px;padding:12px 14px;margin-bottom:14px">
+          <div class="panel-label" style="color:var(--accent);margin-bottom:6px">⚡ AI Engine</div>
           <div
             style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(139,92,246,.25);border-radius:8px;padding:8px 12px">
             <span style="font-size:1.1rem">🤖</span>
             <div>
-              <div style="font-size:.78rem;font-weight:600;color:var(--ink-1)">Groq API — Llama 3.3 70B</div>
-              <div style="font-size:.67rem;color:var(--ink-4)">Vision: Llama 4 Scout 17B · Ultra-fast inference</div>
+              <div style="font-size:.78rem;font-weight:600;color:var(--ink)">Groq API — Llama 3.3 70B</div>
+              <div style="font-size:.67rem;color:var(--ink-muted)">Vision: Llama 4 Scout 17B · Ultra-fast inference
+              </div>
             </div>
             <span
-              style="margin-left:auto;font-size:.65rem;background:rgba(74,222,128,.15);color:#4ade80;border-radius:20px;padding:2px 8px;font-weight:600">FREE</span>
+              style="margin-left:auto;font-size:.65rem;background:rgba(16,185,129,.15);color:var(--ok);border-radius:20px;padding:2px 8px;font-weight:600">FREE</span>
           </div>
+
           <div style="margin-top:12px; border-top:1px solid rgba(139,92,246,.15); padding-top:12px">
-            <div class="setting-toggle-row" style="padding:0">
-              <span class="setting-label" style="font-size:.76rem; font-weight: 600;">Add API Key</span>
+            <div class="setting-toggle-row" style="padding:0; border:none">
+              <span class="setting-label" style="font-size:.76rem; font-weight:600;">Add Custom API Key</span>
               <button class="toggle" id="togCustomKey" onclick="toggleCustomKey()"></button>
             </div>
             <div id="customKeyContainer" style="display:none; margin-top:8px">
               <div
-                style="font-size:.72rem;color:var(--ink-3);margin-bottom:8px;padding:8px 10px;background:rgba(139,92,246,.08);border-radius:7px;border:1px solid rgba(139,92,246,.2)">
-                🔑 Use a <strong style="color:var(--ink-2)">Groq API key</strong> — get one free at <a
+                style="font-size:.72rem;color:var(--ink-muted);margin-bottom:8px;padding:8px 10px;background:rgba(139,92,246,.08);border-radius:7px;border:1px solid rgba(139,92,246,.2)">
+                🔑 Use a <strong style="color:var(--ink)">Groq API key</strong> — get one free at <a
                   href="https://console.groq.com" target="_blank"
                   style="color:var(--accent);text-decoration:none">console.groq.com</a>
               </div>
               <div style="position:relative">
                 <input type="password" id="customApiKeyInput" placeholder="gsk_…" oninput="saveCustomApiKey()"
-                  style="width:100%;box-sizing:border-box;background:var(--surface-2);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:8px 36px 8px 10px;font-size:.78rem;color:var(--ink-2);font-family:var(--mono);outline:none;transition:border-color .2s"
-                  onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border-2)'" />
+                  style="width:100%;box-sizing:border-box;background:var(--surface-2);border:1px solid var(--border-strong);border-radius:var(--r-sm);padding:8px 36px 8px 10px;font-size:.78rem;color:var(--ink);font-family:var(--mono);outline:none;" />
                 <button onclick="toggleCustomKeyVis()" title="Show/hide key" id="customApiVisBtn"
-                  style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-3);font-size:.9rem;padding:0;line-height:1">👁</button>
+                  style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-faint);font-size:.9rem;">👁</button>
               </div>
-              <div id="customKeyStatus" style="font-size:.66rem;margin-top:5px;color:var(--ink-3)">Paste your Groq API
-                key above (starts with gsk_).</div>
+              <div id="customKeyStatus" style="font-size:.66rem;margin-top:5px;color:var(--ink-faint)">Paste your Groq
+                API key above.</div>
             </div>
           </div>
         </div>
 
         <div class="panel-section">
-          <div class="panel-label">Solver Settings</div>
-          <div class="setting-row">
-            <div class="setting-label">Response Detail</div>
-            <select class="setting-select" id="settingDetail">
-              <option value="comprehensive">Comprehensive</option>
-              <option value="concise">Concise</option>
-              <option value="minimal">Minimal</option>
-            </select>
-          </div>
-          <div class="setting-row">
-            <div class="setting-label">Domain Focus</div>
-            <select class="setting-select" id="settingDomain">
-              <option value="auto">Auto-detect</option>
-              <option value="algebra">Abstract Algebra</option>
-              <option value="analysis">Real Analysis</option>
-              <option value="complex">Complex Analysis</option>
-              <option value="topology">Topology</option>
-              <option value="diff_geo">Differential Geometry</option>
-              <option value="calculus">Calculus</option>
-              <option value="linear_algebra">Linear Algebra</option>
-              <option value="statistics">Probability & Stats</option>
-              <option value="number_theory">Number Theory</option>
-              <option value="pde">PDEs</option>
-              <option value="combinatorics">Combinatorics</option>
-              <option value="logic">Mathematical Logic</option>
-            </select>
-          </div>
-          <div class="setting-row">
-            <div class="setting-label">Temperature</div>
-            <div class="range-row">
-              <input type="range" min="0" max="100" value="15" id="settingTemp"
-                oninput="document.getElementById('tempVal').textContent=(this.value/100).toFixed(2)">
-              <span class="range-val" id="tempVal">0.15</span>
-            </div>
-          </div>
+          <div class="panel-label">Reasoning Mode</div>
+          <select class="select-dropdown" id="settingMode" onchange="changeMode(this.value)">
+            <option value="step-by-step">Methodical Step-by-Step</option>
+            <option value="direct">Direct Answer only</option>
+            <option value="proof">Formal Academic Proof</option>
+            <option value="verify">Step Verification / Grading</option>
+            <option value="explore">Deep Theoretical Exploration</option>
+          </select>
         </div>
+
         <div class="panel-section">
-          <div class="panel-label">Display Options</div>
-          <div class="setting-toggle-row">
-            <span class="setting-label">Show Reasoning</span>
-            <button class="toggle on" id="togReasoning" onclick="this.classList.toggle('on')"></button>
-          </div>
-          <div class="setting-toggle-row">
-            <span class="setting-label">LaTeX Rendering</span>
-            <button class="toggle on" id="togLatex" onclick="this.classList.toggle('on')"></button>
-          </div>
-          <div class="setting-toggle-row">
-            <span class="setting-label">Show Confidence</span>
-            <button class="toggle" id="togConf" onclick="this.classList.toggle('on')"></button>
-          </div>
-          <div class="setting-toggle-row">
-            <span class="setting-label">Auto-verify</span>
-            <button class="toggle" id="togVerify" onclick="this.classList.toggle('on')"></button>
-          </div>
+          <div class="panel-label">Response Detail</div>
+          <select class="select-dropdown" id="settingDetail">
+            <option value="comprehensive" selected>Comprehensive explanation</option>
+            <option value="concise">Concise / Efficient</option>
+            <option value="minimal">Minimal steps</option>
+          </select>
         </div>
-        <div class="panel-section" style="border-bottom:none">
-          <div class="panel-label">Advanced Mode Options</div>
+
+        <div class="panel-section">
+          <div class="panel-label">Domain Override</div>
+          <select class="select-dropdown" id="settingDomain">
+            <option value="auto" selected>Auto-detect from context</option>
+            <option value="pure_mathematics">Pure Mathematics</option>
+            <option value="applied_mathematics">Applied Mathematics</option>
+            <option value="physics_theoretical">Theoretical Physics</option>
+            <option value="physics_experimental">Experimental Physics</option>
+            <option value="chemistry_organic">Organic Chemistry</option>
+            <option value="chemistry_physical">Physical Chemistry</option>
+            <option value="computer_science_theory">Computer Science (Theory)</option>
+            <option value="economics_quantitative">Quantitative Economics</option>
+          </select>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-label">Controls</div>
           <div class="setting-toggle-row">
-            <span class="setting-label">Cite Theorems</span>
-            <button class="toggle on" id="togCite" onclick="this.classList.toggle('on')"></button>
+            <span class="setting-label">Format Math with KaTeX</span>
+            <button class="toggle on" id="togLatex" onclick="toggleOption('togLatex')"></button>
           </div>
           <div class="setting-toggle-row">
-            <span class="setting-label">Show Generalizations</span>
-            <button class="toggle" id="togGen" onclick="this.classList.toggle('on')"></button>
+            <span class="setting-label">Show Thought Process</span>
+            <button class="toggle on" id="togReasoning" onclick="toggleOption('togReasoning')"></button>
           </div>
           <div class="setting-toggle-row">
-            <span class="setting-label">Open Problems</span>
-            <button class="toggle" id="togOpen" onclick="this.classList.toggle('on')"></button>
+            <span class="setting-label">Double-Check / Auto-Verify</span>
+            <button class="toggle" id="togVerify" onclick="toggleOption('togVerify')"></button>
+          </div>
+          <div class="setting-toggle-row">
+            <span class="setting-label">Cite Famous Theorems</span>
+            <button class="toggle" id="togCite" onclick="toggleOption('togCite')"></button>
           </div>
         </div>
       </div>
 
-      <!-- Examples pane -->
-      <div class="panel-pane" id="pane-examples">
-        <div class="examples-grid" id="examplesGrid"></div>
-      </div>
-
-      <!-- Stats pane -->
-      <div class="panel-pane" id="pane-stats">
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-label">Solved</div>
-            <div class="stat-val" id="statSolved">0</div>
-            <div class="stat-sub">this session</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Avg Time</div>
-            <div class="stat-val" id="statTime">—</div>
-            <div class="stat-sub">seconds</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Images</div>
-            <div class="stat-val" id="statImages">0</div>
-            <div class="stat-sub">scanned</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-label">Mode</div>
-            <div class="stat-val" style="font-size:.75rem;margin-top:2px" id="statMode">Step</div>
-            <div class="stat-sub">active</div>
-          </div>
+      <!-- History panel -->
+      <div class="panel-pane" id="pane-history">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+          <div class="panel-label" style="margin:0">Saved Problems</div>
+          <button onclick="clearAllHistory()"
+            style="background:none; border:none; color:var(--error); font-size:.7rem; font-weight:600; cursor:pointer">Clear
+            All</button>
         </div>
-        <div class="panel-section" style="border-bottom:none">
-          <div class="panel-label">Session Domains</div>
-          <div id="domainStats" style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
-            <div style="font-size:.72rem;color:var(--ink-4);font-family:var(--font)">No problems solved yet</div>
-          </div>
-        </div>
+        <div id="historyList"></div>
       </div>
     </aside>
+
   </div>
 
-  <!-- ══ CAMERA MODAL ══ -->
-  <div class="modal-overlay hidden" id="cameraOverlay" onclick="closeCameraOnBackdrop(event)">
-    <div class="camera-modal">
-      <div class="modal-header">
-        <h3>📸 Scan Problem</h3>
-        <button class="modal-close" onclick="closeCamera()">✕</button>
-      </div>
-      <div class="camera-view" id="cameraView">
-        <video id="cameraVideo" autoplay playsinline muted></video>
-        <canvas id="captureCanvas"></canvas>
-        <div class="camera-overlay scanning" id="camOverlay">
-          <div class="scan-line"></div>
-          <div class="corner tl"></div>
-          <div class="corner tr"></div>
-          <div class="corner bl"></div>
-          <div class="corner br"></div>
-        </div>
-      </div>
-      <div class="modal-body">
-        <div class="modal-actions">
-          <button class="modal-btn secondary" onclick="closeCamera()">Cancel</button>
-          <button class="modal-btn primary" id="captureBtn" onclick="capturePhoto()">
-            📸 Capture
-          </button>
-        </div>
-        <div class="modal-hint" id="cameraHint">
-          Position the problem clearly in frame · Good lighting helps · Works with handwritten or printed text
-        </div>
-      </div>
+  <!-- CAMERA OVERLAY -->
+  <div class="camera-overlay hidden" id="cameraOverlay" onclick="closeCameraOnBackdrop(event)">
+    <div class="camera-container">
+      <video class="camera-video" id="cameraVideo" autoplay playsinline></video>
+    </div>
+    <div class="camera-controls">
+      <button class="cam-btn cancel" onclick="closeCamera()">Cancel</button>
+      <button class="cam-btn capture" id="captureBtn" onclick="capturePhoto()">Capture</button>
     </div>
   </div>
 
+  <!-- ── SCRIPTS ─────────────────────────────────────────────────── -->
   <script>
-    /* ══════════════════════════════════════════════════════════════
-       APEX MATH AGENT — Science & Math Solver with Vision
-       Features:
-       • Multi-turn conversation with full history
-       • Camera capture & image upload → base64 → Vision
-       • 6 solver modes
-       • Per-domain expertise routing
-       • KaTeX rendering with fallback
-    ══════════════════════════════════════════════════════════════ */
-
-    const STATE = {
-      mode: 'step-by-step',
-      messages: [],       // API message history
-      history: [],        // sidebar problem history
-      pendingImages: [],  // { dataUrl, base64, mimeType }
-      solved: 0,
-      totalTime: 0,
-      imagesScanned: 0,
-      isLoading: false,
-      domainCounts: {},
+    // Subject and topic definitions
+    const SUBJECT_DATA = {
+      math: {
+        label: '📐 Mathematics',
+        prompt: 'You are an expert PhD-level math professor. Provide rigorous explanations using LaTeX.',
+        topics: [
+          { id: 'all', label: 'All Topics', prompt: '' },
+          { id: 'algebra', label: 'Algebra', prompt: 'Focus on linear/abstract algebra, groups, fields, vector spaces.' },
+          { id: 'calculus', label: 'Calculus', prompt: 'Focus on limits, derivatives, integration, multivariable calculus.' },
+          { id: 'lin_alg', label: 'Linear Algebra', prompt: 'Focus on matrices, eigenvalues, eigenvectors, determinants.' },
+          { id: 'stats', label: 'Probability & Stats', prompt: 'Focus on probability theory, distributions, statistical inference.' },
+        ]
+      },
+      physics: {
+        label: '⚛️ Physics',
+        prompt: 'You are an expert PhD-level physics professor. Explain physical phenomena and mathematical models.',
+        topics: [
+          { id: 'all', label: 'All Topics', prompt: '' },
+          { id: 'mechanics', label: 'Classical Mechanics', prompt: 'Focus on Newton\'s laws, Lagrangian, Hamiltonian.' },
+          { id: 'quantum', label: 'Quantum Mechanics', prompt: 'Focus on wavefunctions, operator theory, Schrödinger eq.' },
+          { id: 'thermo', label: 'Thermodynamics', prompt: 'Focus on thermodynamic laws, statistical physics.' },
+        ]
+      },
+      chemistry: {
+        label: '🧪 Chemistry',
+        prompt: 'You are an expert PhD-level chemistry professor. Solve structures, reaction mechanisms, calculations.',
+        topics: [
+          { id: 'all', label: 'All Topics', prompt: '' },
+          { id: 'organic', label: 'Organic Chemistry', prompt: 'Focus on mechanisms, synthesis, structures.' },
+          { id: 'physical', label: 'Physical Chemistry', prompt: 'Focus on kinetics, quantum chemistry, thermo.' },
+        ]
+      },
+      biology: {
+        label: '🧬 Biology',
+        prompt: 'You are an expert PhD-level biologist. Explain biochemistry, cellular pathways, genetics.',
+        topics: [
+          { id: 'all', label: 'All Topics', prompt: '' },
+          { id: 'cell', label: 'Cell Biology', prompt: 'Focus on cell structure, signalling, reproduction.' },
+          { id: 'genetics', label: 'Genetics', prompt: 'Focus on transcription, translation, inheritance.' },
+        ]
+      },
+      cs: {
+        label: '💻 Computer Science',
+        prompt: 'You are an expert computer scientist. Solve algorithms, systems, complexity, proofs.',
+        topics: [
+          { id: 'all', label: 'All Topics', prompt: '' },
+          { id: 'algorithms', label: 'Algorithms', prompt: 'Focus on complexity classes, correctness, graph algorithms.' },
+          { id: 'theory', label: 'Theory of Computation', prompt: 'Focus on automata, Turing machines, decidability.' },
+        ]
+      }
     };
 
-    // ── EXAMPLES ──────────────────────────────────────────────────
     const EXAMPLES = [
       { icon: '∫', title: 'Stokes\' Theorem', prompt: 'State and prove Stokes\' theorem in the context of differential forms on smooth manifolds.' },
       { icon: '⊗', title: 'Spectral Theorem', prompt: 'Prove the spectral theorem for compact self-adjoint operators on a Hilbert space.' },
       { icon: 'ℕ', title: 'Quadratic Reciprocity', prompt: 'Prove the law of quadratic reciprocity using Gauss\'s lemma.' },
-      { icon: '∂', title: 'Heat Equation', prompt: 'Solve the heat equation u_t = α·u_xx on [0,L] with u(0,t)=u(L,t)=0 and u(x,0)=f(x) using separation of variables.' },
-      { icon: '⌂', title: 'Fundamental Group', prompt: 'Compute the fundamental group of the torus T² and prove it is ℤ×ℤ.' },
-      { icon: 'σ', title: 'Central Limit Theorem', prompt: 'Prove the Lindeberg–Lévy central limit theorem using characteristic functions.' },
-      { icon: '∀', title: 'Gödel Incompleteness', prompt: 'Explain the proof strategy of Gödel\'s first incompleteness theorem, including the construction of the Gödel sentence.' },
-      { icon: '∇', title: 'Riemann Curvature', prompt: 'Derive the Riemann curvature tensor and explain its geometric significance in terms of parallel transport.' },
-      { icon: '∞', title: 'Lebesgue Integration', prompt: 'Prove the Dominated Convergence Theorem for Lebesgue integration.' },
-      { icon: '∑', title: 'Galois Theory', prompt: 'Prove that a polynomial is solvable by radicals if and only if its Galois group is solvable.' },
-      { icon: 'ℂ', title: 'Residue Theorem', prompt: 'State and prove the residue theorem and use it to evaluate ∫₋∞^∞ (sin x)/x dx.' },
-      { icon: '📐', title: 'Differential Geometry', prompt: 'Let f: ℝⁿ → ℝ be a smooth function with ∇f(x) ≠ 0 for all x in a level set S = f⁻¹(c). Prove S is a smooth manifold of dimension n−1 and compute its tangent space.' },
     ];
 
-    // ── API KEY MANAGEMENT ────────────────────────────────────────
-    const GROQ_MODEL = 'llama-3.3-70b-versatile';         // text-only (fast)
-    const GROQ_VISION_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct'; // vision-capable
+    const GROQ_MODEL = 'llama-3.3-70b-versatile';
+    const GROQ_VISION_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
     const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
-    // Default key — users can override in Settings with their own Groq key
     const DEFAULT_GROQ_KEY = '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';
 
+    // State management
+    const STATE = {
+      messages: [],
+      pendingImages: [],
+      isLoading: false,
+      subject: 'math',
+      topic: 'all',
+      mode: 'step-by-step',
+      solved: 0,
+      totalTime: 0,
+      domainCounts: {},
+      history: []
+    };
 
     // ── INIT ──────────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', async () => {
@@ -2187,400 +1420,148 @@
       loadCustomKeySettings();
       buildExamples();
       loadHistory();
-      renderTopics(STATE.subject);
+      renderSubjects();
+      renderTopics();
       updateAgentStatus();
-
-      if (typeof ZenAuth !== 'undefined') {
-        try {
-          await ZenAuth.initSupabase();
-          const p = await ZenAuth.getUserProfile();
-          if (p) {
-            document.getElementById('navName').textContent = p.name || p.email;
-            document.getElementById('navAvatar').textContent = (p.name || p.email || 'U')[0].toUpperCase();
-          }
-        } catch (e) { }
-      }
     });
 
-    function buildExamples() {
-      const grid = document.getElementById('examplesGrid');
-      grid.innerHTML = EXAMPLES.map((ex, i) => `
-    <button class="ex-btn" onclick="useExample(${i})">
-      <div class="ex-icon">${ex.icon}</div>
-      <div class="ex-text">
-        <strong>${ex.title}</strong>
-        ${ex.prompt.substring(0, 60)}…
-      </div>
-    </button>`).join('');
-    }
-
-    function useExample(i) {
-      const ex = EXAMPLES[i];
-      document.getElementById('mathInput').value = ex.prompt;
-      autoResize(document.getElementById('mathInput'));
-      document.getElementById('mathInput').focus();
-    }
-
-    // ── SUBJECT / TOPIC DATA ──────────────────────────────────────
-    const SUBJECT_DATA = {
-      math: {
-        label: '📐 Mathematics',
-        prompt: 'You are an expert professor.',
-        topics: [
-          { id: 'algebra', label: 'Algebra', prompt: 'Focus on abstract algebra, group theory, ring theory, and field theory.' },
-          { id: 'calculus', label: 'Calculus', prompt: 'Focus on differential and integral calculus, limits, and series.' },
-          { id: 'linear_algebra', label: 'Linear Algebra', prompt: 'Focus on vectors, matrices, linear transformations, eigenvalues, and eigenvectors.' },
-          { id: 'statistics', label: 'Statistics & Probability', prompt: 'Focus on probability theory, distributions, statistical inference, and stochastic processes.' },
-          { id: 'number_theory', label: 'Number Theory', prompt: 'Focus on primes, divisibility, modular arithmetic, and Diophantine equations.' },
-          { id: 'topology', label: 'Topology', prompt: 'Focus on topological spaces, homeomorphisms, compactness, and connectedness.' },
-          { id: 'analysis', label: 'Real Analysis', prompt: 'Focus on limits, continuity, differentiation, integration, and measure theory.' },
-          { id: 'complex', label: 'Complex Analysis', prompt: 'Focus on complex functions, contour integration, residues, and conformal mappings.' },
-          { id: 'odes', label: 'Differential Equations', prompt: 'Focus on ODEs, PDEs, initial value problems, and boundary value problems.' },
-          { id: 'discrete', label: 'Discrete Math', prompt: 'Focus on combinatorics, graph theory, logic, and set theory.' },
-        ]
-      },
-      physics: {
-        label: '⚛️ Physics',
-        prompt: 'You are an expert professor with deep knowledge of theoretical and experimental physics.',
-        topics: [
-          { id: 'mechanics', label: 'Classical Mechanics', prompt: 'Focus on Newtonian mechanics, Lagrangian/Hamiltonian mechanics, rotational dynamics, and rigid body motion.' },
-          { id: 'electro', label: 'Electromagnetism', prompt: 'Focus on Maxwell\'s equations, electric/magnetic fields, electromagnetic waves, and circuits.' },
-          { id: 'quantum', label: 'Quantum Mechanics', prompt: 'Focus on wave functions, Schrödinger equation, operators, quantum states, and uncertainty principle.' },
-          { id: 'thermo', label: 'Thermodynamics', prompt: 'Focus on laws of thermodynamics, entropy, heat engines, statistical mechanics, and phase transitions.' },
-          { id: 'relativity', label: 'Relativity', prompt: 'Focus on special and general relativity, Lorentz transformations, spacetime, and Einstein field equations.' },
-          { id: 'optics', label: 'Optics & Waves', prompt: 'Focus on wave optics, geometric optics, interference, diffraction, and polarization.' },
-          { id: 'nuclear', label: 'Nuclear & Particle Physics', prompt: 'Focus on nuclear reactions, radioactivity, particle physics, and the Standard Model.' },
-          { id: 'solid_state', label: 'Solid State Physics', prompt: 'Focus on crystal structures, band theory, semiconductors, superconductivity, and condensed matter.' },
-          { id: 'astro', label: 'Astrophysics', prompt: 'Focus on stellar physics, cosmology, black holes, and gravitational waves.' },
-        ]
-      },
-      chemistry: {
-        label: '🧪 Chemistry',
-        prompt: 'You are an expert professor with mastery of all branches of chemistry.',
-        topics: [
-          { id: 'organic', label: 'Organic Chemistry', prompt: 'Focus on organic reactions, mechanisms, functional groups, stereochemistry, and synthesis.' },
-          { id: 'inorganic', label: 'Inorganic Chemistry', prompt: 'Focus on coordination chemistry, transition metals, ionic compounds, and crystal field theory.' },
-          { id: 'physical', label: 'Physical Chemistry', prompt: 'Focus on thermodynamics, kinetics, quantum chemistry, and spectroscopy.' },
-          { id: 'analytical', label: 'Analytical Chemistry', prompt: 'Focus on titrations, chromatography, spectroscopic methods, and quantitative analysis.' },
-          { id: 'biochemistry', label: 'Biochemistry', prompt: 'Focus on biomolecules, enzymes, metabolic pathways, and molecular biology.' },
-          { id: 'electrochemistry', label: 'Electrochemistry', prompt: 'Focus on redox reactions, electrochemical cells, Nernst equation, and electrolysis.' },
-          { id: 'polymer', label: 'Polymer Chemistry', prompt: 'Focus on polymerization mechanisms, polymer properties, and materials science.' },
-        ]
-      },
-      biology: {
-        label: '🧬 Biology',
-        prompt: 'You are an expert biologist with comprehensive knowledge across all biological sciences.',
-        topics: [
-          { id: 'cell_bio', label: 'Cell Biology', prompt: 'Focus on cell structure, organelles, cell signaling, cell division, and the cell cycle.' },
-          { id: 'genetics', label: 'Genetics & Genomics', prompt: 'Focus on Mendelian genetics, molecular genetics, gene expression, mutations, and genomics.' },
-          { id: 'evolution', label: 'Evolution', prompt: 'Focus on natural selection, phylogenetics, speciation, adaptation, and population genetics.' },
-          { id: 'ecology', label: 'Ecology', prompt: 'Focus on ecosystems, population dynamics, food webs, biodiversity, and environmental interactions.' },
-          { id: 'microbiology', label: 'Microbiology', prompt: 'Focus on bacteria, viruses, fungi, microbial metabolism, and infectious diseases.' },
-          { id: 'physiology', label: 'Human Physiology', prompt: 'Focus on organ systems, homeostasis, nervous system, cardiovascular, and endocrine systems.' },
-          { id: 'molecular_bio', label: 'Molecular Biology', prompt: 'Focus on DNA replication, transcription, translation, gene regulation, and recombinant DNA.' },
-          { id: 'neuroscience', label: 'Neuroscience', prompt: 'Focus on neural circuits, synaptic transmission, brain function, and neurological disorders.' },
-        ]
-      },
-      cs: {
-        label: '💻 Computer Science',
-        prompt: 'You are an expert computer scientist with deep knowledge of theory and practice.',
-        topics: [
-          { id: 'algorithms', label: 'Algorithms & DSA', prompt: 'Focus on algorithm design, data structures, time/space complexity, and optimization.' },
-          { id: 'theory', label: 'Theory of Computation', prompt: 'Focus on automata theory, formal languages, Turing machines, computability, and complexity theory.' },
-          { id: 'ml', label: 'Machine Learning', prompt: 'Focus on supervised/unsupervised learning, neural networks, optimization, and statistical learning.' },
-          { id: 'systems', label: 'Systems Programming', prompt: 'Focus on operating systems, memory management, concurrency, and low-level programming.' },
-          { id: 'databases', label: 'Databases', prompt: 'Focus on relational algebra, SQL, query optimization, transactions, and NoSQL systems.' },
-          { id: 'networking', label: 'Computer Networks', prompt: 'Focus on network protocols, TCP/IP, routing algorithms, and distributed systems.' },
-          { id: 'cryptography', label: 'Cryptography', prompt: 'Focus on symmetric/asymmetric encryption, hash functions, digital signatures, and number theory.' },
-          { id: 'ai', label: 'Artificial Intelligence', prompt: 'Focus on search algorithms, knowledge representation, planning, and AI reasoning.' },
-        ]
-      },
-      economics: {
-        label: '📊 Economics',
-        prompt: 'You are an expert economist with deep knowledge of economic theory and quantitative methods.',
-        topics: [
-          { id: 'micro', label: 'Microeconomics', prompt: 'Focus on supply and demand, consumer theory, firm behavior, market structures, and game theory.' },
-          { id: 'macro', label: 'Macroeconomics', prompt: 'Focus on GDP, inflation, monetary policy, fiscal policy, and business cycles.' },
-          { id: 'econometrics', label: 'Econometrics', prompt: 'Focus on regression analysis, time series, panel data, and causal inference.' },
-          { id: 'finance', label: 'Financial Economics', prompt: 'Focus on asset pricing, portfolio theory, derivatives, risk management, and market efficiency.' },
-          { id: 'behavioral', label: 'Behavioral Economics', prompt: 'Focus on cognitive biases, prospect theory, decision-making under uncertainty, and nudges.' },
-          { id: 'intl_trade', label: 'International Trade', prompt: 'Focus on comparative advantage, trade policy, exchange rates, and global supply chains.' },
-        ]
+    // Theme sync
+    function loadThemeSetting() {
+      const isDark = localStorage.getItem('theme') === 'dark' || document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.getElementById('themeIcon').innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 000 14 7 7 0 000-14z"/>';
       }
-    };
-
-    // ── SUBJECT SELECTOR LOGIC ────────────────────────────────────
-    STATE.subject = 'math';
-    STATE.topic = null;
-
-    function selectSubject(subjId, btn) {
-      STATE.subject = subjId;
-      STATE.topic = null;
-      document.querySelectorAll('.subj-pill').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      renderTopics(subjId);
-      updateAgentStatus();
     }
 
-    function selectTopic(topicId, btn) {
-      STATE.topic = topicId === STATE.topic ? null : topicId; // toggle off if already selected
-      document.querySelectorAll('.topic-pill').forEach(p => p.classList.remove('active'));
-      if (STATE.topic) btn.classList.add('active');
-      updateAgentStatus();
-    }
-
-    function renderTopics(subjId) {
-      const row = document.getElementById('topicRow');
-      const subj = SUBJECT_DATA[subjId];
-      if (!subj || !subj.topics.length) { row.classList.remove('show'); return; }
-      row.innerHTML = `<span class="subject-label">Topic</span>` +
-        subj.topics.map(t =>
-          `<button class="topic-pill" data-topic="${t.id}" onclick="selectTopic('${t.id}',this)">${t.label}</button>`
-        ).join('');
-      row.classList.add('show');
-    }
-
-    function updateAgentStatus() {
-      const subj = SUBJECT_DATA[STATE.subject];
-      const topicObj = subj?.topics?.find(t => t.id === STATE.topic);
-      const status = topicObj ? `${subj.label} · ${topicObj.label}` : (subj?.label || 'Scientific solver');
-      document.getElementById('agentStatus').textContent = `${status} · Vision enabled`;
-    }
-
-    // ── MODE ──────────────────────────────────────────────────────
-    function setMode(mode, btn) {
-      STATE.mode = mode;
-      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const labels = {
-        'step-by-step': 'Step',
-        'direct': 'Direct',
-        'proof': 'Proof',
-        'verify': 'Verify',
-        'explore': 'Explore',
-        'phd': 'Agent',
-      };
-      document.getElementById('statMode').textContent = labels[mode] || mode;
-    }
-
-    function switchPanel(name, btn) {
-      document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.panel-pane').forEach(p => p.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('pane-' + name).classList.add('active');
-    }
-
-    function toggleRightSidebar() {
-      const sidebar = document.querySelector('.sidebar-right');
-      const btn = document.getElementById('toggleSettingsBtn');
-      const isClosed = sidebar.classList.toggle('closed');
-      btn.classList.toggle('active', !isClosed);
-    }
-
-    // ── THEME & CUSTOM KEY HELPERS ────────────────────────────────
     function toggleTheme() {
       const html = document.documentElement;
-      const isDark = html.classList.toggle('dark');
-      localStorage.setItem('zs-theme', isDark ? 'dark' : 'light');
-      updateThemeIcon(isDark);
-    }
-
-    function updateThemeIcon(isDark) {
       const icon = document.getElementById('themeIcon');
-      if (!icon) return;
-      if (isDark) {
-        // Sun icon when dark (click to go light)
-        icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"/>';
-      } else {
-        // Moon icon when light (click to go dark)
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
         icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 000 14 7 7 0 000-14z"/>';
       }
     }
 
-    function loadThemeSetting() {
-      const saved = localStorage.getItem('zs-theme');
-      const isDark = saved === 'dark';
-      if (isDark) document.documentElement.classList.add('dark');
-      updateThemeIcon(isDark);
+    // Settings pane toggle
+    function toggleSidebar() {
+      const right = document.getElementById('sidebarRight');
+      right.classList.toggle('closed');
+    }
+
+    function switchPanel(panelId, btn) {
+      document.querySelectorAll('.panel-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('pane-' + panelId).classList.add('active');
+    }
+
+    // Custom key settings
+    function loadCustomKeySettings() {
+      const useCustom = localStorage.getItem('zs-math-use-custom-key') === 'true';
+      const key = localStorage.getItem('zs-math-custom-groq-key') || '';
+      if (useCustom) {
+        document.getElementById('togCustomKey').classList.add('on');
+        document.getElementById('customKeyContainer').style.display = 'block';
+      }
+      document.getElementById('customApiKeyInput').value = key;
     }
 
     function toggleCustomKey() {
       const btn = document.getElementById('togCustomKey');
       const container = document.getElementById('customKeyContainer');
       const isOn = btn.classList.toggle('on');
+      localStorage.setItem('zs-math-use-custom-key', isOn);
       container.style.display = isOn ? 'block' : 'none';
-      localStorage.setItem('zs-math-use-custom-key', isOn ? 'true' : 'false');
-      updateCustomKeyStatus();
     }
 
     function saveCustomApiKey() {
-      const key = document.getElementById('customApiKeyInput').value.trim();
-      localStorage.setItem('zs-math-custom-groq-key', key);
-      updateCustomKeyStatus();
-    }
-
-    function updateCustomKeyStatus() {
-      const key = localStorage.getItem('zs-math-custom-groq-key') || '';
+      const val = document.getElementById('customApiKeyInput').value.trim();
+      localStorage.setItem('zs-math-custom-groq-key', val);
       const status = document.getElementById('customKeyStatus');
-      if (!status) return;
-      if (key) {
-        status.textContent = '✅ Custom API key saved!';
-        status.style.color = 'var(--green)';
+      if (val.startsWith('gsk_')) {
+        status.textContent = '✅ Key format looks correct.';
+        status.style.color = 'var(--ok)';
       } else {
-        status.innerHTML = '⚠️ No key — enter one or turn off to use default.';
-        status.style.color = 'var(--red)';
+        status.textContent = '❌ Key should start with gsk_';
+        status.style.color = 'var(--error)';
       }
     }
 
     function toggleCustomKeyVis() {
       const inp = document.getElementById('customApiKeyInput');
-      if (inp) {
-        inp.type = inp.type === 'password' ? 'text' : 'password';
+      const btn = document.getElementById('customApiVisBtn');
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        inp.type = 'password';
+        btn.textContent = '👁';
       }
     }
 
-    function loadCustomKeySettings() {
-      const useCustom = localStorage.getItem('zs-math-use-custom-key') === 'true';
-      const key = localStorage.getItem('zs-math-custom-groq-key') || '';
-
-      const btn = document.getElementById('togCustomKey');
-      const container = document.getElementById('customKeyContainer');
-      const inp = document.getElementById('customApiKeyInput');
-
-      if (btn && container && inp) {
-        if (useCustom) {
-          btn.classList.add('on');
-          container.style.display = 'block';
-        } else {
-          btn.classList.remove('on');
-          container.style.display = 'none';
-        }
-        inp.value = key;
-        updateCustomKeyStatus();
-      }
+    // Options toggle
+    function toggleOption(id) {
+      document.getElementById(id).classList.toggle('on');
     }
 
-    // ── SYSTEM PROMPT (the engine) ────────────────────────────────
-    function buildSystemPrompt() {
-      // Resolve subject + topic
-      const subj = SUBJECT_DATA[STATE.subject] || SUBJECT_DATA.math;
-      const topicObj = subj.topics.find(t => t.id === STATE.topic);
-      const subjectRole = subj.prompt;
-      const topicContext = topicObj ? topicObj.prompt : '';
-
-      const modeMap = {
-        'step-by-step': `${subjectRole} Solve problems methodically with clearly numbered steps. Label each step descriptively. Show ALL intermediate work. Explain the intuition behind each step. Never skip steps.`,
-        'direct': `${subjectRole} Give the direct answer with essential key steps only. State the final answer prominently. Be precise and complete, but not verbose.`,
-        'proof': `${subjectRole} Write completely formal proofs. Use correct logical structure. State all hypotheses, definitions needed, and justify EVERY inference with a named theorem, law, or principle. Match the standard of an academic paper.`,
-        'verify': `${subjectRole} Carefully verify the given expression or solution. Check each logical step for errors. Point out any mistakes with clear explanation. If correct, confirm with a concise justification. If wrong, provide the correct solution.`,
-        'explore': `${subjectRole} Don't just solve — build deep understanding. Explain the intuition, historical context, connections to related areas, generalizations, and open problems.`,
-        'phd': `${subjectRole} Solve using modern methods. Use the full power of advanced theorems. Discuss connections to research. Format derivations rigorously.`,
-      };
-
-      const detailMap = {
-        'comprehensive': 'Be thorough. Explain every step\'s intuition. Include examples where helpful.',
-        'concise': 'Be clear and efficient. Omit only truly trivial steps.',
-        'minimal': 'Give essential steps and the final answer. No elaboration.',
-      };
-
-      const domainVal = document.getElementById('settingDomain').value;
-      const domainHint = domainVal !== 'auto'
-        ? `Domain context: ${domainVal.replace('_', ' ')}. Apply domain-specific techniques and terminology.`
-        : (topicContext || 'Apply the most appropriate techniques and domain-specific methods for this problem.');
-
-      const subjectLine = topicObj
-        ? `Subject: ${subj.label} › ${topicObj.label}. ${topicContext}`
-        : `Subject: ${subj.label}.`;
-
-      const showConf = document.getElementById('togConf').classList.contains('on');
-      const citeTh = document.getElementById('togCite').classList.contains('on');
-      const showGen = document.getElementById('togGen').classList.contains('on');
-      const showOpen = document.getElementById('togOpen').classList.contains('on');
-      const autoVerify = document.getElementById('togVerify').classList.contains('on');
-
-      return `${modeMap[STATE.mode] || modeMap['step-by-step']}
-
-${subjectLine}
-${detailMap[document.getElementById('settingDetail').value] || detailMap['comprehensive']}
-${domainHint}
-
-CRITICAL FORMATTING RULES — follow exactly:
-- Use LaTeX for ALL mathematical expressions without exception
-- Inline math: $expression$ (e.g., $\\int_0^\\infty e^{-x^2}dx = \\frac{\\sqrt{\\pi}}{2}$)
-- Display math: $$expression$$ for important equations, always on their own line
-- Number steps as **Step N:** where N is the step number  
-- Use **bold** for key definitions, theorem names, and critical results
-- Mark the final answer clearly as **Final Answer:** followed by the result in display math
-- If there are multiple cases, label them: **Case 1:**, **Case 2:** etc.
-- For proofs: begin with **Proof:** and end with **□** (QED)
-- When defining terms: *Definition:* (italicized)
-${citeTh ? '- Cite the name of every theorem or lemma you apply (e.g., "By the **Theorem**...")' : ''}
-${showGen ? '- After the solution, add a **Generalization:** section noting how this extends to broader settings' : ''}
-${showOpen ? '- If relevant, briefly note any **Open Problems** connected to this topic' : ''}
-${showConf ? '- End with a **Confidence:** assessment (High/Medium/Low) and brief justification' : ''}
-${autoVerify ? '- After the main solution, add a **Verification:** section checking the answer' : ''}
-
-You have access to vision — if images of problems are provided, carefully transcribe and solve them exactly as written. If handwriting is unclear, state your interpretation.
-
-Be mathematically precise. Never make computational errors. Double-check your work.`;
+    // ── RENDER SUBJECTS/TOPICS ─────────────────────────────────────
+    function renderSubjects() {
+      const bar = document.getElementById('subjectBar');
+      bar.innerHTML = Object.keys(SUBJECT_DATA).map(key => {
+        const active = STATE.subject === key ? 'active' : '';
+        return `<button class="subj-pill ${active}" onclick="selectSubject('${key}')">${SUBJECT_DATA[key].label}</button>`;
+      }).join('');
     }
 
-    // ── CAMERA ────────────────────────────────────────────────────
-    let cameraStream = null;
-
-    async function openCamera() {
-      const overlay = document.getElementById('cameraOverlay');
-      overlay.classList.remove('hidden');
-
-      try {
-        cameraStream = await navigator.mediaDevices.getUserMedia({
-          video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } }
-        });
-        document.getElementById('cameraVideo').srcObject = cameraStream;
-        document.getElementById('cameraHint').textContent = 'Camera active · Position problem in frame · Tap Capture';
-      } catch (err) {
-        document.getElementById('cameraHint').textContent = 'Camera access denied. Please use the Upload button instead.';
-        document.getElementById('captureBtn').disabled = true;
-      }
+    function selectSubject(key) {
+      STATE.subject = key;
+      STATE.topic = 'all';
+      renderSubjects();
+      renderTopics();
+      updateAgentStatus();
     }
 
-    function closeCamera() {
-      if (cameraStream) {
-        cameraStream.getTracks().forEach(t => t.stop());
-        cameraStream = null;
-      }
-      document.getElementById('cameraOverlay').classList.add('hidden');
-      document.getElementById('captureBtn').disabled = false;
-      document.getElementById('cameraVideo').srcObject = null;
+    function renderTopics() {
+      const bar = document.getElementById('topicBar');
+      const subj = SUBJECT_DATA[STATE.subject];
+      bar.innerHTML = subj.topics.map(t => {
+        const active = STATE.topic === t.id ? 'active' : '';
+        return `<button class="topic-pill ${active}" onclick="selectTopic('${t.id}')">${t.label}</button>`;
+      }).join('');
     }
 
-    function closeCameraOnBackdrop(e) {
-      if (e.target === document.getElementById('cameraOverlay')) closeCamera();
+    function selectTopic(id) {
+      STATE.topic = id;
+      renderTopics();
     }
 
-    function capturePhoto() {
-      const video = document.getElementById('cameraVideo');
-      const canvas = document.getElementById('captureCanvas');
-      canvas.width = video.videoWidth || 640;
-      canvas.height = video.videoHeight || 480;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(video, 0, 0);
-
-      const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-      const base64 = dataUrl.split(',')[1];
-
-      STATE.pendingImages.push({ dataUrl, base64, mimeType: 'image/jpeg', source: 'camera' });
-      STATE.imagesScanned++;
-      document.getElementById('statImages').textContent = STATE.imagesScanned;
-
-      addPreviewThumb(dataUrl, STATE.pendingImages.length - 1);
-      closeCamera();
-
-      document.getElementById('mathInput').focus();
+    function updateAgentStatus() {
+      const statusText = document.getElementById('agentStatus');
+      statusText.textContent = `Llama 3.3 / Llama 4 Scout · Vision enabled`;
     }
 
-    // ── IMAGE UPLOAD ──────────────────────────────────────────────
-    function handleImageUpload(e) {
+    // Examples build
+    function buildExamples() {
+      const pills = document.getElementById('welcomePills');
+      pills.innerHTML = EXAMPLES.map((ex, i) => `
+        <span class="cap-pill" style="cursor:pointer" onclick="useExample(${i})">${ex.title}</span>
+      `).join('');
+    }
+
+    function useExample(idx) {
+      const ex = EXAMPLES[idx];
+      document.getElementById('mathInput').value = ex.prompt;
+      autoResize(document.getElementById('mathInput'));
+    }
+
+    // ── IMAGE HANDLING ───────────────────────────────────────────
+    function handleFileUpload(e) {
       const files = Array.from(e.target.files);
       files.forEach(file => {
         if (!file.type.startsWith('image/')) return;
@@ -2588,7 +1569,7 @@ Be mathematically precise. Never make computational errors. Double-check your wo
         reader.onload = ev => {
           const dataUrl = ev.target.result;
           const base64 = dataUrl.split(',')[1];
-          STATE.pendingImages.push({ dataUrl, base64, mimeType: file.type, source: 'upload' });
+          STATE.pendingImages.push({ dataUrl, base64, mimeType: file.type });
           addPreviewThumb(dataUrl, STATE.pendingImages.length - 1);
         };
         reader.readAsDataURL(file);
@@ -2603,20 +1584,19 @@ Be mathematically precise. Never make computational errors. Double-check your wo
       thumb.className = 'preview-thumb';
       thumb.id = `thumb-${idx}`;
       thumb.innerHTML = `
-    <img src="${dataUrl}" alt="Problem image">
-    <button class="remove-btn" onclick="removeImage(${idx})">✕</button>`;
+        <img src="${dataUrl}" alt="Math problem">
+        <button class="remove-btn" onclick="removeImage(${idx})">✕</button>`;
       strip.appendChild(thumb);
     }
 
     function removeImage(idx) {
       STATE.pendingImages.splice(idx, 1);
       document.getElementById(`thumb-${idx}`)?.remove();
-      // Rebuild strip
       const strip = document.getElementById('previewStrip');
       if (!STATE.pendingImages.length) strip.style.display = 'none';
     }
 
-    // ── SEND MESSAGE ──────────────────────────────────────────────
+    // ── SEND MESSAGE FLOW ─────────────────────────────────────────
     async function sendMessage() {
       const input = document.getElementById('mathInput');
       const text = input.value.trim();
@@ -2624,7 +1604,6 @@ Be mathematically precise. Never make computational errors. Double-check your wo
 
       if ((!text && !hasImages) || STATE.isLoading) return;
 
-      // Hide welcome
       document.getElementById('welcomeState')?.remove();
 
       const sendBtn = document.getElementById('sendBtn');
@@ -2634,76 +1613,60 @@ Be mathematically precise. Never make computational errors. Double-check your wo
       sendBtn.disabled = true;
       document.getElementById('agentStatus').textContent = 'Solving…';
 
-      // Build user message content
-      const subjectLabel = SUBJECT_DATA[STATE.subject]?.label?.replace(/^[\p{Emoji}\s]+/u, '').trim() || 'problem';
+      // Capture inputs in case of error rollback
+      const subjectLabel = SUBJECT_DATA[STATE.subject].label.replace(/^[\p{Emoji}\s]+/u, '').trim();
       const msgContent = hasImages
         ? [
           ...STATE.pendingImages.map(img => ({ type: 'image_url', image_url: { url: `data:${img.mimeType};base64,${img.base64}` } })),
-          { type: 'text', text: text || `Solve this ${subjectLabel} problem shown in the image. Show full step-by-step working.` },
+          { type: 'text', text: text || `Solve this ${subjectLabel} problem shown in the image. Show full step-by-step working.` }
         ]
-        : (text || '');
+        : text;
 
-      const displayText = text || '(Image uploaded)';
+      const displayText = text || `[Image: ${subjectLabel} problem]`;
       const displayImages = [...STATE.pendingImages];
 
-      // Clear pending images
+      // Reset DOM state for upload inputs
       STATE.pendingImages = [];
       document.getElementById('previewStrip').style.display = 'none';
       document.getElementById('previewStrip').innerHTML = '';
 
-      // Add to conversation history
+      // Append to local state messages array
       STATE.messages.push({ role: 'user', content: msgContent });
-
-      // Render user bubble
       appendUserMessage(displayText, displayImages);
 
-      // Detect domain for stats
       const domain = detectDomain(displayText);
-      if (domain) {
-        STATE.domainCounts[domain.label] = (STATE.domainCounts[domain.label] || 0) + 1;
-        updateDomainStats();
-      }
-
       const typingId = showTyping();
       const startTime = Date.now();
 
       try {
-        const messages = [
+        // Build messages payload - trim to last 10 messages to limit token load
+        const trimmed = STATE.messages.slice(-10);
+        const apiMessages = [
           { role: 'system', content: buildSystemPrompt() },
-          ...STATE.messages.map((m, idx) => {
-            if (Array.isArray(m.content) && idx < STATE.messages.length - 1) {
+          ...trimmed.map((m, idx) => {
+            if (Array.isArray(m.content) && idx < trimmed.length - 1) {
               const t = m.content.find(c => c.type === 'text');
-              return { role: m.role, content: t ? t.text : '[Image context]' };
+              return { role: m.role, content: t ? t.text : '[Image Context]' };
             }
             return { role: m.role, content: m.content };
-          }),
+          })
         ];
 
-        const latestUserMsg = STATE.messages[STATE.messages.length - 1];
-        const hasVision = Array.isArray(latestUserMsg?.content);
-        const activeModel = hasVision ? GROQ_VISION_MODEL : GROQ_MODEL;
-
-        const temp = parseFloat(document.getElementById('settingTemp').value) / 100;
-        const payload = { model: activeModel, messages, max_tokens: 8192, temperature: temp };
+        const activeModel = hasImages ? GROQ_VISION_MODEL : GROQ_MODEL;
+        const temp = parseFloat(document.getElementById('settingMode').value === 'proof' ? 20 : 70) / 100;
+        const payload = { model: activeModel, messages: apiMessages, max_tokens: 4096, temperature: temp };
 
         const useCustom = localStorage.getItem('zs-math-use-custom-key') === 'true';
         const customKey = (localStorage.getItem('zs-math-custom-groq-key') || '').trim();
-
-        if (useCustom && !customKey) {
-          removeTyping(typingId);
-          appendError('API key not configured. Check settings.');
-          STATE.isLoading = false; sendBtn.disabled = false; input.focus();
-          return;
-        }
-
         const activeKey = (useCustom && customKey) ? customKey : DEFAULT_GROQ_KEY;
+
         const response = await fetch(GROQ_ENDPOINT, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${activeKey}`
           },
-          body: JSON.stringify(payload),
+          body: JSON.stringify(payload)
         });
 
         if (!response.ok) {
@@ -2712,33 +1675,33 @@ Be mathematically precise. Never make computational errors. Double-check your wo
           const rawMsg = errBody?.error?.message || '';
 
           if (response.status === 429) {
-            const match = rawMsg.match(/try again in\s+([\d.]+)s/i);
+            const match = rawMsg.match(/try again in\s+([\d.]+)\s*(?:s|second)/i);
             const secs = match ? Math.ceil(parseFloat(match[1])) : null;
-            // Roll back failed user message so history stays clean
+
+            // Pop the failed user message so history stays clean
             STATE.messages.pop();
             // Restore images so user can retry without re-uploading
-            if (displayImages && displayImages.length) {
+            if (displayImages.length) {
               STATE.pendingImages = [...displayImages];
               const strip = document.getElementById('previewStrip');
               strip.innerHTML = '';
-              STATE.pendingImages.forEach((img, i) => addPreviewThumb(img.dataUrl || `data:${img.mimeType};base64,${img.base64}`, i));
+              STATE.pendingImages.forEach((img, i) => addPreviewThumb(img.dataUrl, i));
               strip.style.display = 'flex';
             }
+
             removeTyping(typingId);
             appendRateLimitError(secs);
             document.getElementById('agentStatus').textContent = secs
-              ? `Rate limited \u2014 retry in ${secs}s`
-              : 'Rate limited \u2014 retry in a moment';
+              ? `Rate limited — retry in ${secs}s`
+              : 'Rate limited — retry in a moment';
             STATE.isLoading = false;
             sendBtn.disabled = false;
             input.focus();
             return;
           } else if (response.status === 401 || response.status === 403) {
             throw new Error('Authentication error. Please check your API key in Settings.');
-          } else if (response.status >= 500) {
-            throw new Error(`The AI engine (${activeModel}) is temporarily unavailable. Please try again shortly.`);
           } else {
-            throw new Error(rawMsg || 'Something went wrong. Please try again.');
+            throw new Error(rawMsg || 'Server error. Please try again.');
           }
         }
 
@@ -2747,7 +1710,7 @@ Be mathematically precise. Never make computational errors. Double-check your wo
         removeTyping(typingId);
 
         const assistantText = data.choices?.[0]?.message?.content || '';
-        if (!assistantText) throw new Error('No response.');
+        if (!assistantText) throw new Error('Empty response from AI engine.');
 
         STATE.messages.push({ role: 'assistant', content: assistantText });
         appendAssistantMessage(assistantText, elapsed, displayText, domain);
@@ -2755,28 +1718,32 @@ Be mathematically precise. Never make computational errors. Double-check your wo
         STATE.solved++;
         STATE.totalTime += parseFloat(elapsed);
         addToHistory(displayText, domain);
-        document.getElementById('statSolved').textContent = STATE.solved;
-        document.getElementById('statTime').textContent = (STATE.totalTime / STATE.solved).toFixed(1) + 's';
         document.getElementById('agentStatus').textContent = `Solved in ${elapsed}s`;
 
       } catch (err) {
         removeTyping(typingId);
-        // Roll back the failed user message so history stays clean for next attempt
+        // Clean up messages array on error
         STATE.messages.pop();
-        // Restore images so user can retry without re-uploading
-        if (displayImages && displayImages.length) {
+        if (displayImages.length) {
           STATE.pendingImages = [...displayImages];
           const strip = document.getElementById('previewStrip');
           strip.innerHTML = '';
-          STATE.pendingImages.forEach((img, i) => addPreviewThumb(img.dataUrl || `data:${img.mimeType};base64,${img.base64}`, i));
+          STATE.pendingImages.forEach((img, i) => addPreviewThumb(img.dataUrl, i));
           strip.style.display = 'flex';
         }
-        const msg = err.message || 'Something went wrong. Please try again.';
-        appendError(msg);
-        const retryMatch = msg.match(/in (\d+)s/);
-        document.getElementById('agentStatus').textContent = retryMatch
-          ? `Rate limited \u2014 retry in ${retryMatch[1]}s`
-          : 'Error \u2014 please try again';
+
+        const msg = err.message || '';
+        if (msg.includes('429') || msg.toLowerCase().includes('rate limit')) {
+          const match = msg.match(/try again in\s+([\d.]+)\s*(?:s|second)/i);
+          const secs = match ? Math.ceil(parseFloat(match[1])) : null;
+          appendRateLimitError(secs);
+          document.getElementById('agentStatus').textContent = secs
+            ? `Rate limited — retry in ${secs}s`
+            : 'Rate limited — retry in a moment';
+        } else {
+          appendError(msg || 'Something went wrong. Please try again.');
+          document.getElementById('agentStatus').textContent = 'Error — please try again';
+        }
       }
 
       STATE.isLoading = false;
@@ -2784,30 +1751,117 @@ Be mathematically precise. Never make computational errors. Double-check your wo
       input.focus();
     }
 
-    // ── RENDER USER MESSAGE ───────────────────────────────────────
-    function appendUserMessage(text, images = []) {
+    // System prompt compiler
+    function buildSystemPrompt() {
+      const subj = SUBJECT_DATA[STATE.subject] || SUBJECT_DATA.math;
+      const topicObj = subj.topics.find(t => t.id === STATE.topic);
+      const subjectRole = subj.prompt;
+      const topicContext = topicObj ? topicObj.prompt : '';
+
+      const detailVal = document.getElementById('settingDetail').value;
+      const modeVal = document.getElementById('settingMode').value;
+      const domainVal = document.getElementById('settingDomain').value;
+
+      const citeTh = document.getElementById('togCite').classList.contains('on');
+      const autoVerify = document.getElementById('togVerify').classList.contains('on');
+
+      return `${subjectRole} Solve problems methodically. 
+Subject info: ${subj.label} ${topicContext ? '— ' + topicContext : ''}
+Reasoning Mode: ${modeVal}.
+Detail Level: ${detailVal}.
+Domain override context: ${domainVal !== 'auto' ? domainVal.replace('_', ' ') : 'Auto-detect'}.
+
+CRITICAL MATH FORMATTING RULES:
+- Use LaTeX for ALL equations. 
+- Inline equations must use single $ (e.g. $e^{i\\pi} + 1 = 0$).
+- Block equations must use double $$ (e.g. $$\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}$$).
+- Use **Step N:** for step headers.
+- If relevant, state the final answer prominently prefixed with **Final Answer:** followed by display math.
+${citeTh ? '- Cite the name of every mathematical theorem or law you apply.' : ''}
+${autoVerify ? '- Include a brief **Verification:** step at the very end to check your derivation.' : ''}
+
+Always be precise. Avoid computational errors.`;
+    }
+
+    // ── UI HELPERS ────────────────────────────────────────────────
+    function autoResize(el) {
+      el.style.height = 'auto';
+      el.style.height = (el.scrollHeight) + 'px';
+    }
+
+    function handleKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    }
+
+    function detectDomain(text) {
+      const t = text.toLowerCase();
+      if (t.includes('integral') || t.includes('derivative') || t.includes('calculus')) return { label: 'Calculus', key: 'math' };
+      if (t.includes('quantum') || t.includes('schrodinger')) return { label: 'Quantum', key: 'physics' };
+      if (t.includes('organic') || t.includes('reaction')) return { label: 'Chemistry', key: 'chem' };
+      if (t.includes('dna') || t.includes('cell')) return { label: 'Biology', key: 'bio' };
+      if (t.includes('complexity') || t.includes('algorithm')) return { label: 'CS Theory', key: 'cs' };
+      return null;
+    }
+
+    function showTyping() {
+      const container = document.getElementById('chatMessages');
+      const row = document.createElement('div');
+      const id = 'typing-' + Date.now();
+      row.className = 'typing-row';
+      row.id = id;
+      row.innerHTML = `
+        <div class="msg-av agent">∑</div>
+        <div class="typing-bubble">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>`;
+      container.appendChild(row);
+      scrollBottom();
+      return id;
+    }
+
+    function removeTyping(id) {
+      document.getElementById(id)?.remove();
+    }
+
+    function scrollBottom() {
+      const container = document.getElementById('chatMessages');
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function escHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function escAttr(str) {
+      return str.replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+    }
+    function timestamp() {
+      return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // ── RENDERING MESSAGES ─────────────────────────────────────────
+    function appendUserMessage(text, images) {
       const container = document.getElementById('chatMessages');
       const row = document.createElement('div');
       row.className = 'msg-row user';
-      const initials = document.getElementById('navAvatar').textContent || 'U';
-      const imagesHtml = images.map(img =>
-        `<img src="${img.dataUrl}" class="user-img-preview" alt="Problem image">`
-      ).join('');
 
+      const imagesHtml = images.map(img => `<img src="${img.dataUrl}" style="max-width:200px; max-height:200px; border-radius:8px; margin-bottom:8px; display:block" alt="Uploaded problem">`).join('');
       row.innerHTML = `
-    <div class="msg-av user">${initials}</div>
-    <div class="msg-body">
-      <div class="msg-meta">${timestamp()}</div>
-      <div class="msg-bubble user-bubble">
-        ${imagesHtml}
-        ${text ? escHtml(text) : ''}
-      </div>
-    </div>`;
+        <div class="msg-body">
+          <div class="msg-meta">${timestamp()}</div>
+          <div class="msg-bubble user-bubble">
+            ${imagesHtml}
+            <div>${escHtml(text)}</div>
+          </div>
+        </div>`;
       container.appendChild(row);
       scrollBottom();
     }
 
-    // ── RENDER ASSISTANT MESSAGE ──────────────────────────────────
     function appendAssistantMessage(text, elapsed, userQ, domain) {
       const container = document.getElementById('chatMessages');
       const row = document.createElement('div');
@@ -2815,207 +1869,90 @@ Be mathematically precise. Never make computational errors. Double-check your wo
       const bubbleId = 'bubble-' + Date.now();
       const showReasoning = document.getElementById('togReasoning').classList.contains('on');
 
-      const formattedHtml = formatResponse(text);
-      const thinkHtml = showReasoning ? buildThinkBlock(text, userQ) : '';
-      const domainTag = domain
-        ? `<span class="domain-tag domain-${domain.key}">${domain.label}</span>`
-        : '';
+      let cleanedText = text;
+      let thinkContent = '';
+      if (text.includes('<think>') && text.includes('</think>')) {
+        const parts = text.split('</think>');
+        thinkContent = parts[0].replace('<think>', '').trim();
+        cleanedText = parts.slice(1).join('').trim();
+      }
+
+      const formattedHtml = formatResponse(cleanedText);
+      const thinkHtml = showReasoning && thinkContent ? `
+        <div class="think-block">
+          <div class="think-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'block' : 'none'">
+            <svg viewBox="0 0 24 24" style="width:10px;height:10px;fill:currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            Thought Process
+          </div>
+          <div class="think-content">${escHtml(thinkContent)}</div>
+        </div>` : '';
+
+      const domainTag = domain ? `<span class="cap-pill" style="font-size:.6rem;padding:2px 8px;margin-left:6px">${domain.label}</span>` : '';
 
       row.innerHTML = `
-    <div class="msg-av agent">∑</div>
-    <div class="msg-body" style="max-width:90%">
-      <div class="msg-meta">
-        Zen Agent · ${timestamp()}
-        ${elapsed ? `· <span style="color:var(--green)">${elapsed}s</span>` : ''}
-        ${domainTag}
-      </div>
-      ${thinkHtml}
-      <div class="msg-bubble agent-bubble" id="${bubbleId}">${formattedHtml}</div>
-      <div class="msg-actions">
-        <button class="act-btn" onclick="copyText(this,'${escAttr(text)}')">
-          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Copy
-        </button>
-        <button class="act-btn" onclick="copyLatex(this,'${escAttr(text)}')">
-          <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
-          Copy LaTeX
-        </button>
-        <button class="act-btn" onclick="followUp('${escAttr(userQ)}')">
-          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-          Follow Up
-        </button>
-      </div>
-    </div>`;
-
+        <div class="msg-av agent">∑</div>
+        <div class="msg-body">
+          <div class="msg-meta">
+            Zen Agent · ${timestamp()}
+            ${elapsed ? `· <span style="color:var(--ok)">${elapsed}s</span>` : ''}
+            ${domainTag}
+          </div>
+          ${thinkHtml}
+          <div class="msg-bubble agent-bubble" id="${bubbleId}">${formattedHtml}</div>
+          <div class="msg-actions">
+            <button class="act-btn" onclick="copyText('${escAttr(cleanedText)}')">Copy</button>
+          </div>
+        </div>`;
       container.appendChild(row);
 
-      // KaTeX rendering
+      // Trigger KaTeX
       if (document.getElementById('togLatex').classList.contains('on') && window.renderMathInElement) {
         setTimeout(() => {
-          try {
-            renderMathInElement(document.getElementById(bubbleId), {
-              delimiters: [
-                { left: '$$', right: '$$', display: true },
-                { left: '$', right: '$', display: false },
-                { left: '\\[', right: '\\]', display: true },
-                { left: '\\(', right: '\\)', display: false },
-              ],
-              throwOnError: false,
-            });
-          } catch (e) { }
-        }, 80);
+          renderMathInElement(document.getElementById(bubbleId), {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false },
+              { left: '\\[', right: '\\]', display: true },
+              { left: '\\(', right: '\\)', display: false }
+            ],
+            throwOnError: false
+          });
+        }, 50);
       }
-
       scrollBottom();
     }
 
-    // ── THINKING BLOCK ────────────────────────────────────────────
-    function buildThinkBlock(text, userQ) {
-      const id = 'th-' + Date.now();
-      const steps = (text.match(/\*\*Step/g) || []).length;
-      const preview = userQ.substring(0, 72) + (userQ.length > 72 ? '…' : '');
-
-      return `
-    <div class="think-block">
-      <button class="think-header" id="${id}-hdr" onclick="toggleThink('${id}')">
-        <div class="think-spinner"></div>
-        <span>Agent Reasoning</span>
-        <span style="font-weight:400;text-transform:none;letter-spacing:0;opacity:.6;margin-left:4px;font-size:.68rem">${preview}</span>
-        <span class="think-chevron">›</span>
-      </button>
-      <div class="think-body" id="${id}-body">
-        <strong>Solver mode:</strong> ${STATE.mode.replace('-', ' ')}
-        <br>
-        Solution contains <strong>${steps}</strong> explicit steps.
-      </div>
-    </div>`;
+    function formatResponse(str) {
+      // Basic markdown conversions
+      let html = escHtml(str);
+      // bold
+      html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      // line breaks
+      html = html.replace(/\n/g, '<br>');
+      return html;
     }
 
-    function toggleThink(id) {
-      document.getElementById(id + '-hdr').classList.toggle('open');
-      document.getElementById(id + '-body').classList.toggle('open');
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt);
     }
 
-    // ── FORMAT RESPONSE ───────────────────────────────────────────
-    function formatResponse(text) {
-      let h = text;
-
-      // Bold and italic
-      h = h.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-      h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-      h = h.replace(/\*(?!\*)(.+?)(?<!\*)\*/g, '<em>$1</em>');
-
-      // Step labels
-      h = h.replace(/\*\*Step\s+(\d+):\*\*/g, '<strong><span class="step-num">$1</span></strong>');
-      h = h.replace(/^Step\s+(\d+):/gm, '<span class="step-num">$1</span>');
-
-      // Final answer block
-      h = h.replace(/(Final Answer:|Final Answer\s*:)/gi,
-        '<div class="answer-block"><div class="answer-label">✓ Final Answer</div>');
-      // Close answer block on double newline after
-      h = h.replace(/(<div class="answer-block">[\s\S]*?)(\n\n|\n(?=\*\*Step|\n))/,
-        '$1</div>$2');
-
-      // Proof QED
-      h = h.replace(/\s*□\s*/g, ' <span style="float:right;font-size:1.1em">□</span>');
-
-      // Code blocks
-      h = h.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
-      h = h.replace(/`([^`]+)`/g, '<code>$1</code>');
-
-      // Horizontal rule for sections
-      h = h.replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid var(--border);margin:14px 0">');
-
-      // Paragraphs
-      h = h.replace(/\n\n/g, '</p><p style="margin:10px 0 0">');
-      h = h.replace(/\n/g, '<br>');
-
-      return `<p style="margin:0">${h}</p>`;
-    }
-
-    // ── DOMAIN DETECTION ──────────────────────────────────────────
-    function detectDomain(text) {
-      const t = text.toLowerCase();
-      if (/\bmanifold|\btopolog|\bhomotop|\bhomeomorphi|\bfundamental group|\bfiber bundle|\bcovering space/.test(t))
-        return { key: 'topology', label: 'Topology' };
-      if (/\bcurvature|\bgeodesic|\bdifferential form|\bde rham|\blie group|\briemannian/.test(t))
-        return { key: 'analysis', label: 'Diff. Geometry' };
-      if (/\bmeasure|\blebesgue|\bborel|\bsigma.algebra|\balmost everywhere|\bintegrable/.test(t))
-        return { key: 'analysis', label: 'Measure Theory' };
-      if (/\bholomorphic|\bmeromorphic|\banalytic|\bresidue|\bcontour|\bcomplex/.test(t))
-        return { key: 'analysis', label: 'Complex Analysis' };
-      if (/\bintegral|\bderivative|\blimit|\blim\b|\bdifferential|\bconverge|\bseries/.test(t))
-        return { key: 'calculus', label: 'Analysis/Calculus' };
-      if (/\bmatrix|eigenvalue|\bdeterminant|\bvector space|\blinear map|\brank|\bnull space/.test(t))
-        return { key: 'linalg', label: 'Linear Algebra' };
-      if (/\bprobabilit|\bnormal dist|\bvariance|\bexpected value|\brandom variable|\bmarkov/.test(t))
-        return { key: 'stats', label: 'Probability' };
-      if (/\bprime|\bmodular|\bcongruence|\bgalois|\bfield extension|\bring|\bgroup theory/.test(t))
-        return { key: 'number', label: 'Abstract Algebra' };
-      if (/\bode|\bpde|\bpartial differential|\blaplacian|\bheat equation|\bwave equation/.test(t))
-        return { key: 'ode', label: 'Diff. Equations' };
-      if (/\bproof|\btheorem|\blemma|\bcorollar|\baxiom|\binduction|\bimplication/.test(t))
-        return { key: 'number', label: 'Proof / Logic' };
-      if (/\bsolve|\bequation|\bfactor|\bquadratic|\bpolynomial/.test(t))
-        return { key: 'algebra', label: 'Algebra' };
-      if (/\bangle|\btriangle|\bcircle|\bgeometr/.test(t))
-        return { key: 'geometry', label: 'Geometry' };
-      return null;
-    }
-
-    function updateDomainStats() {
-      const el = document.getElementById('domainStats');
-      const entries = Object.entries(STATE.domainCounts).sort((a, b) => b[1] - a[1]);
-      if (!entries.length) {
-        el.innerHTML = '<div style="font-size:.72rem;color:var(--ink-4);font-family:var(--font)">No problems solved yet</div>';
-        return;
-      }
-      el.innerHTML = entries.map(([label, count]) => `
-    <div style="display:flex;align-items:center;justify-content:space-between;font-size:.74rem;font-family:var(--font);color:var(--ink-2)">
-      <span>${label}</span>
-      <span style="color:var(--accent-2);font-weight:700;font-family:var(--mono)">${count}</span>
-    </div>`).join('');
-    }
-
-    // ── TYPING INDICATOR ──────────────────────────────────────────
-    function showTyping() {
-      const id = 'typing-' + Date.now();
-      const container = document.getElementById('chatMessages');
-      const row = document.createElement('div');
-      row.className = 'msg-row';
-      row.id = id;
-      row.innerHTML = `
-    <div class="msg-av agent">∑</div>
-    <div class="msg-body">
-      <div class="typing-wrap">
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <div class="typing-dot"></div>
-        <span class="typing-label">Solving…</span>
-      </div>
-    </div>`;
-      container.appendChild(row);
-      scrollBottom();
-      return id;
-    }
-    function removeTyping(id) { document.getElementById(id)?.remove(); }
-
+    // ── ERROR RENDERING ───────────────────────────────────────────
     function appendError(msg) {
       const container = document.getElementById('chatMessages');
       const row = document.createElement('div');
       row.className = 'msg-row';
       row.innerHTML = `
-    <div class="msg-av agent">∑</div>
-    <div class="msg-body">
-      <div class="err-bubble">
-        <strong>Error:</strong> ${escHtml(msg)}
-        <div style="margin-top:8px;font-size:.72rem;color:var(--ink-3)">
-          💡 Tip: Add your own free Groq API key in
-          <button onclick="openSettingsPanel()" style="background:none;border:none;padding:0;color:var(--accent);font-size:.72rem;cursor:pointer;font-weight:600;text-decoration:underline;">Settings ↗</button>
-          for higher limits.
-        </div>
-      </div>
-    </div>`;
+        <div class="msg-av agent">∑</div>
+        <div class="msg-body">
+          <div class="err-bubble">
+            <strong>Error:</strong> ${escHtml(msg)}
+            <div style="margin-top:8px;font-size:.72rem;color:var(--ink-muted)">
+              💡 Tip: Add your own free Groq API key in
+              <button onclick="openSettingsPanel()" style="background:none;border:none;padding:0;color:var(--accent);font-size:.72rem;cursor:pointer;font-weight:600;text-decoration:underline;">Settings ↗</button>
+              for higher limits.
+            </div>
+          </div>
+        </div>`;
       container.appendChild(row);
       scrollBottom();
     }
@@ -3027,29 +1964,29 @@ Be mathematically precise. Never make computational errors. Double-check your wo
       const counterId = 'rl-counter-' + Date.now();
       const hasExact = secs != null;
       row.innerHTML = `
-    <div class="msg-av agent">∑</div>
-    <div class="msg-body">
-      <div class="err-bubble" style="border-color:rgba(251,146,60,.4);background:rgba(251,146,60,.08)">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-          <span style="font-size:1.1rem">⏱</span>
-          <strong style="color:#f97316">Rate limit reached</strong>
-        </div>
-        <div style="font-size:.82rem;color:var(--ink-2);margin-bottom:10px">
-          ${hasExact
+        <div class="msg-av agent">∑</div>
+        <div class="msg-body">
+          <div class="err-bubble" style="border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.08)">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <span style="font-size:1.1rem">⏱</span>
+              <strong style="color:var(--warn)">Rate limit reached</strong>
+            </div>
+            <div style="font-size:.82rem;color:var(--ink);margin-bottom:10px">
+              ${hasExact
           ? `The shared API key is temporarily rate-limited. Please wait
-               <span id="${counterId}" style="font-weight:700;color:#f97316">${secs}s</span>
-               and try again.`
+                   <span id="${counterId}" style="font-weight:700;color:var(--warn)">${secs}s</span>
+                   and try again.`
           : `The shared API key is temporarily rate-limited. Please wait a moment and try again.`
         }
-        </div>
-        <div style="font-size:.76rem;color:var(--ink-3);padding:8px 10px;background:rgba(139,92,246,.07);border-radius:7px;border:1px solid rgba(139,92,246,.2)">
-          🔑 Want unlimited requests? Add your own
-          <strong style="color:var(--ink-2)">free Groq API key</strong> — takes 10 seconds at
-          <a href="https://console.groq.com" target="_blank" style="color:var(--accent);font-weight:600">console.groq.com</a>, then paste it in
-          <button onclick="openSettingsPanel()" style="background:none;border:none;padding:0;color:var(--accent);font-size:.76rem;cursor:pointer;font-weight:700;text-decoration:underline;">Settings ↗</button>.
-        </div>
-      </div>
-    </div>`;
+            </div>
+            <div style="font-size:.76rem;color:var(--ink-muted);padding:8px 10px;background:rgba(139,92,246,.07);border-radius:7px;border:1px solid rgba(139,92,246,.2)">
+              🔑 Want unlimited requests? Add your own
+              <strong style="color:var(--ink)">free Groq API key</strong> — takes 10 seconds at
+              <a href="https://console.groq.com" target="_blank" style="color:var(--accent);font-weight:600">console.groq.com</a>, then paste it in
+              <button onclick="openSettingsPanel()" style="background:none;border:none;padding:0;color:var(--accent);font-size:.76rem;cursor:pointer;font-weight:700;text-decoration:underline;">Settings ↗</button>.
+            </div>
+          </div>
+        </div>`;
       container.appendChild(row);
       scrollBottom();
       if (hasExact) {
@@ -3067,312 +2004,115 @@ Be mathematically precise. Never make computational errors. Double-check your wo
     }
 
     function openSettingsPanel() {
-      // Open the right sidebar and switch to settings tab
-      const sidebar = document.querySelector('.sidebar-right');
-      if (sidebar) sidebar.classList.remove('closed');
-      const settingsTab = document.querySelector('.panel-tab');
-      if (settingsTab) settingsTab.click();
+      const sidebar = document.getElementById('sidebarRight');
+      sidebar.classList.remove('closed');
+      const tabs = document.querySelectorAll('.panel-tab');
+      tabs[0].click(); // Click settings
     }
 
-    // ── HISTORY ───────────────────────────────────────────────────
-    const HIST_KEY = 'zs-math-hist-v3';       // bumped key so new format doesn't collide
-    const HIST_MAX = 100;                      // keep up to 100 entries
-    const HIST_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days in ms
-
-    function addToHistory(question, domain) {
-      const snapshot = (STATE.messages || []).map(m => {
-        if (typeof m.content === 'string') return { role: m.role, content: m.content };
-        if (Array.isArray(m.content)) {
-          const textParts = m.content
-            .filter(p => p.type === 'text')
-            .map(p => ({ type: 'text', text: p.text }));
-          const text = textParts.map(p => p.text).join(' ');
-          return { role: m.role, content: text || '[image message]' };
-        }
-        return { role: m.role, content: String(m.content) };
-      });
-
-      STATE.history.unshift({
-        q: question,
-        domain: domain?.label,
-        ts: Date.now(),
-        messages: snapshot
-      });
-      if (STATE.history.length > HIST_MAX) STATE.history.length = HIST_MAX;
-      saveHistory();
-      renderHistList();
+    // ── HISTORY LIST MANAGEMENT ──────────────────────────────────
+    function loadHistory() {
+      const list = document.getElementById('historyList');
+      const stored = localStorage.getItem('zs-math-history-v4');
+      STATE.history = stored ? JSON.parse(stored) : [];
+      renderHistory();
     }
 
-    function fmtHistDate(ts) {
-      const d = new Date(ts);
-      const now = new Date();
-      const diffMs = Date.now() - ts;
-      const diffMins = Math.floor(diffMs / 60000);
-      if (diffMins < 1) return 'Just now';
-      if (diffMins < 60) return diffMins + 'm ago';
-      const diffHrs = Math.floor(diffMins / 60);
-      if (diffHrs < 24) return diffHrs + 'h ago';
-      if (d.getFullYear() === now.getFullYear()) {
-        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-      }
-      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: '2-digit' });
-    }
-
-    function renderHistList() {
-      const el = document.getElementById('histList');
-      const countEl = document.getElementById('histCount');
-      if (!el) return;
-
+    function renderHistory() {
+      const list = document.getElementById('historyList');
       if (!STATE.history.length) {
-        el.innerHTML = '<div style="font-size:.72rem;color:var(--ink-faint);padding:16px 10px;text-align:center;">No history yet</div>';
-        if (countEl) countEl.textContent = '';
+        list.innerHTML = '<div style="font-size:.72rem;color:var(--ink-faint);text-align:center;margin-top:20px">No history items yet.</div>';
         return;
       }
-
-      if (countEl) countEl.textContent = `${STATE.history.length} problem${STATE.history.length !== 1 ? 's' : ''}`;
-
-      el.innerHTML = STATE.history.map((h, i) => `
-        <div class="hist-item-row">
-          <button class="hist-item" onclick="restoreHistory(${i})" title="${escHtml(h.q)}">
-            <div class="hist-item-text">${escHtml(h.q.substring(0, 48))}${h.q.length > 48 ? '…' : ''}</div>
-            <div class="hist-item-meta">
-              ${h.domain ? `<span class="hist-item-domain">${escHtml(h.domain)}</span>` : ''}
-              <span class="hist-item-date">${fmtHistDate(h.ts)}</span>
-            </div>
-          </button>
-          <button class="hist-del-btn" onclick="deleteHistoryItem(${i})" title="Remove">
-            <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" fill="none" stroke-width="2.5" stroke-linecap="round">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-        </div>`
-      ).join('');
+      list.innerHTML = STATE.history.map((item, idx) => `
+        <div class="hist-item" onclick="loadHistoryItem(${idx})">
+          <div class="hist-item-header">
+            <span>${item.subject || 'Math'}</span>
+            <span>${item.time}</span>
+          </div>
+          <div>${escHtml(item.q.substring(0, 80))}${item.q.length > 80 ? '…' : ''}</div>
+        </div>
+      `).join('');
     }
 
-    function restoreHistory(i) {
-      const h = STATE.history[i];
-      if (!h) return;
-
-      const input = document.getElementById('mathInput');
-      if (input) { input.value = h.q; autoResize(input); input.focus(); }
-
-      if (h.messages && h.messages.length) {
-        STATE.messages = JSON.parse(JSON.stringify(h.messages));
-        const container = document.getElementById('chatMessages');
-        if (container) {
-          container.innerHTML = '';
-          for (let m of h.messages) {
-            if (m.role === 'user') {
-              appendUserMessage(m.content);
-            } else if (m.role === 'assistant') {
-              appendAssistantMessage(m.content, '', '', null);
-            }
-          }
-        }
-      }
-
-      const popover = document.getElementById('historyPopover');
-      if (popover) popover.classList.remove('show');
+    function addToHistory(q, domain) {
+      const newItem = {
+        q,
+        subject: SUBJECT_DATA[STATE.subject].label.replace(/^[\p{Emoji}\s]+/u, '').trim(),
+        time: new Date().toLocaleDateString([], { month: 'short', day: 'numeric' }),
+        messages: [...STATE.messages]
+      };
+      STATE.history.unshift(newItem);
+      if (STATE.history.length > 50) STATE.history.pop();
+      localStorage.setItem('zs-math-history-v4', JSON.stringify(STATE.history));
+      renderHistory();
     }
 
-    function deleteHistoryItem(i) {
-      STATE.history.splice(i, 1);
-      saveHistory();
-      renderHistList();
-    }
+    function loadHistoryItem(idx) {
+      const item = STATE.history[idx];
+      if (!item) return;
+      STATE.messages = [...item.messages];
 
-    function toggleHistoryPopover(e) {
-      if (e) e.stopPropagation();
-      const popover = document.getElementById('historyPopover');
-      if (popover) popover.classList.toggle('show');
-    }
+      // Clear welcome & render history conversation bubbles
+      document.getElementById('welcomeState')?.remove();
+      const chat = document.getElementById('chatMessages');
+      chat.innerHTML = '';
 
-    document.addEventListener('click', e => {
-      const popover = document.getElementById('historyPopover');
-      const btn = document.getElementById('historyBtn');
-      if (popover && popover.classList.contains('show')) {
-        if (!popover.contains(e.target) && (!btn || !btn.contains(e.target))) {
-          popover.classList.remove('show');
+      STATE.messages.forEach(m => {
+        if (m.role === 'user') {
+          appendUserMessage(typeof m.content === 'string' ? m.content : '[Image Problem]', []);
+        } else if (m.role === 'assistant') {
+          appendAssistantMessage(m.content, null, '', null);
         }
-      }
-
-      const sidebar = document.querySelector('.sidebar-right');
-      const toggleBtn = document.getElementById('toggleSettingsBtn');
-      if (sidebar && !sidebar.classList.contains('closed')) {
-        if (!sidebar.contains(e.target) && (!toggleBtn || !toggleBtn.contains(e.target))) {
-          sidebar.classList.add('closed');
-          if (toggleBtn) toggleBtn.classList.remove('active');
-        }
-      }
-    });
-
-    function saveHistory() {
-      let data = STATE.history;
-      // Try saving full data; if quota exceeded, progressively trim
-      for (let attempt = 0; attempt < 4; attempt++) {
-        try {
-          localStorage.setItem(HIST_KEY, JSON.stringify(data));
-          // If we trimmed, update STATE too
-          if (data !== STATE.history) STATE.history = data;
-          return;
-        } catch (e) {
-          // Quota exceeded — drop oldest half and retry
-          data = data.slice(0, Math.max(1, Math.floor(data.length / 2)));
-        }
-      }
-    }
-
-    function loadHistory() {
-      try {
-        const saved = localStorage.getItem(HIST_KEY);
-        if (saved) {
-          const parsed = JSON.parse(saved);
-          // Prune entries older than 30 days
-          const cutoff = Date.now() - HIST_TTL_MS;
-          STATE.history = parsed.filter(h => !h.ts || h.ts > cutoff);
-        }
-        renderHistList();
-      } catch (e) { STATE.history = []; renderHistList(); }
+      });
+      toggleSidebar();
     }
 
     function clearAllHistory() {
-      // Show inline two-step confirm instead of browser confirm()
-      const confirmEl = document.getElementById('histClearConfirm');
-      const btnEl = document.getElementById('histClearBtn');
-      if (confirmEl) { confirmEl.style.display = 'block'; }
-      if (btnEl) { btnEl.style.display = 'none'; }
-    }
-
-    function confirmClearHistory() {
       STATE.history = [];
-      localStorage.removeItem(HIST_KEY);
-      renderHistList();
-      cancelClearHistory();
+      localStorage.setItem('zs-math-history-v4', JSON.stringify([]));
+      renderHistory();
     }
 
-    function cancelClearHistory() {
-      const confirmEl = document.getElementById('histClearConfirm');
-      const btnEl = document.getElementById('histClearBtn');
-      if (confirmEl) { confirmEl.style.display = 'none'; }
-      if (btnEl) { btnEl.style.display = 'flex'; }
-    }
-
-    function clearAll() {
-      clearAllHistory();
-      clearChat();
-    }
-
-    function clearChat() {
-      STATE.messages = [];
-      const container = document.getElementById('chatMessages');
-      container.innerHTML = `
-    <div class="welcome-state" id="welcomeState">
-      <div class="welcome-orb">∑</div>
-      <h2>Zen <em>Agent</em></h2>
-      <p>Zen Agent is Zenspace’s built-in science &amp; math reasoning tool. Powered by Groq's Llama 3.3 70B (for text) and Llama 4 Scout (for vision), it solves problems across Mathematics, Physics, Chemistry, Biology, Computer Science, and Economics — with full step-by-step explanations.</p>
-      <div class="capability-pills">
-        <span class="cap-pill">∫ Calculus</span>
-        <span class="cap-pill">∑ Algebra</span>
-        <span class="cap-pill">⊗ Linear Algebra</span>
-        <span class="cap-pill">σ Probability</span>
-        <span class="cap-pill">∂ PDEs / ODEs</span>
-        <span class="cap-pill">⚛️ Physics</span>
-        <span class="cap-pill">🧪 Chemistry</span>
-        <span class="cap-pill">🧬 Biology</span>
-        <span class="cap-pill">💻 Comp. Sci</span>
-        <span class="cap-pill">📸 Image Scan</span>
-      </div>
-    </div>`;
-      document.getElementById('agentStatus').textContent = 'Llama 3.3 / Llama 4 Scout · Vision enabled';
-    }
-
-    // ── FOLLOW UP ─────────────────────────────────────────────────
-    function followUp(originalQ) {
-      const input = document.getElementById('mathInput');
-      input.value = `Regarding the previous problem: `;
-      autoResize(input);
-      input.focus();
-      input.setSelectionRange(input.value.length, input.value.length);
-    }
-
-    // ── DOWNLOAD ──────────────────────────────────────────────────
-    function downloadChat() {
-      const lines = STATE.messages.map(m => {
-        const content = Array.isArray(m.content)
-          ? m.content.filter(b => b.type === 'text').map(b => b.text).join('\n')
-          : m.content;
-        return `[${m.role.toUpperCase()}]\n${content}\n`;
-      }).join('\n─────────────────────\n\n');
-      const blob = new Blob([lines], { type: 'text/plain' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `apex-math-${new Date().toISOString().slice(0, 10)}.txt`;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
-
-    // ── COPY ──────────────────────────────────────────────────────
-    function copyText(btn, text) {
-      navigator.clipboard.writeText(text).then(() => {
-        btn.textContent = '✓ Copied';
-        setTimeout(() => { btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`; }, 1500);
-      });
-    }
-    function copyLatex(btn, text) {
-      const matches = text.match(/\$\$[\s\S]*?\$\$|\$[^$]*?\$/g) || [];
-      navigator.clipboard.writeText(matches.join('\n') || text).then(() => {
-        btn.textContent = '✓ LaTeX Copied';
-        setTimeout(() => { btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg> Copy LaTeX`; }, 1500);
-      });
-    }
-
-    // ── LATEX HELPER ──────────────────────────────────────────────
-    function toggleLatexHelper() {
-      const input = document.getElementById('mathInput');
-      const current = input.value;
-      if (!current.includes('$')) {
-        input.value = current + ' $';
-        input.focus();
+    // Camera APIs
+    let camStream = null;
+    async function openCamera() {
+      document.getElementById('cameraOverlay').classList.remove('hidden');
+      try {
+        camStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: 'environment' } }
+        });
+        document.getElementById('cameraVideo').srcObject = camStream;
+      } catch (err) {
+        alert('Camera access denied. Please upload an image file instead.');
+        closeCamera();
       }
     }
 
-    // ── UTILITIES ─────────────────────────────────────────────────
-    function handleKey(e) {
-      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    function closeCamera() {
+      if (camStream) {
+        camStream.getTracks().forEach(t => t.stop());
+        camStream = null;
+      }
+      document.getElementById('cameraOverlay').classList.add('hidden');
     }
 
-    function autoResize(el) {
-      el.style.height = 'auto';
-      el.style.height = Math.min(el.scrollHeight, 160) + 'px';
+    function closeCameraOnBackdrop(e) {
+      if (e.target.id === 'cameraOverlay') closeCamera();
     }
 
-    function scrollBottom() {
-      const c = document.getElementById('chatMessages');
-      requestAnimationFrame(() => { c.scrollTop = c.scrollHeight; });
-    }
-
-    function timestamp() {
-      return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-
-    function escHtml(s) {
-      return String(s)
-        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-    }
-
-    function escAttr(s) {
-      return String(s).replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/'/g, "\\'").replace(/\$/g, '\\$');
-    }
-
-    // Hide navbar and maximize layout if loaded in iframe
-    if (window.self !== window.top) {
-      const navEl = document.querySelector('.nav');
-      if (navEl) navEl.style.display = 'none';
-      const layoutEl = document.querySelector('.layout');
-      if (layoutEl) layoutEl.style.height = '100dvh';
+    function capturePhoto() {
+      const video = document.getElementById('cameraVideo');
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const dataUrl = canvas.toDataURL('image/jpeg');
+      const base64 = dataUrl.split(',')[1];
+      STATE.pendingImages.push({ dataUrl, base64, mimeType: 'image/jpeg' });
+      addPreviewThumb(dataUrl, STATE.pendingImages.length - 1);
+      closeCamera();
     }
   </script>
 </body>
