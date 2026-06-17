@@ -8872,8 +8872,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
     }
 
     function openCgpaModal() {
-      setCgpaMode('grades');
-      openModal('cgpaModal');
+      window.location.href = 'cgpa.html';
     }
 
     function changeCgpaRowType(sel) {
