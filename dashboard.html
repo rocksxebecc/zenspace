@@ -7788,6 +7788,10 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       user = await ZenAuth.getUserProfile();
       if (!user) { window.location.href = 'login.html'; return; }
 
+      // Admin Setup Assist
+      console.log("%c Zenspace Admin Assist ", "background: #7c3aed; color: #fff; font-weight: bold; padding: 4px; border-radius: 4px;");
+      console.log(`To make this account an Admin, copy & run this query in your Supabase SQL Editor:\n\nUPDATE public.profiles SET is_admin = true WHERE id = '${user.id}';\n\n`);
+
       // Auto-send welcome email on first dashboard load
       try { ZenAuth.sendWelcomeEmailIfNew(); } catch (e) { console.error(e); }
 
@@ -7953,8 +7957,8 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
     // Call this whenever ZS_sub changes. It locks or unlocks everything at once.
     async function applySubscriptionUI() {
       const badge = document.getElementById('proBadgeNav');
-      if (ZS_sub) {
-        // ── USER IS PRO: remove all locks, banners, overlays ──
+      if (ZS_sub || (user && user.is_admin)) {
+        // ── USER IS PRO OR ADMIN: remove all locks, banners, overlays ──
         if (badge) badge.style.display = 'inline';
         document.querySelectorAll('.nav-pro-lock').forEach(el => el.remove());
         document.querySelectorAll('.premium-preview-overlay').forEach(el => {
@@ -8651,7 +8655,8 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
         // Always fetch fresh from DB, bypass cache
         ZenAuth.invalidateSubCache();
         ZS_sub = await ZenAuth.checkSubscription();
-        if (!ZS_sub) {
+        const isAdmin = user && user.is_admin;
+        if (!ZS_sub && !isAdmin) {
           openPaywall();
           return; // DO NOT navigate to the section at all
         }
