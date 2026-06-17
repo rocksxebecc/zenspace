@@ -2681,7 +2681,7 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
         if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
           msg = 'Network error — please check your internet connection and try again.';
         } else if (msg.includes('401') || msg.includes('403') || msg.toLowerCase().includes('api key')) {
-          msg = 'API key error. If you are using a custom key in Settings, please verify it starts with gsk_ and is valid at console.groq.com.';
+          msg = 'API key error. The default shared API key has expired or is invalid. Please enable "Add API Key" in the Settings panel (on the right) and paste a free API key from console.groq.com (starts with gsk_).';
         } else if (msg.includes('429')) {
           msg = 'Rate limit hit. Wait a moment and try again.';
         } else if (msg.includes('503') || msg.includes('overloaded')) {
@@ -2932,8 +2932,7 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
     <div class="msg-av agent">∑</div>
     <div class="msg-body">
       <div class="err-bubble">
-        <strong>Error:</strong> ${escHtml(msg)}<br>
-        <span style="font-size:.75rem;opacity:.8">The page must be served from a web server. If running locally, try: <code>npx serve .</code></span>
+        <strong>Error:</strong> ${escHtml(msg)}
       </div>
     </div>`;
       container.appendChild(row);
