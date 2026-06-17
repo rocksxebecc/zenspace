@@ -1774,8 +1774,11 @@
           <div id="histClearConfirm" style="display:none;text-align:center;">
             <div style="font-size:.72rem;color:var(--ink-muted);margin-bottom:6px;">Delete all history?</div>
             <div style="display:flex;gap:6px;">
-              <button onclick="confirmClearHistory()" style="flex:1;padding:5px 0;font-size:.72rem;font-weight:700;background:var(--error);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:var(--font-sans);">Yes, clear all</button>
-              <button onclick="cancelClearHistory()" style="flex:1;padding:5px 0;font-size:.72rem;font-weight:600;background:var(--surface-2);color:var(--ink-muted);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:var(--font-sans);">Cancel</button>
+              <button onclick="confirmClearHistory()"
+                style="flex:1;padding:5px 0;font-size:.72rem;font-weight:700;background:var(--error);color:#fff;border:none;border-radius:6px;cursor:pointer;font-family:var(--font-sans);">Yes,
+                clear all</button>
+              <button onclick="cancelClearHistory()"
+                style="flex:1;padding:5px 0;font-size:.72rem;font-weight:600;background:var(--surface-2);color:var(--ink-muted);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:var(--font-sans);">Cancel</button>
             </div>
           </div>
           <button id="histClearBtn"
@@ -2175,7 +2178,8 @@
     ];
 
     // ── API KEY MANAGEMENT ────────────────────────────────────────
-    const GROQ_MODEL = 'llama-3.3-70b-versatile';
+    const GROQ_MODEL        = 'llama-3.3-70b-versatile';         // text-only (fast)
+    const GROQ_VISION_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct'; // vision-capable
     const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
     // Default key — users can override in Settings with their own Groq key
     const DEFAULT_GROQ_KEY = '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';
@@ -2688,8 +2692,15 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
             return { role: m.role, content: m.content };
           }),
         ];
+        // Determine which model to use:
+        // If the latest user message contains images, use the vision model.
+        // Older turns with array content are flattened to text so the API won't reject them.
+        const latestUserMsg = STATE.messages[STATE.messages.length - 1];
+        const hasVision = Array.isArray(latestUserMsg?.content);
+        const activeModel = hasVision ? GROQ_VISION_MODEL : GROQ_MODEL;
+
         const temp = parseFloat(document.getElementById('settingTemp').value) / 100;
-        const payload = { model: GROQ_MODEL, messages, max_tokens: 8192, temperature: temp };
+        const payload = { model: activeModel, messages, max_tokens: 8192, temperature: temp };
 
         const useCustom = localStorage.getItem('zs-math-use-custom-key') === 'true';
         const customKey = (localStorage.getItem('zs-math-custom-groq-key') || '').trim();
@@ -3037,10 +3048,10 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
       const now = new Date();
       const diffMs = Date.now() - ts;
       const diffMins = Math.floor(diffMs / 60000);
-      if (diffMins < 1)  return 'Just now';
+      if (diffMins < 1) return 'Just now';
       if (diffMins < 60) return diffMins + 'm ago';
       const diffHrs = Math.floor(diffMins / 60);
-      if (diffHrs < 24)  return diffHrs + 'h ago';
+      if (diffHrs < 24) return diffHrs + 'h ago';
       // Same year → just month + day
       if (d.getFullYear() === now.getFullYear()) {
         return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
