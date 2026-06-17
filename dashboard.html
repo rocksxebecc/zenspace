@@ -3009,12 +3009,20 @@
       margin: 0 auto 16px;
       position: relative;
       z-index: 1;
-      box-shadow: 0 0 0 1px rgba(209,213,219,.3), 0 8px 40px rgba(200,200,220,.15), 0 2px 8px rgba(0,0,0,.4);
+      box-shadow: 0 0 0 1px rgba(209, 213, 219, .3), 0 8px 40px rgba(200, 200, 220, .15), 0 2px 8px rgba(0, 0, 0, .4);
       animation: crownPulse 3s ease-in-out infinite;
     }
+
     @keyframes crownPulse {
-      0%, 100% { box-shadow: 0 0 0 1px rgba(209,213,219,.3), 0 8px 40px rgba(200,200,220,.15), 0 2px 8px rgba(0,0,0,.4); }
-      50% { box-shadow: 0 0 0 2px rgba(229,231,235,.5), 0 12px 50px rgba(210,210,230,.3), 0 2px 8px rgba(0,0,0,.4); }
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 1px rgba(209, 213, 219, .3), 0 8px 40px rgba(200, 200, 220, .15), 0 2px 8px rgba(0, 0, 0, .4);
+      }
+
+      50% {
+        box-shadow: 0 0 0 2px rgba(229, 231, 235, .5), 0 12px 50px rgba(210, 210, 230, .3), 0 2px 8px rgba(0, 0, 0, .4);
+      }
     }
 
     .paywall-header h2 {
@@ -3070,7 +3078,7 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(245,158,11,.35);
+      box-shadow: 0 2px 8px rgba(245, 158, 11, .35);
     }
 
     .paywall-price {
@@ -3110,20 +3118,29 @@
       letter-spacing: .04em;
       transition: all .25s;
       margin-bottom: 10px;
-      box-shadow: 0 4px 24px rgba(245,158,11,.4), inset 0 1px 0 rgba(255,255,255,.3);
+      box-shadow: 0 4px 24px rgba(245, 158, 11, .4), inset 0 1px 0 rgba(255, 255, 255, .3);
       animation: btnShimmer 3s linear infinite;
     }
+
     @keyframes btnShimmer {
-      0%   { background-position: 200% center; }
-      100% { background-position: -200% center; }
+      0% {
+        background-position: 200% center;
+      }
+
+      100% {
+        background-position: -200% center;
+      }
     }
+
     .paywall-upgrade-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 36px rgba(245,158,11,.55), inset 0 1px 0 rgba(255,255,255,.3);
+      box-shadow: 0 8px 36px rgba(245, 158, 11, .55), inset 0 1px 0 rgba(255, 255, 255, .3);
     }
+
     .paywall-upgrade-btn:active {
       transform: scale(.98);
     }
+
     .paywall-upgrade-btn:disabled {
       opacity: .6;
       cursor: not-allowed;
@@ -3154,6 +3171,7 @@
       border-top: 1px solid var(--border);
       padding-top: 12px;
     }
+
     .pw-code-toggle {
       background: none;
       border: none;
@@ -3167,14 +3185,22 @@
       transition: color 0.2s;
       letter-spacing: 0.2px;
     }
-    .pw-code-toggle:hover { color: var(--ink-muted); }
+
+    .pw-code-toggle:hover {
+      color: var(--ink-muted);
+    }
+
     .pw-code-input-row {
       display: none;
       gap: 8px;
       margin-top: 10px;
       align-items: stretch;
     }
-    .pw-code-input-row.show { display: flex; }
+
+    .pw-code-input-row.show {
+      display: flex;
+    }
+
     .pw-code-input {
       flex: 1;
       height: 38px;
@@ -3190,7 +3216,11 @@
       text-transform: uppercase;
       transition: border-color 0.2s;
     }
-    .pw-code-input:focus { border-color: var(--ink); }
+
+    .pw-code-input:focus {
+      border-color: var(--ink);
+    }
+
     .pw-code-btn {
       height: 38px;
       padding: 0 16px;
@@ -3205,17 +3235,28 @@
       white-space: nowrap;
       transition: opacity 0.2s;
     }
-    .pw-code-btn:hover { opacity: 0.8; }
-    .pw-code-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .pw-code-btn:hover {
+      opacity: 0.8;
+    }
+
+    .pw-code-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
 
     /* ─── Admin Panel Modal ─── */
-    #adminPanelModal .modal-box { max-width: 600px; }
+    #adminPanelModal .modal-box {
+      max-width: 780px;
+    }
+
     .admin-tabs {
       display: flex;
       gap: 16px;
       border-bottom: 1.5px solid var(--border);
       margin-bottom: 16px;
     }
+
     .admin-tab {
       background: none;
       border: none;
@@ -3227,13 +3268,16 @@
       cursor: pointer;
       transition: all 0.2s;
     }
+
     .admin-tab:hover {
       color: var(--ink);
     }
+
     .admin-tab.active {
       color: var(--ink);
       border-bottom-color: var(--ink);
     }
+
     .admin-create-grid {
       display: grid;
       grid-template-columns: 1fr 80px 90px;
@@ -3241,6 +3285,7 @@
       margin-bottom: 10px;
       align-items: end;
     }
+
     .admin-field label {
       display: block;
       font-size: 0.68rem;
@@ -3250,6 +3295,7 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+
     .admin-field input {
       width: 100%;
       height: 36px;
@@ -3263,7 +3309,11 @@
       outline: none;
       transition: border-color 0.2s;
     }
-    .admin-field input:focus { border-color: var(--ink); }
+
+    .admin-field input:focus {
+      border-color: var(--ink);
+    }
+
     .admin-code-row {
       display: flex;
       align-items: center;
@@ -3275,6 +3325,7 @@
       background: var(--bg);
       gap: 10px;
     }
+
     .admin-code-tag {
       font-family: monospace;
       font-size: 0.88rem;
@@ -3282,10 +3333,66 @@
       letter-spacing: 1.5px;
       color: var(--ink);
     }
+
     .admin-code-meta {
       font-size: 0.7rem;
       color: var(--ink-faint);
       margin-top: 2px;
+    }
+
+    /* ── Analytics Stat Cards ── */
+    .analytics-stat-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+
+    .analytics-stat-card:hover {
+      border-color: var(--ink-faint);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .asc-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--ink-faint);
+    }
+
+    .asc-value {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+    }
+
+    .asc-sub {
+      font-size: 0.65rem;
+      color: var(--ink-faint);
+      margin-top: 1px;
+    }
+
+    /* ── Analytics Fullscreen ── */
+    .analytics-fullscreen {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 99999 !important;
+      background: var(--bg) !important;
+      padding: 20px 28px !important;
+      overflow-y: auto !important;
+      border-radius: 0 !important;
+      max-height: none !important;
+    }
+
+    .analytics-fullscreen #analyticsStatCards {
+      grid-template-columns: repeat(4, 1fr);
     }
 
     .nav-pro-lock {
@@ -3295,10 +3402,12 @@
       vertical-align: middle;
       flex-shrink: 0;
     }
+
     .nav-pro-lock svg {
       filter: drop-shadow(0 0 3px rgba(209, 213, 219, 0.7));
       transition: filter 0.2s ease;
     }
+
     .nav-pro-lock:hover svg {
       filter: drop-shadow(0 0 5px rgba(229, 231, 235, 0.95));
     }
@@ -3315,7 +3424,7 @@
       margin-left: 5px;
       vertical-align: middle;
       display: none;
-      box-shadow: 0 1px 6px rgba(245,158,11,.4);
+      box-shadow: 0 1px 6px rgba(245, 158, 11, .4);
       animation: btnShimmer 4s linear infinite;
     }
 
@@ -3468,9 +3577,11 @@
             <circle cx="12" cy="8" r="4" />
             <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
           </svg>Profile &amp; Friends</a>
-        <button class="pd-item" id="adminPanelLink" style="display:none" onclick="openAdminPanel()"><svg viewBox="0 0 24 24">
+        <button class="pd-item" id="adminPanelLink" style="display:none" onclick="openAdminPanel()"><svg
+            viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="3" />
-            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            <path
+              d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
           </svg>Admin Panel</button>
         <button class="pd-item" onclick="ZenAuth.signOutUser()"><svg viewBox="0 0 24 24">
             <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
@@ -4047,9 +4158,13 @@
           <div class="notes-sidebar">
             <div class="notes-sidebar-hdr"><span>Notes · <span id="notesCnt">0</span></span>
               <div style="display:flex;align-items:center;gap:4px">
-                <button class="nt-btn" onclick="openNotesSettings()" title="Notes Settings" style="height:22px;padding:0 7px">
-                  <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+                <button class="nt-btn" onclick="openNotesSettings()" title="Notes Settings"
+                  style="height:22px;padding:0 7px">
+                  <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path
+                      d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
                   </svg>
                 </button>
                 <button class="nt-btn" onclick="newNote()" style="height:22px;padding:0 7px">+</button>
@@ -7442,11 +7557,15 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
                   <div class="srv-rchat-msgs" id="srvRchatMsgs"></div>
                   <div class="srv-rchat-input-wrap">
                     <div class="srv-rchat-row">
-                      <label class="srv-rchat-attach" title="Send file" style="cursor:pointer;display:grid;place-items:center;width:24px;height:24px;border-radius:6px;color:var(--ink-muted);transition:background var(--t);flex-shrink:0;">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px">
-                          <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+                      <label class="srv-rchat-attach" title="Send file"
+                        style="cursor:pointer;display:grid;place-items:center;width:24px;height:24px;border-radius:6px;color:var(--ink-muted);transition:background var(--t);flex-shrink:0;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px">
+                          <path
+                            d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48" />
                         </svg>
-                        <input type="file" id="srvChatFileInp" accept="*/*" style="display:none" onchange="srvSendFile(event)" />
+                        <input type="file" id="srvChatFileInp" accept="*/*" style="display:none"
+                          onchange="srvSendFile(event)" />
                       </label>
                       <input class="srv-rchat-inp" id="srvRchatInp" placeholder="Message the room…" maxlength="1000"
                         onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();srvSendMsg()}" />
@@ -7579,7 +7698,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
   <div class="modal-overlay" id="adminPanelModal">
     <div class="modal-box">
       <h3 style="margin-bottom:12px;">Admin Panel</h3>
-      
+
       <div class="admin-tabs">
         <button class="admin-tab active" id="adminTabCodes" onclick="switchAdminTab('codes')">Access Codes</button>
         <button class="admin-tab" id="adminTabSubs" onclick="switchAdminTab('subs')">Subscriptions</button>
@@ -7589,11 +7708,13 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
 
       <!-- Tab: Access Codes -->
       <div id="adminTabContentCodes">
-        <p style="font-size:0.82rem;color:var(--ink-muted);margin-bottom:18px;margin-top:-10px">Create codes to grant Pro access without payment, or discount codes that reduce the subscription price.</p>
+        <p style="font-size:0.82rem;color:var(--ink-muted);margin-bottom:18px;margin-top:-10px">Create codes to grant
+          Pro access without payment, or discount codes that reduce the subscription price.</p>
         <div class="admin-create-grid">
           <div class="admin-field">
             <label>Code</label>
-            <input type="text" id="adminCodeText" placeholder="e.g. ZENSPACE2024" style="text-transform:uppercase;letter-spacing:1px;font-family:monospace" />
+            <input type="text" id="adminCodeText" placeholder="e.g. ZENSPACE2024"
+              style="text-transform:uppercase;letter-spacing:1px;font-family:monospace" />
           </div>
           <div class="admin-field">
             <label>Max Uses</label>
@@ -7605,14 +7726,17 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
           </div>
           <div class="admin-field">
             <label>Discount %</label>
-            <input type="number" id="adminCodeDiscount" value="0" min="0" max="100" title="0 = free access code; 1–99 = discount on ₹99; 100 = full discount (free)" style="width:100%;" />
+            <input type="number" id="adminCodeDiscount" value="0" min="0" max="100"
+              title="0 = free access code; 1–99 = discount on ₹99; 100 = full discount (free)" style="width:100%;" />
           </div>
         </div>
         <p style="font-size:0.75rem;color:var(--ink-faint);margin:-8px 0 12px;">
-          💡 <strong>0%</strong> = full free access code &nbsp;|&nbsp; <strong>1–99%</strong> = discount applied at checkout &nbsp;|&nbsp; <strong>100%</strong> = free (no payment needed)
+          💡 <strong>0%</strong> = full free access code &nbsp;|&nbsp; <strong>1–99%</strong> = discount applied at
+          checkout &nbsp;|&nbsp; <strong>100%</strong> = free (no payment needed)
         </p>
         <div style="display:flex;gap:8px;margin-bottom:20px;align-items:center;">
-          <input type="text" id="adminCodeNotes" placeholder="Notes (optional, e.g. 'Beta tester')" style="flex:1;height:36px;border:1.5px solid var(--border);border-radius:var(--r-md);padding:0 10px;font-family:var(--font-sans);font-size:0.82rem;background:var(--bg);color:var(--ink);outline:none;" />
+          <input type="text" id="adminCodeNotes" placeholder="Notes (optional, e.g. 'Beta tester')"
+            style="flex:1;height:36px;border:1.5px solid var(--border);border-radius:var(--r-md);padding:0 10px;font-family:var(--font-sans);font-size:0.82rem;background:var(--bg);color:var(--ink);outline:none;" />
           <button class="btn btn-ghost btn-sm" onclick="generateRandomCode()">Random</button>
           <button class="btn btn-primary btn-sm" onclick="createPromoCode()">Create Code</button>
         </div>
@@ -7621,21 +7745,32 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
 
       <!-- Tab: Subscriptions -->
       <div id="adminTabContentSubs" style="display:none;">
-        <p style="font-size:0.82rem;color:var(--ink-muted);margin-bottom:18px;margin-top:-10px">Manage Pro subscriptions. Cancel active access or restore cancelled accounts.</p>
-        
-        <div style="font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-faint);margin-bottom:10px;">Active Subscriptions</div>
-        <div id="adminSubsListActive" style="max-height:200px;overflow-y:auto;margin-bottom:20px;border-bottom:1px dashed var(--border);padding-bottom:16px;"></div>
-        
-        <div style="font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-faint);margin-bottom:10px;">Cancelled / Inactive Subscriptions</div>
+        <p style="font-size:0.82rem;color:var(--ink-muted);margin-bottom:18px;margin-top:-10px">Manage Pro
+          subscriptions. Cancel active access or restore cancelled accounts.</p>
+
+        <div
+          style="font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-faint);margin-bottom:10px;">
+          Active Subscriptions</div>
+        <div id="adminSubsListActive"
+          style="max-height:200px;overflow-y:auto;margin-bottom:20px;border-bottom:1px dashed var(--border);padding-bottom:16px;">
+        </div>
+
+        <div
+          style="font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-faint);margin-bottom:10px;">
+          Cancelled / Inactive Subscriptions</div>
         <div id="adminSubsListInactive" style="max-height:200px;overflow-y:auto;"></div>
       </div>
 
       <!-- Tab: Users -->
       <div id="adminTabContentUsers" style="display:none;">
-        <p style="font-size:0.82rem;color:var(--ink-muted);margin-bottom:10px;margin-top:-10px">Search users to ban, cancel their subscription, or remove them.</p>
+        <p style="font-size:0.82rem;color:var(--ink-muted);margin-bottom:10px;margin-top:-10px">Search users to ban,
+          cancel their subscription, or remove them.</p>
         <div style="position:relative;margin-bottom:14px;">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--ink-faint)" stroke-width="2" stroke-linecap="round" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;">
-            <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="var(--ink-faint)" stroke-width="2"
+            stroke-linecap="round"
+            style="position:absolute;left:10px;top:50%;transform:translateY(-50%);pointer-events:none;">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
           </svg>
           <input type="text" id="adminUserSearch" placeholder="Search by @username or display name…"
             oninput="filterAdminUsers()"
@@ -7647,31 +7782,93 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
 
       <!-- Tab: Analytics -->
       <div id="adminTabContentAnalytics" style="display:none;">
-        <p style="font-size:0.82rem;color:var(--ink-muted);margin-bottom:14px;margin-top:-10px">Real-time activity data — who's online, how long, and when.</p>
+        <!-- Header row with range + fullscreen -->
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-sm" id="analyticsRange7" onclick="setAnalyticsRange(7)"
+              style="font-size:0.7rem;height:26px;padding:0 10px;">7d</button>
+            <button class="btn btn-primary btn-sm" id="analyticsRange14" onclick="setAnalyticsRange(14)"
+              style="font-size:0.7rem;height:26px;padding:0 10px;">14d</button>
+            <button class="btn btn-sm" id="analyticsRange30" onclick="setAnalyticsRange(30)"
+              style="font-size:0.7rem;height:26px;padding:0 10px;">30d</button>
+          </div>
+          <button onclick="loadAdminAnalytics()"
+            style="height:26px;padding:0 10px;font-size:0.7rem;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--ink-muted);cursor:pointer;display:flex;align-items:center;gap:4px;"
+            title="Refresh">
+            <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round">
+              <polyline points="23 4 23 10 17 10" />
+              <polyline points="1 20 1 14 7 14" />
+              <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+            </svg>
+            Refresh
+          </button>
+          <div id="analyticsLastUpdated" style="font-size:0.7rem;color:var(--ink-faint);"></div>
+          <button id="analyticsFullscreenBtn" onclick="toggleAnalyticsFullscreen()"
+            style="margin-left:auto;height:26px;padding:0 10px;font-size:0.7rem;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--ink-muted);cursor:pointer;display:flex;align-items:center;gap:4px;"
+            title="Full Screen">
+            <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5"
+              stroke-linecap="round">
+              <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3" />
+            </svg>
+            Full Screen
+          </button>
+        </div>
 
-        <!-- Range Selector -->
-        <div style="display:flex;gap:6px;margin-bottom:16px;">
-          <button class="btn btn-sm" id="analyticsRange7" onclick="setAnalyticsRange(7)" style="font-size:0.7rem;height:26px;padding:0 10px;">7 days</button>
-          <button class="btn btn-primary btn-sm" id="analyticsRange14" onclick="setAnalyticsRange(14)" style="font-size:0.7rem;height:26px;padding:0 10px;">14 days</button>
-          <button class="btn btn-sm" id="analyticsRange30" onclick="setAnalyticsRange(30)" style="font-size:0.7rem;height:26px;padding:0 10px;">30 days</button>
-          <div style="margin-left:auto;font-size:0.72rem;color:var(--ink-faint);align-self:center;" id="analyticsLastUpdated"></div>
+        <!-- KPI Stat Cards -->
+        <div id="analyticsStatCards"
+          style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;">
+          <div class="analytics-stat-card" id="statCardDAU">
+            <div class="asc-label">Today's DAU</div>
+            <div class="asc-value" id="statDAU">—</div>
+            <div class="asc-sub" id="statDAUSub"></div>
+          </div>
+          <div class="analytics-stat-card" id="statCardSessions">
+            <div class="asc-label">Sessions</div>
+            <div class="asc-value" id="statSessions">—</div>
+            <div class="asc-sub" id="statSessionsSub"></div>
+          </div>
+          <div class="analytics-stat-card" id="statCardAvgTime">
+            <div class="asc-label">Avg. Session</div>
+            <div class="asc-value" id="statAvgTime">—</div>
+            <div class="asc-sub" id="statAvgTimeSub"></div>
+          </div>
+          <div class="analytics-stat-card" id="statCardOnline">
+            <div class="asc-label">Online Now</div>
+            <div class="asc-value" id="statOnline" style="color:#22c55e;">—</div>
+            <div class="asc-sub" id="statOnlineSub"></div>
+          </div>
         </div>
 
         <!-- DAU Chart -->
-        <div style="font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-faint);margin-bottom:8px;">Daily Active Users</div>
-        <div style="position:relative;height:140px;margin-bottom:20px;">
-          <canvas id="dauChart"></canvas>
+        <div
+          style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;">
+          <div
+            style="font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-faint);margin-bottom:10px;">
+            📈 Daily Active Users</div>
+          <div style="position:relative;height:180px;">
+            <canvas id="dauChart"></canvas>
+          </div>
         </div>
 
         <!-- Time Spent Chart -->
-        <div style="font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-faint);margin-bottom:8px;">Top Users — Time Spent (Minutes, All Time)</div>
-        <div style="position:relative;height:140px;margin-bottom:20px;">
-          <canvas id="timeSpentChart"></canvas>
+        <div
+          style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:12px;">
+          <div
+            style="font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-faint);margin-bottom:10px;">
+            ⏱ Top Users — Time Spent (Minutes)</div>
+          <div style="position:relative;height:180px;">
+            <canvas id="timeSpentChart"></canvas>
+          </div>
         </div>
 
         <!-- User Activity Table -->
-        <div style="font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink-faint);margin-bottom:8px;">User Activity</div>
-        <div id="analyticsUserTable" style="max-height:200px;overflow-y:auto;"></div>
+        <div style="background:var(--surface-2);border:1px solid var(--border);border-radius:10px;overflow:hidden;">
+          <div
+            style="padding:12px 14px;border-bottom:1px solid var(--border);font-weight:700;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-faint);">
+            👥 User Activity</div>
+          <div id="analyticsUserTable" style="max-height:260px;overflow-y:auto;"></div>
+        </div>
       </div>
 
       <div class="modal-footer">
@@ -7684,11 +7881,16 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
   <div class="modal-overlay" id="notesSettingsModal" aria-hidden="true">
     <div class="modal-box" style="max-width:400px;padding:0;overflow:hidden">
       <!-- Header -->
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border)">
+      <div
+        style="display:flex;align-items:center;justify-content:space-between;padding:18px 20px 14px;border-bottom:1px solid var(--border)">
         <div style="display:flex;align-items:center;gap:10px">
-          <div style="width:32px;height:32px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center">
-            <svg viewBox="0 0 24 24" width="15" height="15" stroke="var(--ink-muted)" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+          <div
+            style="width:32px;height:32px;border-radius:8px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center">
+            <svg viewBox="0 0 24 24" width="15" height="15" stroke="var(--ink-muted)" fill="none" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
             </svg>
           </div>
           <div>
@@ -7696,7 +7898,8 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
             <div style="font-size:.68rem;color:var(--ink-faint)">Preferences &amp; security</div>
           </div>
         </div>
-        <button onclick="closeModal('notesSettingsModal')" class="nt-btn" style="color:var(--ink-muted);font-size:1.1rem;width:28px;height:28px;padding:0">✕</button>
+        <button onclick="closeModal('notesSettingsModal')" class="nt-btn"
+          style="color:var(--ink-muted);font-size:1.1rem;width:28px;height:28px;padding:0">✕</button>
       </div>
 
       <!-- Body -->
@@ -7704,13 +7907,17 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
 
         <!-- ── SECTION: Display ── -->
         <div style="padding:14px 20px 10px;border-bottom:1px solid var(--border-light)">
-          <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px">Display</div>
+          <div
+            style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px">
+            Display</div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
             <div>
               <div style="font-size:.82rem;font-weight:600;color:var(--ink)">Sort by</div>
               <div style="font-size:.7rem;color:var(--ink-faint)">Order notes in the list</div>
             </div>
-            <select id="notesSortPref" class="btn btn-ghost btn-sm" style="font-size:.75rem;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink);cursor:pointer" onchange="applyNotesSort()">
+            <select id="notesSortPref" class="btn btn-ghost btn-sm"
+              style="font-size:.75rem;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink);cursor:pointer"
+              onchange="applyNotesSort()">
               <option value="updated">Last modified</option>
               <option value="created">Date created</option>
               <option value="alpha">Alphabetical</option>
@@ -7721,7 +7928,8 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
               <div style="font-size:.82rem;font-weight:600;color:var(--ink)">Preview length</div>
               <div style="font-size:.7rem;color:var(--ink-faint)">Characters shown in note list</div>
             </div>
-            <select id="notesPreviewLen" class="btn btn-ghost btn-sm" style="font-size:.75rem;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink);cursor:pointer">
+            <select id="notesPreviewLen" class="btn btn-ghost btn-sm"
+              style="font-size:.75rem;padding:4px 8px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface-2);color:var(--ink);cursor:pointer">
               <option value="40">Short (40)</option>
               <option value="70" selected>Medium (70)</option>
               <option value="120">Long (120)</option>
@@ -7731,7 +7939,9 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
 
         <!-- ── SECTION: Private Folder Security ── -->
         <div style="padding:14px 20px 10px;border-bottom:1px solid var(--border-light)">
-          <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px">Private Folder Security</div>
+          <div
+            style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px">
+            Private Folder Security</div>
 
           <!-- Change Password row -->
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
@@ -7739,7 +7949,8 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
               <div style="font-size:.82rem;font-weight:600;color:var(--ink)">Change Password</div>
               <div style="font-size:.7rem;color:var(--ink-faint)">Update your private folder password</div>
             </div>
-            <button onclick="openChangePwdFromSettings()" class="btn btn-ghost btn-sm" style="font-size:.75rem;padding:5px 12px;white-space:nowrap">
+            <button onclick="openChangePwdFromSettings()" class="btn btn-ghost btn-sm"
+              style="font-size:.75rem;padding:5px 12px;white-space:nowrap">
               🔑 Change
             </button>
           </div>
@@ -7751,7 +7962,8 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
               <div style="font-size:.7rem;color:var(--ink-faint)">Lock private folder when switching sections</div>
             </div>
             <label style="display:flex;align-items:center;cursor:pointer">
-              <input type="checkbox" id="notesAutoLock" style="accent-color:var(--ink);width:15px;height:15px;cursor:pointer" checked />
+              <input type="checkbox" id="notesAutoLock"
+                style="accent-color:var(--ink);width:15px;height:15px;cursor:pointer" checked />
             </label>
           </div>
 
@@ -7759,34 +7971,46 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
           <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;margin-bottom:4px">
             <div>
               <div style="font-size:.82rem;font-weight:600;color:var(--ink)">Hide Private Folder</div>
-              <div style="font-size:.7rem;color:var(--ink-faint)">Conceal folder tab from view; type secret code in notes to reveal</div>
+              <div style="font-size:.7rem;color:var(--ink-faint)">Conceal folder tab from view; type secret code in
+                notes to reveal</div>
             </div>
             <label style="display:flex;align-items:center;cursor:pointer">
-              <input type="checkbox" id="notesHidePrivate" style="accent-color:var(--ink);width:15px;height:15px;cursor:pointer" onchange="toggleHidePrivateFolder(this.checked)" />
+              <input type="checkbox" id="notesHidePrivate"
+                style="accent-color:var(--ink);width:15px;height:15px;cursor:pointer"
+                onchange="toggleHidePrivateFolder(this.checked)" />
             </label>
           </div>
 
           <!-- Secret code setup (shown only when hide is enabled) -->
-          <div id="secretCodeSetupWrap" style="display:none;margin-top:10px;padding:10px;background:var(--surface-2);border-radius:var(--r-sm);border:1px solid var(--border)">
-            <div style="font-size:.72rem;color:var(--ink-muted);margin-bottom:8px">Set a secret code to reveal the hidden folder. Type it anywhere in a note body.</div>
+          <div id="secretCodeSetupWrap"
+            style="display:none;margin-top:10px;padding:10px;background:var(--surface-2);border-radius:var(--r-sm);border:1px solid var(--border)">
+            <div style="font-size:.72rem;color:var(--ink-muted);margin-bottom:8px">Set a secret code to reveal the
+              hidden folder. Type it anywhere in a note body.</div>
             <div style="display:flex;gap:8px;align-items:center">
               <input type="text" id="secretCodeInput" placeholder="e.g. opensesame" maxlength="32"
                 style="flex:1;padding:7px 10px;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--bg);color:var(--ink);font-size:.82rem;outline:none;font-family:var(--font-sans)"
                 onkeydown="if(event.key==='Enter')saveSecretCode()" />
-              <button onclick="saveSecretCode()" class="btn btn-primary btn-sm" style="font-size:.75rem;white-space:nowrap">Save Code</button>
+              <button onclick="saveSecretCode()" class="btn btn-primary btn-sm"
+                style="font-size:.75rem;white-space:nowrap">Save Code</button>
             </div>
-            <div id="secretCodeHint" style="font-size:.68rem;color:var(--ok);margin-top:5px;display:none">✓ Code saved</div>
+            <div id="secretCodeHint" style="font-size:.68rem;color:var(--ok);margin-top:5px;display:none">✓ Code saved
+            </div>
           </div>
         </div>
 
         <!-- ── SECTION: Data ── -->
         <div style="padding:14px 20px 14px">
-          <div style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px">Data</div>
+          <div
+            style="font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px">
+            Data</div>
           <div style="display:flex;gap:8px">
-            <button onclick="exportAllZip(); closeModal('notesSettingsModal')" class="btn btn-ghost btn-sm" style="flex:1;font-size:.75rem">
+            <button onclick="exportAllZip(); closeModal('notesSettingsModal')" class="btn btn-ghost btn-sm"
+              style="flex:1;font-size:.75rem">
               ↓ Export All (.zip)
             </button>
-            <button onclick="if(confirm('Delete ALL notes? This cannot be undone.')) deleteAllNotes()" class="btn btn-ghost btn-sm" style="flex:1;font-size:.75rem;color:var(--error);border-color:var(--error-lt)">
+            <button onclick="if(confirm('Delete ALL notes? This cannot be undone.')) deleteAllNotes()"
+              class="btn btn-ghost btn-sm"
+              style="flex:1;font-size:.75rem;color:var(--error);border-color:var(--error-lt)">
               🗑 Delete All
             </button>
           </div>
@@ -7800,15 +8024,20 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
   <div class="modal-overlay" id="changePrivatePwdModal" aria-hidden="true">
     <div class="modal-box" style="max-width:360px">
       <div style="font-weight:700;font-size:1rem;margin-bottom:4px">🔑 Change Folder Password</div>
-      <div style="font-size:0.75rem;color:var(--ink-muted);margin-bottom:16px">Enter your current password, then set a new one.</div>
+      <div style="font-size:0.75rem;color:var(--ink-muted);margin-bottom:16px">Enter your current password, then set a
+        new one.</div>
       <div style="display:flex;flex-direction:column;gap:10px">
-        <input type="password" id="changePwdCurrent" class="private-pwd-input" placeholder="Current Password" style="width:100%;box-sizing:border-box" />
-        <input type="password" id="changePwdNew" class="private-pwd-input" placeholder="New Password" style="width:100%;box-sizing:border-box" />
-        <input type="password" id="changePwdConfirm" class="private-pwd-input" placeholder="Confirm New Password" style="width:100%;box-sizing:border-box"
-          onkeydown="if(event.key==='Enter')submitChangePrivatePassword()" />
+        <input type="password" id="changePwdCurrent" class="private-pwd-input" placeholder="Current Password"
+          style="width:100%;box-sizing:border-box" />
+        <input type="password" id="changePwdNew" class="private-pwd-input" placeholder="New Password"
+          style="width:100%;box-sizing:border-box" />
+        <input type="password" id="changePwdConfirm" class="private-pwd-input" placeholder="Confirm New Password"
+          style="width:100%;box-sizing:border-box" onkeydown="if(event.key==='Enter')submitChangePrivatePassword()" />
         <div style="display:flex;gap:8px;margin-top:4px">
-          <button onclick="closeModal('changePrivatePwdModal')" class="btn btn-ghost btn-sm" style="flex:1">Cancel</button>
-          <button onclick="submitChangePrivatePassword()" class="btn btn-primary btn-sm" style="flex:1">Update Password</button>
+          <button onclick="closeModal('changePrivatePwdModal')" class="btn btn-ghost btn-sm"
+            style="flex:1">Cancel</button>
+          <button onclick="submitChangePrivatePassword()" class="btn btn-primary btn-sm" style="flex:1">Update
+            Password</button>
         </div>
       </div>
     </div>
@@ -7822,24 +8051,24 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
           <svg viewBox="0 0 40 40" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="diamondTop" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#F9FAFB"/>
-                <stop offset="50%" stop-color="#D1D5DB"/>
-                <stop offset="100%" stop-color="#9CA3AF"/>
+                <stop offset="0%" stop-color="#F9FAFB" />
+                <stop offset="50%" stop-color="#D1D5DB" />
+                <stop offset="100%" stop-color="#9CA3AF" />
               </linearGradient>
               <linearGradient id="diamondMid" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#E5E7EB"/>
-                <stop offset="100%" stop-color="#374151"/>
+                <stop offset="0%" stop-color="#E5E7EB" />
+                <stop offset="100%" stop-color="#374151" />
               </linearGradient>
             </defs>
             <!-- top facets -->
-            <polygon points="20,4 30,16 20,13" fill="url(#diamondTop)" opacity="0.98"/>
-            <polygon points="20,4 10,16 20,13" fill="#F9FAFB" opacity="0.85"/>
+            <polygon points="20,4 30,16 20,13" fill="url(#diamondTop)" opacity="0.98" />
+            <polygon points="20,4 10,16 20,13" fill="#F9FAFB" opacity="0.85" />
             <!-- middle band -->
-            <polygon points="10,16 20,13 30,16 20,36" fill="url(#diamondMid)"/>
-            <polygon points="10,16 20,36 5,22" fill="#374151" opacity="0.55"/>
-            <polygon points="30,16 20,36 35,22" fill="#9CA3AF" opacity="0.65"/>
+            <polygon points="10,16 20,13 30,16 20,36" fill="url(#diamondMid)" />
+            <polygon points="10,16 20,36 5,22" fill="#374151" opacity="0.55" />
+            <polygon points="30,16 20,36 35,22" fill="#9CA3AF" opacity="0.65" />
             <!-- shine -->
-            <polygon points="20,4 10,16 14,14" fill="#fff" opacity="0.5"/>
+            <polygon points="20,4 10,16 14,14" fill="#fff" opacity="0.5" />
           </svg>
         </div>
         <h2>Zenspace Pro</h2>
@@ -7856,7 +8085,9 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
         <div class="paywall-price">
           <div class="pw-amt" id="pwPrice">₹99</div>
           <div class="pw-period" id="pwPeriod">per year &middot; billed once &middot; cancel anytime</div>
-          <div id="pwDiscountBadge" style="display:none;margin-top:6px;font-size:0.78rem;font-weight:600;color:#16a34a;background:#dcfce7;border-radius:99px;padding:3px 12px;display:inline-block;"></div>
+          <div id="pwDiscountBadge"
+            style="display:none;margin-top:6px;font-size:0.78rem;font-weight:600;color:#16a34a;background:#dcfce7;border-radius:99px;padding:3px 12px;display:inline-block;">
+          </div>
         </div>
         <button class="paywall-upgrade-btn" id="paywallUpgradeBtn" onclick="initiateProPayment()">
           ⚡ Upgrade to Pro
@@ -7865,8 +8096,8 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
         <div class="pw-code-section">
           <button class="pw-code-toggle" onclick="toggleCodeInput()">Have a promo or access code?</button>
           <div class="pw-code-input-row" id="pwCodeInputRow">
-            <input type="text" class="pw-code-input" id="pwCodeInput" placeholder="ENTER-YOUR-CODE"
-              maxlength="40" onkeydown="if(event.key==='Enter') applyPromoCode()" />
+            <input type="text" class="pw-code-input" id="pwCodeInput" placeholder="ENTER-YOUR-CODE" maxlength="40"
+              onkeydown="if(event.key==='Enter') applyPromoCode()" />
             <button class="pw-code-btn" id="pwCodeBtn" onclick="applyPromoCode()">Apply</button>
           </div>
           <div id="pwCodeFeedback" style="font-size:0.78rem;margin-top:6px;min-height:18px;text-align:center;"></div>
@@ -7885,9 +8116,9 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       await ZenAuth.initSupabase();
       user = await ZenAuth.getUserProfile();
       if (!user) { window.location.href = 'login.html'; return; }
-      
+
       // Auto-send welcome email on first dashboard load
-      try { ZenAuth.sendWelcomeEmailIfNew(); } catch(e) { console.error(e); }
+      try { ZenAuth.sendWelcomeEmailIfNew(); } catch (e) { console.error(e); }
 
       if (user.is_banned) {
         alert('Your account has been banned by the administrator.');
@@ -7964,7 +8195,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
             try {
               navigator.sendBeacon && navigator.sendBeacon('/api/noop'); // keep connection alive trick
               await _sc.from('user_sessions').update({ ended_at: new Date().toISOString() }).eq('id', _sessionId);
-            } catch (_) {}
+            } catch (_) { }
           };
           document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') _endSession(); });
           window.addEventListener('beforeunload', _endSession);
@@ -8016,7 +8247,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
         ZenAuth.invalidateSubCache();
         const freshSub = await ZenAuth.checkSubscription();
         const wasPro = !!ZS_sub;
-        const isPro  = !!freshSub;
+        const isPro = !!freshSub;
         ZS_sub = freshSub;
 
         if (wasPro && !isPro) {
@@ -8115,10 +8346,10 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
     let _appliedPromoCode = null;
 
     async function applyPromoCode() {
-      const input    = document.getElementById('pwCodeInput');
-      const btn      = document.getElementById('pwCodeBtn');
+      const input = document.getElementById('pwCodeInput');
+      const btn = document.getElementById('pwCodeBtn');
       const feedback = document.getElementById('pwCodeFeedback');
-      const code     = (input.value || '').trim().toUpperCase();
+      const code = (input.value || '').trim().toUpperCase();
       if (!code) { feedback.style.color = 'var(--error)'; feedback.textContent = 'Please enter a code.'; return; }
 
       const origText = btn.textContent;
@@ -8205,7 +8436,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
     }
 
     function switchAdminTab(tab) {
-      const tabs = ['Codes','Subs','Users','Analytics'];
+      const tabs = ['Codes', 'Subs', 'Users', 'Analytics'];
       tabs.forEach(t => {
         const btn = document.getElementById('adminTab' + t);
         const content = document.getElementById('adminTabContent' + t);
@@ -8228,12 +8459,12 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       const elActive = document.getElementById('adminSubsListActive');
       const elInactive = document.getElementById('adminSubsListInactive');
       if (!elActive || !elInactive) return;
-      
+
       elActive.innerHTML = '<div style="color:var(--ink-faint);font-size:0.82rem;text-align:center;padding:16px">Loading...</div>';
       elInactive.innerHTML = '<div style="color:var(--ink-faint);font-size:0.82rem;text-align:center;padding:16px">Loading...</div>';
 
       const client = ZenAuth.getSupabaseClient();
-      
+
       // Fetch all subscriptions (active and cancelled)
       const { data: subs, error: subError } = await client
         .from('subscriptions')
@@ -8375,7 +8606,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
     }
 
     let _allAdminUsers = [];    // cached full list for client-side search
-    let _allSubMap    = {};     // user_id → subscription row
+    let _allSubMap = {};     // user_id → subscription row
 
     async function loadAdminUsers() {
       const el = document.getElementById('adminUsersList');
@@ -8424,11 +8655,11 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       }
 
       el.innerHTML = profiles.map(p => {
-        const isBanned  = p.is_banned === true;
-        const isSelf    = user && user.id === p.id;
-        const sub       = _allSubMap[p.id];
-        const isPro     = sub && sub.status === 'active';
-        const nameText  = p.display_name ? `${p.display_name} (@${p.username || '—'})` : `@${p.username || '—'}`;
+        const isBanned = p.is_banned === true;
+        const isSelf = user && user.id === p.id;
+        const sub = _allSubMap[p.id];
+        const isPro = sub && sub.status === 'active';
+        const nameText = p.display_name ? `${p.display_name} (@${p.username || '—'})` : `@${p.username || '—'}`;
 
         // Status badges
         const statusBadge = isBanned
@@ -8552,7 +8783,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
 
     function setAnalyticsRange(days) {
       _analyticsRange = days;
-      ['7','14','30'].forEach(d => {
+      ['7', '14', '30'].forEach(d => {
         const btn = document.getElementById('analyticsRange' + d);
         if (btn) {
           btn.classList.toggle('btn-primary', String(days) === d);
@@ -8560,6 +8791,23 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
         }
       });
       loadAdminAnalytics();
+    }
+
+    let _analyticsFullscreen = false;
+    function toggleAnalyticsFullscreen() {
+      const tab = document.getElementById('adminTabContentAnalytics');
+      const btn = document.getElementById('analyticsFullscreenBtn');
+      if (!tab) return;
+      _analyticsFullscreen = !_analyticsFullscreen;
+      if (_analyticsFullscreen) {
+        tab.classList.add('analytics-fullscreen');
+        if (btn) btn.innerHTML = `<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 3v3a2 2 0 01-2 2H3m18 0h-3a2 2 0 01-2-2V3m0 18v-3a2 2 0 012-2h3M3 16h3a2 2 0 012 2v3"/></svg> Exit Full Screen`;
+      } else {
+        tab.classList.remove('analytics-fullscreen');
+        if (btn) btn.innerHTML = `<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg> Full Screen`;
+      }
+      // Re-render charts so they resize properly
+      setTimeout(() => { if (_dauChartInst) _dauChartInst.resize(); if (_timeChartInst) _timeChartInst.resize(); }, 80);
     }
 
     async function loadAdminAnalytics() {
@@ -8631,6 +8879,23 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       // ── Render user activity table ────────────────
       renderAnalyticsTable(sessions || [], profileMap);
 
+      // ── Populate stat cards ───────────────────────
+      const todayKey = new Date().toISOString().slice(0, 10);
+      const dauToday = dauMap[todayKey] ? dauMap[todayKey].size : 0;
+      const peakDAU = Math.max(0, ...dauValues);
+      const totalSessions = (sessions || []).length;
+      const allSecs = Object.values(userSecMap);
+      const avgSecs = allSecs.length ? Math.round(allSecs.reduce((a, b) => a + b, 0) / totalSessions) : 0;
+      const onlineNow = (sessions || []).filter(s => s.heartbeat_at && (Date.now() - new Date(s.heartbeat_at)) < 120000).map(s => s.user_id);
+      const uniqueOnline = new Set(onlineNow).size;
+      const fmtSecs = s => s >= 3600 ? `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m` : s >= 60 ? `${Math.floor(s / 60)}m ${s % 60}s` : `${s}s`;
+
+      const setCard = (id, val, sub) => { const el = document.getElementById(id); if (el) el.textContent = val; const es = document.getElementById(id + 'Sub'); if (es) es.textContent = sub; };
+      setCard('statDAU', dauToday, `Peak: ${peakDAU} users`);
+      setCard('statSessions', totalSessions, `in last ${_analyticsRange} days`);
+      setCard('statAvgTime', fmtSecs(avgSecs), `per session avg`);
+      setCard('statOnline', uniqueOnline, uniqueOnline === 1 ? '1 user active' : `${uniqueOnline} users active`);
+
       // Timestamp
       const lu = document.getElementById('analyticsLastUpdated');
       if (lu) lu.textContent = 'Updated ' + new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
@@ -8678,8 +8943,8 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       const gridCol = isDark ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.07)';
       const textCol = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(0,0,0,0.45)';
       const barColors = [
-        '#6366f1','#8b5cf6','#ec4899','#f59e0b','#10b981',
-        '#3b82f6','#f97316','#14b8a6','#a855f7','#ef4444'
+        '#6366f1', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981',
+        '#3b82f6', '#f97316', '#14b8a6', '#a855f7', '#ef4444'
       ];
       _timeChartInst = new Chart(ctx, {
         type: 'bar',
@@ -8741,21 +9006,21 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
           </thead>
           <tbody>
             ${sorted.map(([uid, stat]) => {
-              const p = profileMap[uid];
-              const name = p ? (p.display_name ? `${p.display_name} (@${p.username})` : `@${p.username}`) : 'Unknown';
-              const emoji = p?.avatar_emoji || '👤';
-              const color = p?.avatar_color || '#1A1A1A';
-              const totalMin = Math.floor(stat.totalSecs / 60);
-              const totalSec = stat.totalSecs % 60;
-              const timeStr = totalMin >= 60
-                ? `${Math.floor(totalMin / 60)}h ${totalMin % 60}m`
-                : `${totalMin}m ${totalSec}s`;
-              const lastSeen = stat.lastSeen
-                ? new Date(stat.lastSeen).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
-                : '—';
-              // Is online? last heartbeat within 2 mins
-              const isOnline = stat.lastSeen && (Date.now() - new Date(stat.lastSeen)) < 120000;
-              return `<tr style="border-bottom:1px solid var(--border);transition:background .1s;" onmouseover="this.style.background='var(--surface-2)'" onmouseout="this.style.background=''">
+        const p = profileMap[uid];
+        const name = p ? (p.display_name ? `${p.display_name} (@${p.username})` : `@${p.username}`) : 'Unknown';
+        const emoji = p?.avatar_emoji || '👤';
+        const color = p?.avatar_color || '#1A1A1A';
+        const totalMin = Math.floor(stat.totalSecs / 60);
+        const totalSec = stat.totalSecs % 60;
+        const timeStr = totalMin >= 60
+          ? `${Math.floor(totalMin / 60)}h ${totalMin % 60}m`
+          : `${totalMin}m ${totalSec}s`;
+        const lastSeen = stat.lastSeen
+          ? new Date(stat.lastSeen).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+          : '—';
+        // Is online? last heartbeat within 2 mins
+        const isOnline = stat.lastSeen && (Date.now() - new Date(stat.lastSeen)) < 120000;
+        return `<tr style="border-bottom:1px solid var(--border);transition:background .1s;" onmouseover="this.style.background='var(--surface-2)'" onmouseout="this.style.background=''">
                 <td style="padding:7px 8px;display:flex;align-items:center;gap:7px;">
                   <div style="width:22px;height:22px;border-radius:50%;background:${color};display:grid;place-items:center;font-size:0.75rem;flex-shrink:0;">${emoji}</div>
                   <span style="font-weight:600;color:var(--ink);">${esc(name)}</span>
@@ -8765,7 +9030,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
                 <td style="text-align:center;padding:7px 8px;font-weight:700;color:var(--ink);">${timeStr}</td>
                 <td style="text-align:right;padding:7px 8px;color:var(--ink-faint);">${lastSeen}</td>
               </tr>`;
-            }).join('')}
+      }).join('')}
           </tbody>
         </table>`;
     }
@@ -8781,10 +9046,10 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
     }
 
     async function createPromoCode() {
-      const code     = (document.getElementById('adminCodeText').value || '').trim().toUpperCase();
-      const maxUses  = parseInt(document.getElementById('adminCodeMaxUses').value) || 1;
-      const days     = parseInt(document.getElementById('adminCodeDays').value) || 36500;
-      const notes    = (document.getElementById('adminCodeNotes').value || '').trim();
+      const code = (document.getElementById('adminCodeText').value || '').trim().toUpperCase();
+      const maxUses = parseInt(document.getElementById('adminCodeMaxUses').value) || 1;
+      const days = parseInt(document.getElementById('adminCodeDays').value) || 36500;
+      const notes = (document.getElementById('adminCodeNotes').value || '').trim();
       const discount = Math.min(100, Math.max(0, parseInt(document.getElementById('adminCodeDiscount').value) || 0));
       if (!code) { showToast('Enter a code name', 'error'); return; }
 
@@ -8839,6 +9104,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
           <div style="display:flex;gap:6px;flex-shrink:0;">
             <button class="btn btn-ghost btn-sm" style="height:28px;font-size:0.72rem" onclick="navigator.clipboard.writeText('${esc(c.code)}').then(()=>showToast('Copied!'))">Copy</button>
             <button class="btn btn-ghost btn-sm" style="height:28px;font-size:0.72rem;color:var(--${c.is_active ? 'error' : 'ok'})" onclick="togglePromoCodeActive('${esc(c.code)}',${!c.is_active})">${c.is_active ? 'Disable' : 'Enable'}</button>
+            <button class="btn btn-ghost btn-sm" style="height:28px;font-size:0.72rem;color:#ef4444;border-color:rgba(239,68,68,.3);" onclick="deletePromoCode('${esc(c.code)}')">Delete</button>
           </div>
         </div>
       `).join('');
@@ -8847,6 +9113,15 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
     async function togglePromoCodeActive(code, newState) {
       const client = ZenAuth.getSupabaseClient();
       await client.from('promo_codes').update({ is_active: newState }).eq('code', code);
+      await loadAdminCodes();
+    }
+
+    async function deletePromoCode(code) {
+      if (!confirm(`Delete promo code "${code}"? This cannot be undone.`)) return;
+      const client = ZenAuth.getSupabaseClient();
+      const { error } = await client.from('promo_codes').delete().eq('code', code);
+      if (error) { showToast(error.message || 'Failed to delete', 'error'); return; }
+      showToast(`Code "${code}" deleted.`, 'success');
       await loadAdminCodes();
     }
 
@@ -10242,16 +10517,16 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
 
     async function submitChangePrivatePassword() {
       const currentPwd = document.getElementById('changePwdCurrent').value;
-      const newPwd     = document.getElementById('changePwdNew').value;
+      const newPwd = document.getElementById('changePwdNew').value;
       const confirmPwd = document.getElementById('changePwdConfirm').value;
 
       if (!currentPwd) { showToast('Enter your current password', 'error'); return; }
-      if (!newPwd)     { showToast('New password cannot be empty', 'error'); return; }
+      if (!newPwd) { showToast('New password cannot be empty', 'error'); return; }
       if (newPwd !== confirmPwd) { showToast('New passwords do not match', 'error'); return; }
 
       // Verify current password
-      const currentHash  = getPrivatePasswordHash();
-      const enteredHash  = await hashPassword(currentPwd);
+      const currentHash = getPrivatePasswordHash();
+      const enteredHash = await hashPassword(currentPwd);
       if (currentHash && enteredHash !== currentHash) {
         showToast('Current password is incorrect', 'error');
         document.getElementById('changePwdCurrent').value = '';
@@ -11054,12 +11329,12 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       area.appendChild(div);
       if (animate) srvScrollChat();
     }
-    
+
     function srvScrollChat() {
       const el = document.getElementById('srvRchatMsgs');
       if (el) el.scrollTop = el.scrollHeight;
     }
-    
+
     async function srvSendMsg() {
       if (!srvActive) return;
       const inp = document.getElementById('srvRchatInp');
@@ -11075,10 +11350,10 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       const file = event.target.files[0];
       if (!file) return;
       if (file.size > 10 * 1024 * 1024) { showToast("Max file size is 10MB", "error"); event.target.value = ""; return; }
-      
+
       const isImg = file.type.startsWith("image/");
       showToast(isImg ? "Uploading image…" : "Uploading file…");
-      
+
       const reader = new FileReader();
       reader.onload = async (e) => {
         const dataUrl = e.target.result;
