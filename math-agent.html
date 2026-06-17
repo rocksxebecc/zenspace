@@ -1798,7 +1798,7 @@
         <div class="agent-icon">∑</div>
         <div class="topbar-info">
           <h3>Zenlab</h3>
-          <p id="agentStatus">PhD-level solver · Vision enabled · Step-by-step reasoning</p>
+          <p id="agentStatus">ZenLab.3 · Vision enabled · Step-by-step reasoning</p>
         </div>
         <div class="topbar-actions">
           <button class="icon-btn" title="Recent History" onclick="toggleHistoryPopover(event)" id="historyBtn">
@@ -1845,7 +1845,7 @@
         <button class="mode-btn" onclick="setMode('proof',this)">Formal Proof</button>
         <button class="mode-btn" onclick="setMode('verify',this)">Verify</button>
         <button class="mode-btn" onclick="setMode('explore',this)">Deep Explore</button>
-        <button class="mode-btn" onclick="setMode('phd',this)">⚡ PhD Mode</button>
+        <button class="mode-btn" onclick="setMode('phd',this)">⚡ Agent Mode</button>
       </div>
 
       <!-- Subject Selector Bar -->
@@ -1871,21 +1871,18 @@
         <div class="welcome-state" id="welcomeState">
           <div class="welcome-orb">∑</div>
           <h2>Zen<em>lab</em></h2>
-          <p>PhD-level mathematics powered by Llama 3.3. Handles everything from undergraduate calculus to
-            graduate-level real analysis, algebraic topology, measure theory, abstract algebra, and beyond. Now with
-            vision — scan or photograph any problem.</p>
+          <p>ZenLab.3 is Zenspace's built-in science & math reasoning agent. Powered by advanced AI, it solves problems across Mathematics, Physics, Chemistry, Biology, Computer Science, and Economics — with full step-by-step explanations. Upload a photo of any problem and it will read and solve it instantly.</p>
           <div class="capability-pills">
-            <span class="cap-pill">∫ Analysis</span>
+            <span class="cap-pill">∫ Calculus</span>
             <span class="cap-pill">∑ Algebra</span>
             <span class="cap-pill">⊗ Linear Algebra</span>
             <span class="cap-pill">σ Probability</span>
             <span class="cap-pill">∂ PDEs / ODEs</span>
-            <span class="cap-pill">ℕ Number Theory</span>
-            <span class="cap-pill">⌂ Topology</span>
-            <span class="cap-pill">∇ Differential Geometry</span>
-            <span class="cap-pill">∀ Logic & Proofs</span>
-            <span class="cap-pill">∞ Measure Theory</span>
-            <span class="cap-pill">📸 Vision OCR</span>
+            <span class="cap-pill">⚛️ Physics</span>
+            <span class="cap-pill">🧪 Chemistry</span>
+            <span class="cap-pill">🧬 Biology</span>
+            <span class="cap-pill">💻 Comp. Sci</span>
+            <span class="cap-pill">📸 Image Scan</span>
           </div>
         </div>
       </div>
@@ -1925,7 +1922,7 @@
               </button>
             </div>
             <textarea id="mathInput" rows="1"
-              placeholder="Ask any math problem… e.g. Prove the Riemann hypothesis is equivalent to… or Solve the Navier–Stokes… or just snap a photo ↑"
+              placeholder="Ask any scientific or mathematical question… or snap a photo of a problem ↑"
               onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
             <div class="input-hint">
               <kbd>Enter</kbd> send · <kbd>Shift+Enter</kbd> newline · Supports LaTeX $…$ and $$…$$
@@ -1961,7 +1958,7 @@
             <span style="font-size:1.1rem">🤖</span>
             <div>
               <div style="font-size:.78rem;font-weight:600;color:var(--ink-1)">Advanced AI Engine</div>
-              <div style="font-size:.67rem;color:var(--ink-4)">PhD-level math · Ultra-fast inference</div>
+              <div style="font-size:.67rem;color:var(--ink-4)">Scientific reasoning · Ultra-fast inference</div>
             </div>
             <span
               style="margin-left:auto;font-size:.65rem;background:rgba(74,222,128,.15);color:#4ade80;border-radius:20px;padding:2px 8px;font-weight:600">FREE</span>
@@ -2048,7 +2045,7 @@
           </div>
         </div>
         <div class="panel-section" style="border-bottom:none">
-          <div class="panel-label">PhD Mode Options</div>
+          <div class="panel-label">Advanced Mode Options</div>
           <div class="setting-toggle-row">
             <span class="setting-label">Cite Theorems</span>
             <button class="toggle on" id="togCite" onclick="this.classList.toggle('on')"></button>
@@ -2107,7 +2104,7 @@
   <div class="modal-overlay hidden" id="cameraOverlay" onclick="closeCameraOnBackdrop(event)">
     <div class="camera-modal">
       <div class="modal-header">
-        <h3>📸 Scan Math Problem</h3>
+        <h3>📸 Scan Problem</h3>
         <button class="modal-close" onclick="closeCamera()">✕</button>
       </div>
       <div class="camera-view" id="cameraView">
@@ -2129,7 +2126,7 @@
           </button>
         </div>
         <div class="modal-hint" id="cameraHint">
-          Position the math problem clearly in frame · Good lighting helps · Works with handwritten or printed text
+          Position the problem clearly in frame · Good lighting helps · Works with handwritten or printed text
         </div>
       </div>
     </div>
@@ -2137,16 +2134,13 @@
 
   <script>
     /* ══════════════════════════════════════════════════════════════
-       APEX MATH AGENT — PhD-Level AI Solver with Vision
-       Claude claude-sonnet-4-20250514 + vision for image problems
+       APEX MATH AGENT — Science & Math Solver with Vision
        Features:
        • Multi-turn conversation with full history
-       • Camera capture & image upload → base64 → Claude vision
-       • 6 solver modes including PhD Mode
-       • Cubic-spline-like system prompt engineering
+       • Camera capture & image upload → base64 → Vision
+       • 6 solver modes
        • Per-domain expertise routing
        • KaTeX rendering with fallback
-       • Bilateral-filter-style response parsing
     ══════════════════════════════════════════════════════════════ */
 
     const STATE = {
@@ -2174,12 +2168,12 @@
       { icon: '∞', title: 'Lebesgue Integration', prompt: 'Prove the Dominated Convergence Theorem for Lebesgue integration.' },
       { icon: '∑', title: 'Galois Theory', prompt: 'Prove that a polynomial is solvable by radicals if and only if its Galois group is solvable.' },
       { icon: 'ℂ', title: 'Residue Theorem', prompt: 'State and prove the residue theorem and use it to evaluate ∫₋∞^∞ (sin x)/x dx.' },
-      { icon: '📐', title: 'PhD Problem', prompt: 'Let f: ℝⁿ → ℝ be a smooth function with ∇f(x) ≠ 0 for all x in a level set S = f⁻¹(c). Prove S is a smooth manifold of dimension n−1 and compute its tangent space.' },
+      { icon: '📐', title: 'Differential Geometry', prompt: 'Let f: ℝⁿ → ℝ be a smooth function with ∇f(x) ≠ 0 for all x in a level set S = f⁻¹(c). Prove S is a smooth manifold of dimension n−1 and compute its tangent space.' },
     ];
 
     // ── API KEY MANAGEMENT ────────────────────────────────────────
-    const GROQ_MODEL        = 'llama-3.3-70b-versatile';         // text-only (fast)
-    const GROQ_VISION_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct'; // vision-capable
+    const GROQ_MODEL = 'llama-3.3-70b-versatile';         // text-only (fast)
+    const GROQ_VISION_MODEL = 'llama-3.2-11b-vision-preview'; // vision-capable
     const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
     // Default key — users can override in Settings with their own Groq key
     const DEFAULT_GROQ_KEY = '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';
@@ -2229,7 +2223,7 @@
     const SUBJECT_DATA = {
       math: {
         label: '📐 Mathematics',
-        prompt: 'You are an expert PhD-level mathematics professor.',
+        prompt: 'You are an expert professor.',
         topics: [
           { id: 'algebra', label: 'Algebra', prompt: 'Focus on abstract algebra, group theory, ring theory, and field theory.' },
           { id: 'calculus', label: 'Calculus', prompt: 'Focus on differential and integral calculus, limits, and series.' },
@@ -2245,7 +2239,7 @@
       },
       physics: {
         label: '⚛️ Physics',
-        prompt: 'You are an expert PhD-level physics professor with deep knowledge of theoretical and experimental physics.',
+        prompt: 'You are an expert professor with deep knowledge of theoretical and experimental physics.',
         topics: [
           { id: 'mechanics', label: 'Classical Mechanics', prompt: 'Focus on Newtonian mechanics, Lagrangian/Hamiltonian mechanics, rotational dynamics, and rigid body motion.' },
           { id: 'electro', label: 'Electromagnetism', prompt: 'Focus on Maxwell\'s equations, electric/magnetic fields, electromagnetic waves, and circuits.' },
@@ -2260,7 +2254,7 @@
       },
       chemistry: {
         label: '🧪 Chemistry',
-        prompt: 'You are an expert PhD-level chemistry professor with mastery of all branches of chemistry.',
+        prompt: 'You are an expert professor with mastery of all branches of chemistry.',
         topics: [
           { id: 'organic', label: 'Organic Chemistry', prompt: 'Focus on organic reactions, mechanisms, functional groups, stereochemistry, and synthesis.' },
           { id: 'inorganic', label: 'Inorganic Chemistry', prompt: 'Focus on coordination chemistry, transition metals, ionic compounds, and crystal field theory.' },
@@ -2273,7 +2267,7 @@
       },
       biology: {
         label: '🧬 Biology',
-        prompt: 'You are an expert PhD-level biologist with comprehensive knowledge across all biological sciences.',
+        prompt: 'You are an expert biologist with comprehensive knowledge across all biological sciences.',
         topics: [
           { id: 'cell_bio', label: 'Cell Biology', prompt: 'Focus on cell structure, organelles, cell signaling, cell division, and the cell cycle.' },
           { id: 'genetics', label: 'Genetics & Genomics', prompt: 'Focus on Mendelian genetics, molecular genetics, gene expression, mutations, and genomics.' },
@@ -2287,7 +2281,7 @@
       },
       cs: {
         label: '💻 Computer Science',
-        prompt: 'You are an expert PhD-level computer scientist with deep knowledge of theory and practice.',
+        prompt: 'You are an expert computer scientist with deep knowledge of theory and practice.',
         topics: [
           { id: 'algorithms', label: 'Algorithms & DSA', prompt: 'Focus on algorithm design, data structures, time/space complexity, and optimization.' },
           { id: 'theory', label: 'Theory of Computation', prompt: 'Focus on automata theory, formal languages, Turing machines, computability, and complexity theory.' },
@@ -2301,7 +2295,7 @@
       },
       economics: {
         label: '📊 Economics',
-        prompt: 'You are an expert PhD-level economist with deep knowledge of economic theory and quantitative methods.',
+        prompt: 'You are an expert economist with deep knowledge of economic theory and quantitative methods.',
         topics: [
           { id: 'micro', label: 'Microeconomics', prompt: 'Focus on supply and demand, consumer theory, firm behavior, market structures, and game theory.' },
           { id: 'macro', label: 'Macroeconomics', prompt: 'Focus on GDP, inflation, monetary policy, fiscal policy, and business cycles.' },
@@ -2347,7 +2341,7 @@
     function updateAgentStatus() {
       const subj = SUBJECT_DATA[STATE.subject];
       const topicObj = subj?.topics?.find(t => t.id === STATE.topic);
-      const status = topicObj ? `${subj.label} · ${topicObj.label}` : (subj?.label || 'PhD-level solver');
+      const status = topicObj ? `${subj.label} · ${topicObj.label}` : (subj?.label || 'Scientific solver');
       document.getElementById('agentStatus').textContent = `${status} · Vision enabled`;
     }
 
@@ -2362,7 +2356,7 @@
         'proof': 'Proof',
         'verify': 'Verify',
         'explore': 'Explore',
-        'phd': 'PhD⚡',
+        'phd': 'Agent',
       };
       document.getElementById('statMode').textContent = labels[mode] || mode;
     }
@@ -2475,10 +2469,10 @@
       const modeMap = {
         'step-by-step': `${subjectRole} Solve problems methodically with clearly numbered steps. Label each step descriptively. Show ALL intermediate work. Explain the intuition behind each step. Never skip steps.`,
         'direct': `${subjectRole} Give the direct answer with essential key steps only. State the final answer prominently. Be precise and complete, but not verbose.`,
-        'proof': `${subjectRole} Write completely formal proofs. Use correct logical structure. State all hypotheses, definitions needed, and justify EVERY inference with a named theorem, law, or principle. Match the standard of a top academic journal.`,
+        'proof': `${subjectRole} Write completely formal proofs. Use correct logical structure. State all hypotheses, definitions needed, and justify EVERY inference with a named theorem, law, or principle. Match the standard of an academic paper.`,
         'verify': `${subjectRole} Carefully verify the given expression or solution. Check each logical step for errors. Point out any mistakes with clear explanation. If correct, confirm with a concise justification. If wrong, provide the correct solution.`,
-        'explore': `${subjectRole} Don't just solve — build deep understanding. Explain the intuition, historical context, connections to related areas, generalizations, and open problems. Make the subject come alive.`,
-        'phd': `${subjectRole} Solve at the level of a top PhD dissertation or research paper. Use the full power of modern methods. Name and apply deep theorems and seminal results. Discuss connections to current research. Format proofs and derivations rigorously.`,
+        'explore': `${subjectRole} Don't just solve — build deep understanding. Explain the intuition, historical context, connections to related areas, generalizations, and open problems.`,
+        'phd': `${subjectRole} Solve using modern methods. Use the full power of advanced theorems. Discuss connections to research. Format derivations rigorously.`,
       };
 
       const detailMap = {
@@ -2518,15 +2512,15 @@ CRITICAL FORMATTING RULES — follow exactly:
 - If there are multiple cases, label them: **Case 1:**, **Case 2:** etc.
 - For proofs: begin with **Proof:** and end with **□** (QED)
 - When defining terms: *Definition:* (italicized)
-${citeTh ? '- Cite the name of every theorem or lemma you apply (e.g., "By the **Hahn-Banach Theorem**...")' : ''}
+${citeTh ? '- Cite the name of every theorem or lemma you apply (e.g., "By the **Theorem**...")' : ''}
 ${showGen ? '- After the solution, add a **Generalization:** section noting how this extends to broader settings' : ''}
 ${showOpen ? '- If relevant, briefly note any **Open Problems** connected to this topic' : ''}
 ${showConf ? '- End with a **Confidence:** assessment (High/Medium/Low) and brief justification' : ''}
 ${autoVerify ? '- After the main solution, add a **Verification:** section checking the answer' : ''}
 
-You have access to vision — if images of math problems are provided, carefully transcribe and solve them exactly as written. If handwriting is unclear, state your interpretation.
+You have access to vision — if images of problems are provided, carefully transcribe and solve them exactly as written. If handwriting is unclear, state your interpretation.
 
-Be mathematically precise and rigorous. Never make computational errors. Double-check your work.`;
+Be mathematically precise. Never make computational errors. Double-check your work.`;
     }
 
     // ── CAMERA ────────────────────────────────────────────────────
@@ -2541,7 +2535,7 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
           video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } }
         });
         document.getElementById('cameraVideo').srcObject = cameraStream;
-        document.getElementById('cameraHint').textContent = 'Camera active · Position math problem in frame · Tap Capture';
+        document.getElementById('cameraHint').textContent = 'Camera active · Position problem in frame · Tap Capture';
       } catch (err) {
         document.getElementById('cameraHint').textContent = 'Camera access denied. Please use the Upload button instead.';
         document.getElementById('captureBtn').disabled = true;
@@ -2580,11 +2574,6 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
       addPreviewThumb(dataUrl, STATE.pendingImages.length - 1);
       closeCamera();
 
-      // Auto-suggest prompt
-      if (!document.getElementById('mathInput').value.trim()) {
-        document.getElementById('mathInput').value = 'Please solve this math problem shown in the image.';
-        autoResize(document.getElementById('mathInput'));
-      }
       document.getElementById('mathInput').focus();
     }
 
@@ -2603,11 +2592,6 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
         reader.readAsDataURL(file);
       });
       e.target.value = '';
-
-      if (!document.getElementById('mathInput').value.trim()) {
-        document.getElementById('mathInput').value = 'Please solve the math problem shown in the uploaded image.';
-        autoResize(document.getElementById('mathInput'));
-      }
     }
 
     function addPreviewThumb(dataUrl, idx) {
@@ -2617,7 +2601,7 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
       thumb.className = 'preview-thumb';
       thumb.id = `thumb-${idx}`;
       thumb.innerHTML = `
-    <img src="${dataUrl}" alt="Math problem">
+    <img src="${dataUrl}" alt="Problem image">
     <button class="remove-btn" onclick="removeImage(${idx})">✕</button>`;
       strip.appendChild(thumb);
     }
@@ -2648,15 +2632,16 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
       sendBtn.disabled = true;
       document.getElementById('agentStatus').textContent = 'Solving…';
 
-      // Build user message content (OpenAI-compatible for Groq)
+      // Build user message content
+      const subjectLabel = SUBJECT_DATA[STATE.subject]?.label?.replace(/^[\p{Emoji}\s]+/u, '').trim() || 'problem';
       const msgContent = hasImages
         ? [
           ...STATE.pendingImages.map(img => ({ type: 'image_url', image_url: { url: `data:${img.mimeType};base64,${img.base64}` } })),
-          { type: 'text', text: text || 'Please solve the math problem shown in the image(s). Show full working.' },
+          { type: 'text', text: text || `Solve this ${subjectLabel} problem shown in the image. Show full step-by-step working.` },
         ]
         : (text || '');
 
-      const displayText = text || '(Image of math problem)';
+      const displayText = text || '(Image uploaded)';
       const displayImages = [...STATE.pendingImages];
 
       // Clear pending images
@@ -2681,20 +2666,17 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
       const startTime = Date.now();
 
       try {
-        // Build OpenAI-compatible messages, stripping images from older turns
         const messages = [
           { role: 'system', content: buildSystemPrompt() },
           ...STATE.messages.map((m, idx) => {
             if (Array.isArray(m.content) && idx < STATE.messages.length - 1) {
               const t = m.content.find(c => c.type === 'text');
-              return { role: m.role, content: t ? t.text : '[Image — earlier context]' };
+              return { role: m.role, content: t ? t.text : '[Image context]' };
             }
             return { role: m.role, content: m.content };
           }),
         ];
-        // Determine which model to use:
-        // If the latest user message contains images, use the vision model.
-        // Older turns with array content are flattened to text so the API won't reject them.
+        
         const latestUserMsg = STATE.messages[STATE.messages.length - 1];
         const hasVision = Array.isArray(latestUserMsg?.content);
         const activeModel = hasVision ? GROQ_VISION_MODEL : GROQ_MODEL;
@@ -2707,13 +2689,11 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
 
         if (useCustom && !customKey) {
           removeTyping(typingId);
-          appendError('Custom API key is enabled in Settings but no key has been entered. Please enter your Groq API key (starts with gsk_) or disable the toggle to use the default engine.');
-          document.getElementById('agentStatus').textContent = 'API key required';
+          appendError('API key not configured. Check settings.');
           STATE.isLoading = false; sendBtn.disabled = false; input.focus();
           return;
         }
 
-        // Always call Groq API directly from the browser (works on GitHub Pages & any static host)
         const activeKey = (useCustom && customKey) ? customKey : DEFAULT_GROQ_KEY;
         const response = await fetch(GROQ_ENDPOINT, {
           method: 'POST',
@@ -2725,8 +2705,7 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
         });
 
         if (!response.ok) {
-          const err = await response.json().catch(() => ({}));
-          throw new Error(err.error?.message || `API error ${response.status}`);
+          throw new Error(`API error ${response.status}`);
         }
 
         const data = await response.json();
@@ -2734,7 +2713,7 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
         removeTyping(typingId);
 
         const assistantText = data.choices?.[0]?.message?.content || '';
-        if (!assistantText) throw new Error('Empty response from AI engine. Please try again.');
+        if (!assistantText) throw new Error('No response.');
 
         STATE.messages.push({ role: 'assistant', content: assistantText });
         appendAssistantMessage(assistantText, elapsed, displayText, domain);
@@ -2744,23 +2723,12 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
         addToHistory(displayText, domain);
         document.getElementById('statSolved').textContent = STATE.solved;
         document.getElementById('statTime').textContent = (STATE.totalTime / STATE.solved).toFixed(1) + 's';
-        document.getElementById('agentStatus').textContent = `Solved in ${elapsed}s · ${STATE.solved} problems this session`;
+        document.getElementById('agentStatus').textContent = `Solved in ${elapsed}s`;
 
       } catch (err) {
         removeTyping(typingId);
-        let msg = err.message;
-        if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
-          msg = 'Network error — please check your internet connection and try again.';
-        } else if (msg.includes('401') || msg.includes('403') || msg.toLowerCase().includes('api key')) {
-          msg = 'API key error. The default shared API key has expired or is invalid. Please enable "Add API Key" in the Settings panel (on the right) and paste a free API key from console.groq.com (starts with gsk_).';
-        } else if (msg.includes('429')) {
-          msg = 'Rate limit hit. Wait a moment and try again.';
-        } else if (msg.includes('503') || msg.includes('overloaded')) {
-          msg = 'AI engine is temporarily busy. Please try again in a moment.';
-        }
-        appendError(msg);
-        document.getElementById('agentStatus').textContent = 'Error — see message below';
-        console.error('Apex Math Agent:', err);
+        appendError('Error solving: ' + err.message);
+        document.getElementById('agentStatus').textContent = 'Error';
       }
 
       STATE.isLoading = false;
@@ -2809,7 +2777,7 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
     <div class="msg-av agent">∑</div>
     <div class="msg-body" style="max-width:90%">
       <div class="msg-meta">
-        Apex Agent · ${timestamp()}
+        ZenLab · ${timestamp()}
         ${elapsed ? `· <span style="color:var(--green)">${elapsed}s</span>` : ''}
         ${domainTag}
       </div>
@@ -2857,8 +2825,6 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
     function buildThinkBlock(text, userQ) {
       const id = 'th-' + Date.now();
       const steps = (text.match(/\*\*Step/g) || []).length;
-      const equations = Math.floor((text.match(/\$\$/g) || []).length / 2);
-      const words = text.split(/\s+/).length;
       const preview = userQ.substring(0, 72) + (userQ.length > 72 ? '…' : '');
 
       return `
@@ -2870,18 +2836,9 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
         <span class="think-chevron">›</span>
       </button>
       <div class="think-body" id="${id}-body">
-        <strong>Solver mode:</strong> ${STATE.mode.replace('-', ' ')} ·
-        <strong>Domain:</strong> ${document.getElementById('settingDomain').value.replace('_', ' ')} ·
-        <strong>Temperature:</strong> ${(parseFloat(document.getElementById('settingTemp').value) / 100).toFixed(2)}
-        <br><br>
-        Solution contains <strong>${steps}</strong> explicit steps,
-        <strong>${equations}</strong> display equations,
-        and approximately <strong>${words}</strong> words.
-        <br><br>
-        <em>The agent applied ${STATE.mode === 'phd' ? 'graduate-level mathematical techniques with full rigor' :
-          STATE.mode === 'proof' ? 'formal proof structure with named theorems' :
-            STATE.mode === 'explore' ? 'expository deep-dive with connections to broader theory' :
-              'systematic step-by-step solution methodology'}.</em>
+        <strong>Solver mode:</strong> ${STATE.mode.replace('-', ' ')}
+        <br>
+        Solution contains <strong>${steps}</strong> explicit steps.
       </div>
     </div>`;
     }
@@ -3016,12 +2973,9 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
     const HIST_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 days in ms
 
     function addToHistory(question, domain) {
-      // Build a lean message snapshot — strip base64 image blobs so we
-      // never blow the localStorage 5 MB quota.
       const snapshot = (STATE.messages || []).map(m => {
         if (typeof m.content === 'string') return { role: m.role, content: m.content };
         if (Array.isArray(m.content)) {
-          // Keep only text parts; drop image_url parts
           const textParts = m.content
             .filter(p => p.type === 'text')
             .map(p => ({ type: 'text', text: p.text }));
@@ -3037,7 +2991,6 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
         ts: Date.now(),
         messages: snapshot
       });
-      // Prune to max count (oldest drop off)
       if (STATE.history.length > HIST_MAX) STATE.history.length = HIST_MAX;
       saveHistory();
       renderHistList();
@@ -3052,7 +3005,6 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
       if (diffMins < 60) return diffMins + 'm ago';
       const diffHrs = Math.floor(diffMins / 60);
       if (diffHrs < 24) return diffHrs + 'h ago';
-      // Same year → just month + day
       if (d.getFullYear() === now.getFullYear()) {
         return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
       }
@@ -3070,7 +3022,7 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
         return;
       }
 
-      if (countEl) countEl.textContent = `${STATE.history.length} problem${STATE.history.length !== 1 ? 's' : ''} · last 30 days`;
+      if (countEl) countEl.textContent = `${STATE.history.length} problem${STATE.history.length !== 1 ? 's' : ''}`;
 
       el.innerHTML = STATE.history.map((h, i) => `
         <div class="hist-item-row">
@@ -3091,27 +3043,23 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
       ).join('');
     }
 
-    /** Click a history entry — restore question AND conversation thread */
     function restoreHistory(i) {
       const h = STATE.history[i];
       if (!h) return;
 
-      // Put question text into input
       const input = document.getElementById('mathInput');
       if (input) { input.value = h.q; autoResize(input); input.focus(); }
 
-      // If we have a saved message snapshot, restore the chat window
       if (h.messages && h.messages.length) {
         STATE.messages = JSON.parse(JSON.stringify(h.messages));
         const container = document.getElementById('chatMessages');
         if (container) {
-          // Re-render only the assistant messages (user/assistant pairs)
           container.innerHTML = '';
           for (let m of h.messages) {
             if (m.role === 'user') {
-              appendMessage('user', m.content);
+              appendUserMessage(m.content);
             } else if (m.role === 'assistant') {
-              appendMessage('assistant', m.content);
+              appendAssistantMessage(m.content, '', '', null);
             }
           }
         }
@@ -3121,7 +3069,6 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
       if (popover) popover.classList.remove('show');
     }
 
-    /** Delete a single history item */
     function deleteHistoryItem(i) {
       STATE.history.splice(i, 1);
       saveHistory();
@@ -3143,7 +3090,6 @@ Be mathematically precise and rigorous. Never make computational errors. Double-
         }
       }
 
-      // Close right sidebar if clicking outside of it
       const sidebar = document.querySelector('.sidebar-right');
       const toggleBtn = document.getElementById('toggleSettingsBtn');
       if (sidebar && !sidebar.classList.contains('closed')) {
