@@ -3398,6 +3398,7 @@
       <a class="nav-link" href="#" data-sec="financeSec">Finance</a>
       <a class="nav-link" href="#" data-sec="notesSec">Notes</a>
       <a class="nav-link" href="#" data-sec="serversSec">Servers</a>
+      <a class="nav-link" href="#" data-sec="mathSec" style="display:flex;align-items:center;gap:5px">∑ ZenLab</a>
       <a class="nav-link" href="chat.html" style="display:flex;align-items:center;gap:5px" id="chatNavLink"> Messages
         <span id="chatBadge"
           style="display:none;background:var(--error);color:#fff;border-radius:10px;font-size:.58rem;font-weight:700;padding:1px 5px;min-width:15px;text-align:center">0</span></a>
@@ -3484,12 +3485,13 @@
           <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z" />
           <polyline points="13 2 13 9 20 9" />
         </svg>Documents</button>
-      <button class="sidebar-link" data-sec="zenlabSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2">
-          <path d="M4 6h16M4 12h16M4 18h7" />
-          <path d="M15 15l4 4M19 15l-4 4" />
-        </svg>Zen Agent</button>
-      <span class="sidebar-label" style="margin-top:10px">Community</span>
+      <span class="sidebar-label" style="margin-top:10px">AI Tools</span>
+      <button class="sidebar-link" data-sec="mathSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+          <path d="M2 17l10 5 10-5"/>
+          <path d="M2 12l10 5 10-5"/>
+        </svg>ZenLab</button>
+      <span class="sidebar-label" style="margin-top:4px">Community</span>
       <button class="sidebar-link" data-sec="serversSec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
           stroke-width="2" stroke-linecap="round">
           <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
@@ -6167,170 +6169,35 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
 
       </div>
 
-      <!-- ══ ZENLAB ══ -->
-      <div id="zenlabSec" class="content-section">
+      <!-- ══ ZENLAB (MATH AGENT) ══ -->
+      <div id="mathSec" class="content-section">
         <style>
-          #zenlabSec {
+          #mathSec {
             height: 100%;
             display: none;
             flex-direction: column;
-            overflow: hidden;
             padding: 0;
-            margin: 0;
+            overflow: hidden;
           }
-
-          #zenlabSec.active {
+          #mathSec.active {
             display: flex;
           }
-
-          /* CSS fullscreen fallback */
-          #zenlabSec.zenlab-fullscreen {
-            position: fixed !important;
-            inset: 0 !important;
-            z-index: 9999 !important;
-            display: flex !important;
-            width: 100vw !important;
-            height: 100dvh !important;
-          }
-
-          .zenlab-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 7px 16px;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border-light, rgba(0, 0, 0, .08));
-            flex-shrink: 0;
-            gap: 10px;
-          }
-
-          .zenlab-toolbar-title {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-            font-size: .78rem;
-            font-weight: 600;
-            color: var(--ink-muted, #64748b);
-            font-family: var(--font-sans, system-ui, sans-serif);
-          }
-
-          .zenlab-toolbar-title svg {
-            width: 14px;
-            height: 14px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            opacity: .7;
-          }
-
-          .zenlab-fs-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 5px 11px;
-            background: var(--surface-alt, #f1f5f9);
-            border: 1px solid var(--border-light, rgba(0, 0, 0, .1));
-            border-radius: 6px;
-            font-size: .72rem;
-            font-weight: 600;
-            color: var(--ink-muted, #475569);
-            cursor: pointer;
-            transition: background .14s, color .14s, border-color .14s;
-            font-family: var(--font-sans, system-ui, sans-serif);
-            white-space: nowrap;
-          }
-
-          .zenlab-fs-btn:hover {
-            background: var(--accent, #6366f1);
-            color: #fff;
-            border-color: var(--accent, #6366f1);
-          }
-
-          .zenlab-fs-btn svg {
-            width: 12px;
-            height: 12px;
-            stroke: currentColor;
-            fill: none;
-            stroke-width: 2;
-            flex-shrink: 0;
-          }
-
-          .zenlab-frame {
-            width: 100%;
+          #mathAgentFrame {
             flex: 1;
+            width: 100%;
             border: none;
-            background: transparent;
-            display: block;
+            background: var(--bg);
           }
         </style>
-
-        <div class="zenlab-toolbar">
-          <div class="zenlab-toolbar-title">
-            <svg viewBox="0 0 24 24">
-              <path d="M4 6h16M4 12h16M4 18h7" />
-              <path d="M15 15l4 4M19 15l-4 4" />
-            </svg>
-            Zen Agent
-          </div>
-          <button class="zenlab-fs-btn" id="zenlabFsBtn" onclick="toggleZenlabFullscreen()">
-            <svg viewBox="0 0 24 24">
-              <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3" />
-            </svg>
-            Fullscreen
-          </button>
-        </div>
-
-        <iframe src="math-agent.html?v=4.0" class="zenlab-frame" id="zenlabFrame" title=" Zen Agent"
-          allowfullscreen></iframe>
-
-        <script>
-          const ZENLAB_FS_ICON = '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>';
-          const ZENLAB_EXIT_ICON = '<svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2"><path d="M8 3v3a2 2 0 01-2 2H3m18 0h-3a2 2 0 01-2-2V3m0 18v-3a2 2 0 012-2h3M3 16h3a2 2 0 012 2v3"/></svg>';
-
-          function toggleZenlabFullscreen() {
-            const sec = document.getElementById('zenlabSec');
-            const btn = document.getElementById('zenlabFsBtn');
-            const isFs = document.fullscreenElement === sec || sec.classList.contains('zenlab-fullscreen');
-
-            if (isFs) {
-              if (document.exitFullscreen) document.exitFullscreen();
-              sec.classList.remove('zenlab-fullscreen');
-              btn.innerHTML = ZENLAB_FS_ICON + ' Fullscreen';
-            } else {
-              if (sec.requestFullscreen) {
-                sec.requestFullscreen().catch(() => {
-                  sec.classList.add('zenlab-fullscreen');
-                  btn.innerHTML = ZENLAB_EXIT_ICON + ' Exit';
-                });
-              } else {
-                sec.classList.add('zenlab-fullscreen');
-                btn.innerHTML = ZENLAB_EXIT_ICON + ' Exit';
-              }
-            }
-          }
-
-          document.addEventListener('fullscreenchange', () => {
-            const sec = document.getElementById('zenlabSec');
-            const btn = document.getElementById('zenlabFsBtn');
-            if (!btn) return;
-            if (document.fullscreenElement) {
-              btn.innerHTML = ZENLAB_EXIT_ICON + ' Exit';
-            } else {
-              sec.classList.remove('zenlab-fullscreen');
-              btn.innerHTML = ZENLAB_FS_ICON + ' Fullscreen';
-            }
-          });
-
-          document.addEventListener('keydown', e => {
-            const sec = document.getElementById('zenlabSec');
-            if (e.key === 'Escape' && sec && sec.classList.contains('zenlab-fullscreen')) {
-              sec.classList.remove('zenlab-fullscreen');
-              const btn = document.getElementById('zenlabFsBtn');
-              if (btn) btn.innerHTML = ZENLAB_FS_ICON + ' Fullscreen';
-            }
-          });
-        </script>
+        <iframe
+          id="mathAgentFrame"
+          src="math-agent.html?embed=1"
+          title="ZenLab Math Agent"
+          allow="camera"
+          allowfullscreen
+        ></iframe>
       </div>
+
 
       <!-- ══ SERVERS ══ -->
       <div id="serversSec" class="content-section">
@@ -7748,7 +7615,6 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       <div class="paywall-body">
         <ul class="paywall-features">
           <li><span class="pw-check">✓</span>Subjects &amp; Attendance Tracker with CGPA Calculator</li>
-          <li><span class="pw-check">✓</span>Zen Agent — AI Math, Physics, Chemistry &amp; more</li>
           <li><span class="pw-check">✓</span>Document Utilities (PDF, Converter, Compressor)</li>
           <li><span class="pw-check">✓</span>Finance Manager with Analytics &amp; Budget Tracker</li>
           <li><span class="pw-check">✓</span>Priority support &amp; early access to new features</li>
@@ -7950,7 +7816,7 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
     /* ══ ROUTING ══ */
     /* ══ SUBSCRIPTION GATE ══ */
     let ZS_sub = null;
-    const PREMIUM_SECTIONS = new Set(['subjectsSec', 'zenlabSec', 'documentsSec', 'financeSec']);
+    const PREMIUM_SECTIONS = new Set(['subjectsSec', 'documentsSec', 'financeSec']);
     const SUPABASE_FN_URL = 'https://bqtyvvzhnkesitodaqgu.supabase.co/functions/v1';
 
     // ── Single source of truth for subscription UI ──────────────────────────
@@ -8612,13 +8478,13 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
           flex-shrink: 0;
         `;
 
-        // For zenlab, which uses display:flex + overflow:hidden,
-        // we must insert banner as first child so it renders above the iframe
+        // For sections that use display:flex + overflow:hidden,
+        // we must insert banner as first child so it renders above other elements
         sec.insertBefore(banner, sec.firstChild);
 
         // ─── Overlay ─────────────────────────────────────────────────────
         // Use a fixed overlay anchored to the section rect to avoid being
-        // clipped by overflow:hidden (notably affects zenlabSec)
+        // clipped by overflow:hidden
         const overlay = document.createElement('div');
         overlay.className = 'premium-preview-overlay';
 
@@ -8678,10 +8544,25 @@ ${images.map((_, i) => `<Override PartName="/ppt/slides/slide${i + 1}.xml" Conte
       if (id === 'overviewSec') renderOverview();
       if (id === 'subjectsSec') renderSubjects();
       if (id === 'serversSec') initServers();
+      if (id === 'mathSec') initMathAgent();
       closeSidebar();
     }
     document.querySelectorAll('[data-sec]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); goTo(b.dataset.sec); }));
     document.querySelectorAll('.modal-overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) closeModal(o.id); }));
+    /* == ZENLAB MATH AGENT INIT == */
+    let _mathLoaded = false;
+    function initMathAgent() {
+      const frame = document.getElementById('mathAgentFrame');
+      if (!frame) return;
+      const isDark = document.documentElement.classList.contains('dark');
+      const wantedTheme = isDark ? 'dark' : 'light';
+      if (!_mathLoaded || frame.dataset.loadedTheme !== wantedTheme) {
+        frame.src = 'math-agent.html?embed=1&theme=' + wantedTheme;
+        frame.dataset.loadedTheme = wantedTheme;
+        _mathLoaded = true;
+      }
+    }
+
 
     /* ══ STORAGE ══ */
     const K = k => `zs-${user ? user.email : 'anon'}-${k}`;
