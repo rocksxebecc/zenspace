@@ -1,74 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zenspace — Zenlab</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
 
   <style>
     /* ── ZENSPACE DESIGN TOKENS ─────────────────────────────── */
     :root {
-      --bg:           #F8F8F8;
-      --bg-2:         #F0F0F0;
-      --surface:      #FFFFFF;
-      --surface-2:    #F4F4F4;
-      --surface-3:    #EBEBEB;
-      --ink:          #0A0A0A;
-      --ink-muted:    #555555;
-      --ink-faint:    #999999;
-      --border:       #E0E0E0;
+      --bg: #F8F8F8;
+      --bg-2: #F0F0F0;
+      --surface: #FFFFFF;
+      --surface-2: #F4F4F4;
+      --surface-3: #EBEBEB;
+      --ink: #0A0A0A;
+      --ink-muted: #555555;
+      --ink-faint: #999999;
+      --border: #E0E0E0;
       --border-light: #EBEBEB;
-      --border-strong:#CCCCCC;
-      --accent:       #1A1A1A;
-      --accent-lt:    #F0F0F0;
-      --error:        #CC2200;
-      --error-lt:     #FFF0EE;
-      --ok:           #006633;
-      --ok-lt:        #EEF8F2;
-      --warn:         #996600;
-      --warn-lt:      #FFF8E6;
-      --font-serif:   'Playfair Display', Georgia, serif;
-      --font-sans:    'Syne', system-ui, sans-serif;
-      --mono:         'DM Mono', 'Courier New', monospace;
-      --ease:         cubic-bezier(.4,0,.2,1);
-      --t:            200ms;
-      --r-sm:  6px;
-      --r-md:  10px;
-      --r-lg:  14px;
-      --r-xl:  20px;
+      --border-strong: #CCCCCC;
+      --accent: #1A1A1A;
+      --accent-lt: #F0F0F0;
+      --error: #CC2200;
+      --error-lt: #FFF0EE;
+      --ok: #006633;
+      --ok-lt: #EEF8F2;
+      --warn: #996600;
+      --warn-lt: #FFF8E6;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Syne', system-ui, sans-serif;
+      --mono: 'DM Mono', 'Courier New', monospace;
+      --ease: cubic-bezier(.4, 0, .2, 1);
+      --t: 200ms;
+      --r-sm: 6px;
+      --r-md: 10px;
+      --r-lg: 14px;
+      --r-xl: 20px;
       --r-full: 9999px;
-      --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.04);
-      --shadow-md: 0 4px 20px rgba(0,0,0,.10);
-      --shadow-lg: 0 8px 40px rgba(0,0,0,.14);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, .06), 0 2px 8px rgba(0, 0, 0, .04);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, .10);
+      --shadow-lg: 0 8px 40px rgba(0, 0, 0, .14);
     }
 
     html.dark {
-      --bg:           #0C0C0C;
-      --bg-2:         #111111;
-      --surface:      #161616;
-      --surface-2:    #1E1E1E;
-      --surface-3:    #242424;
-      --ink:          #F0F0F0;
-      --ink-muted:    #888888;
-      --ink-faint:    #555555;
-      --border:       #2A2A2A;
+      --bg: #0C0C0C;
+      --bg-2: #111111;
+      --surface: #161616;
+      --surface-2: #1E1E1E;
+      --surface-3: #242424;
+      --ink: #F0F0F0;
+      --ink-muted: #888888;
+      --ink-faint: #555555;
+      --border: #2A2A2A;
       --border-light: #222222;
-      --border-strong:#404040;
-      --accent:       #E8E8E8;
-      --accent-lt:    #1E1E1E;
-      --error:        #FF4433;
-      --error-lt:     #2A1010;
-      --ok:           #22AA66;
-      --ok-lt:        #0A2018;
+      --border-strong: #404040;
+      --accent: #E8E8E8;
+      --accent-lt: #1E1E1E;
+      --error: #FF4433;
+      --error-lt: #2A1010;
+      --ok: #22AA66;
+      --ok-lt: #0A2018;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: var(--font-sans);
       background: var(--bg);
@@ -79,10 +92,23 @@
     }
 
     /* ── SCROLLBAR ─────────────────────────────────────── */
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--ink-faint); }
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-strong);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--ink-faint);
+    }
 
     /* ── NAVBAR ─────────────────────────────────────────── */
     .nav {
@@ -98,53 +124,153 @@
       z-index: 200;
       backdrop-filter: blur(10px);
     }
-    .nav-brand { display: flex; align-items: center; gap: 9px; text-decoration: none; }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+    }
+
     .nav-brand-icon {
-      width: 30px; height: 30px; background: var(--ink);
-      border-radius: 8px; display: grid; place-items: center; flex-shrink: 0;
+      width: 30px;
+      height: 30px;
+      background: var(--ink);
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
     }
-    .nav-brand-icon svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .nav-brand-name { font-family: var(--font-serif); font-size: 1.1rem; color: var(--ink); }
+
+    .nav-brand-icon svg {
+      width: 16px;
+      height: 16px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .nav-brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+
     .nav-badge {
-      font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--ink-faint); background: var(--surface-2);
-      border: 1px solid var(--border); padding: 2px 8px; border-radius: var(--r-full);
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: var(--r-full);
     }
-    .nav-spacer { flex: 1; }
+
+    .nav-spacer {
+      flex: 1;
+    }
+
     .nav-pill {
-      display: flex; align-items: center; gap: 6px;
-      font-size: .72rem; font-weight: 600; color: var(--ok);
-      background: var(--ok-lt); border: 1px solid rgba(0,102,51,.15);
-      padding: 4px 12px; border-radius: var(--r-full);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--ok);
+      background: var(--ok-lt);
+      border: 1px solid rgba(0, 102, 51, .15);
+      padding: 4px 12px;
+      border-radius: var(--r-full);
     }
+
     .nav-pill .dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--ok);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ok);
       animation: pulse-dot 2s ease infinite;
     }
-    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+    @keyframes pulse-dot {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.7)
+      }
+    }
+
     .nav-user-btn {
-      display: flex; align-items: center; gap: 8px;
-      font-size: .78rem; font-weight: 500; color: var(--ink-muted);
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 5px 12px 5px 5px; border-radius: var(--r-full); cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .78rem;
+      font-weight: 500;
+      color: var(--ink-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 5px 12px 5px 5px;
+      border-radius: var(--r-full);
+      cursor: pointer;
       transition: border-color var(--t), color var(--t);
       text-decoration: none;
     }
-    .nav-user-btn:hover { border-color: var(--border-strong); color: var(--ink); }
+
+    .nav-user-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--ink);
+    }
+
     .nav-avatar {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--ink); display: grid; place-items: center;
-      font-size: .7rem; font-weight: 700; color: #fff; flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--ink);
+      display: grid;
+      place-items: center;
+      font-size: .7rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
       letter-spacing: .04em;
     }
+
     .dark-toggle {
-      width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
-      background: none; border: 1px solid var(--border); cursor: pointer; color: var(--ink-faint);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: none;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      color: var(--ink-faint);
       transition: border-color var(--t), color var(--t), background var(--t);
       flex-shrink: 0;
     }
-    .dark-toggle:hover { background: var(--surface-2); color: var(--ink); border-color: var(--border-strong); }
-    .dark-toggle svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+    .dark-toggle:hover {
+      background: var(--surface-2);
+      color: var(--ink);
+      border-color: var(--border-strong);
+    }
+
+    .dark-toggle svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+    }
 
     /* ── LAYOUT ─────────────────────────────────────────── */
     .layout {
@@ -166,7 +292,8 @@
     /* History Popover */
     .history-popover {
       position: absolute;
-      top: 52px; left: 12px;
+      top: 52px;
+      left: 12px;
       width: 280px;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -177,900 +304,1872 @@
       flex-direction: column;
       max-height: 360px;
     }
-    .history-popover.show { display: flex; }
+
+    .history-popover.show {
+      display: flex;
+    }
+
     .history-popover-header {
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 12px 14px 10px;
-      font-size: .8rem; font-weight: 600; color: var(--ink);
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--ink);
       border-bottom: 1px solid var(--border);
     }
-    .history-popover-footer { border-top: 1px solid var(--border); }
+
+    .history-popover-footer {
+      border-top: 1px solid var(--border);
+    }
 
     /* ── CHAT TOPBAR ─────────────────────────────────────── */
     .chat-topbar {
-      display: flex; align-items: center; gap: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
       padding: 12px 20px;
       border-bottom: 1px solid var(--border);
       background: var(--surface);
       flex-shrink: 0;
     }
+
     .agent-icon {
-      width: 36px; height: 36px; border-radius: var(--r-md);
-      background: var(--ink); display: grid; place-items: center;
-      font-size: 1.1rem; color: #fff; flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: var(--r-md);
+      background: var(--ink);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      color: #fff;
+      flex-shrink: 0;
     }
-    .topbar-info { flex: 1; }
+
+    .topbar-info {
+      flex: 1;
+    }
+
     .topbar-info h3 {
-      font-family: var(--font-serif); font-size: 1rem; font-weight: 600;
-      color: var(--ink); line-height: 1.2;
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
     }
-    .topbar-info p { font-size: .72rem; color: var(--ink-muted); margin-top: 1px; }
-    .topbar-actions { display: flex; gap: 4px; align-items: center; }
+
+    .topbar-info p {
+      font-size: .72rem;
+      color: var(--ink-muted);
+      margin-top: 1px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
 
     /* ── MODE BAR ────────────────────────────────────────── */
     .mode-bar {
-      display: flex; gap: 4px; padding: 10px 16px;
+      display: flex;
+      gap: 4px;
+      padding: 10px 16px;
       border-bottom: 1px solid var(--border);
-      background: var(--surface); flex-shrink: 0; flex-wrap: wrap;
+      background: var(--surface);
+      flex-shrink: 0;
+      flex-wrap: wrap;
     }
+
     .mode-btn {
-      font-family: var(--font-sans); font-size: .75rem; font-weight: 600;
-      color: var(--ink-faint); background: none;
-      border: 1.5px solid var(--border); border-radius: var(--r-sm);
-      padding: 4px 10px; cursor: pointer; letter-spacing: .02em;
+      font-family: var(--font-sans);
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--ink-faint);
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 4px 10px;
+      cursor: pointer;
+      letter-spacing: .02em;
       transition: background var(--t), color var(--t), border-color var(--t);
     }
-    .mode-btn:hover { background: var(--surface-2); color: var(--ink); border-color: var(--border-strong); }
-    .mode-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    .mode-btn:hover {
+      background: var(--surface-2);
+      color: var(--ink);
+      border-color: var(--border-strong);
+    }
+
+    .mode-btn.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
 
     /* ── SUBJECT BAR ─────────────────────────────────────── */
     .subject-bar {
-      flex-shrink: 0; border-bottom: 1px solid var(--border);
-      background: var(--surface); padding: 8px 16px; display: flex; flex-direction: column; gap: 6px;
+      flex-shrink: 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
-    .subject-row, .topic-row {
-      display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+
+    .subject-row,
+    .topic-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
     }
-    .topic-row { display: none; }
-    .topic-row.show { display: flex; }
+
+    .topic-row {
+      display: none;
+    }
+
+    .topic-row.show {
+      display: flex;
+    }
+
     .subject-label {
-      font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--ink-faint); flex-shrink: 0; min-width: 52px;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      flex-shrink: 0;
+      min-width: 52px;
     }
-    .subj-pill, .topic-pill {
-      font-family: var(--font-sans); font-size: .72rem; font-weight: 600;
-      color: var(--ink-muted); background: var(--surface-2);
-      border: 1.5px solid var(--border); border-radius: var(--r-full);
-      padding: 3px 10px; cursor: pointer;
+
+    .subj-pill,
+    .topic-pill {
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-full);
+      padding: 3px 10px;
+      cursor: pointer;
       transition: background var(--t), color var(--t), border-color var(--t);
     }
-    .subj-pill:hover, .topic-pill:hover { background: var(--surface-3); color: var(--ink); border-color: var(--border-strong); }
-    .subj-pill.active, .topic-pill.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+    .subj-pill:hover,
+    .topic-pill:hover {
+      background: var(--surface-3);
+      color: var(--ink);
+      border-color: var(--border-strong);
+    }
+
+    .subj-pill.active,
+    .topic-pill.active {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
+    }
 
     /* ── MESSAGES ────────────────────────────────────────── */
     #chatMessages {
-      flex: 1; overflow-y: auto; padding: 20px 20px 10px; display: flex; flex-direction: column; gap: 16px;
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 20px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
-    .msg-row { display: flex; gap: 10px; align-items: flex-start; animation: float-in .2s ease; }
-    .msg-row.user { flex-direction: row-reverse; }
-    @keyframes float-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .msg-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      animation: float-in .2s ease;
+    }
+
+    .msg-row.user {
+      flex-direction: row-reverse;
+    }
+
+    @keyframes float-in {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
     .msg-av {
-      width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-      background: var(--ink); display: grid; place-items: center;
-      font-size: .7rem; font-weight: 700; color: #fff; letter-spacing: .04em;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: var(--ink);
+      display: grid;
+      place-items: center;
+      font-size: .7rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: .04em;
     }
-    .msg-av.agent { background: var(--surface-3); color: var(--ink); border: 1px solid var(--border); font-size: .9rem; }
-    .msg-body { max-width: 76%; display: flex; flex-direction: column; gap: 4px; }
-    .msg-meta { font-size: .65rem; color: var(--ink-faint); padding: 0 4px; }
-    .msg-row.user .msg-meta { text-align: right; }
+
+    .msg-av.agent {
+      background: var(--surface-3);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      font-size: .9rem;
+    }
+
+    .msg-body {
+      max-width: 76%;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .msg-meta {
+      font-size: .65rem;
+      color: var(--ink-faint);
+      padding: 0 4px;
+    }
+
+    .msg-row.user .msg-meta {
+      text-align: right;
+    }
+
     .msg-bubble {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-lg); padding: 12px 16px;
-      font-size: .88rem; line-height: 1.65; color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 12px 16px;
+      font-size: .88rem;
+      line-height: 1.65;
+      color: var(--ink);
       box-shadow: var(--shadow-sm);
     }
-    .user-bubble { background: var(--ink); color: #fff; border-color: var(--ink); }
-    .agent-bubble { background: var(--surface); }
-    .err-bubble { background: var(--error-lt); border-color: var(--error); color: var(--error); }
-    .msg-actions { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
-    .act-btn {
-      font-family: var(--font-sans); font-size: .65rem; font-weight: 600;
-      color: var(--ink-faint); background: var(--surface);
-      border: 1px solid var(--border); border-radius: var(--r-sm);
-      padding: 3px 8px; cursor: pointer;
-      transition: color var(--t), border-color var(--t), background var(--t);
-      display: flex; align-items: center; gap: 4px;
+
+    .user-bubble {
+      background: var(--ink);
+      color: #fff;
+      border-color: var(--ink);
     }
-    .act-btn:hover { color: var(--ink); border-color: var(--border-strong); background: var(--surface-2); }
-    .act-btn svg { width: 10px; height: 10px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .agent-bubble {
+      background: var(--surface);
+    }
+
+    .err-bubble {
+      background: var(--error-lt);
+      border-color: var(--error);
+      color: var(--error);
+    }
+
+    .msg-actions {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .act-btn {
+      font-family: var(--font-sans);
+      font-size: .65rem;
+      font-weight: 600;
+      color: var(--ink-faint);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 3px 8px;
+      cursor: pointer;
+      transition: color var(--t), border-color var(--t), background var(--t);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .act-btn:hover {
+      color: var(--ink);
+      border-color: var(--border-strong);
+      background: var(--surface-2);
+    }
+
+    .act-btn svg {
+      width: 10px;
+      height: 10px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
 
     /* ── THINKING / ANSWER BLOCKS ────────────────────────── */
     .think-block {
-      border: 1px solid var(--border); border-radius: var(--r-md);
-      margin: 8px 0; overflow: hidden; background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      margin: 8px 0;
+      overflow: hidden;
+      background: var(--surface-2);
     }
+
     .think-header {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 12px; cursor: pointer;
-      font-size: .72rem; font-weight: 600; color: var(--ink-muted);
-      letter-spacing: .04em; text-transform: uppercase;
-      user-select: none; transition: background var(--t);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      user-select: none;
+      transition: background var(--t);
     }
-    .think-header:hover { background: var(--surface-3); }
+
+    .think-header:hover {
+      background: var(--surface-3);
+    }
+
     .think-spinner {
-      width: 12px; height: 12px; border-radius: 50%;
-      border: 2px solid var(--border-strong); border-top-color: var(--ink);
-      animation: spin .7s linear infinite; flex-shrink: 0;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid var(--border-strong);
+      border-top-color: var(--ink);
+      animation: spin .7s linear infinite;
+      flex-shrink: 0;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .think-chevron { margin-left: auto; transition: transform .2s; font-size: .7rem; color: var(--ink-faint); }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .think-chevron {
+      margin-left: auto;
+      transition: transform .2s;
+      font-size: .7rem;
+      color: var(--ink-faint);
+    }
+
     .think-body {
-      padding: 12px 14px; font-size: .8rem; line-height: 1.65;
-      color: var(--ink-muted); font-family: var(--mono); white-space: pre-wrap;
+      padding: 12px 14px;
+      font-size: .8rem;
+      line-height: 1.65;
+      color: var(--ink-muted);
+      font-family: var(--mono);
+      white-space: pre-wrap;
       border-top: 1px solid var(--border);
     }
-    .answer-block { margin: 8px 0; }
+
+    .answer-block {
+      margin: 8px 0;
+    }
+
     .answer-label {
-      font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--ink-faint); margin-bottom: 8px;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 8px;
     }
+
     .step-num {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 20px; height: 20px; border-radius: 50%;
-      background: var(--ink); color: #fff; font-size: .65rem; font-weight: 700;
-      margin-right: 6px; flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: #fff;
+      font-size: .65rem;
+      font-weight: 700;
+      margin-right: 6px;
+      flex-shrink: 0;
     }
+
     .domain-tag {
-      display: inline-block; font-size: .6rem; font-weight: 700; letter-spacing: .06em;
-      text-transform: uppercase; padding: 2px 7px; border-radius: var(--r-full);
-      background: var(--surface-2); color: var(--ink-faint); border: 1px solid var(--border);
+      display: inline-block;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: var(--r-full);
+      background: var(--surface-2);
+      color: var(--ink-faint);
+      border: 1px solid var(--border);
     }
-    .domain-algebra  { background: #EEF0FF; color: #4455AA; border-color: #C8CCF0; }
-    .domain-analysis { background: #EEF8F2; color: var(--ok); border-color: #AADDC0; }
-    .domain-calculus { background: #FFF8E6; color: var(--warn); border-color: #E8D090; }
-    .domain-linalg   { background: #FFF0EE; color: var(--error); border-color: #F0C0B8; }
-    .domain-stats    { background: #F0F8FF; color: #336699; border-color: #AACCEE; }
-    .domain-number   { background: #F8F0FF; color: #7744AA; border-color: #DDC0F0; }
-    .domain-topology { background: #FFF4F8; color: #AA4466; border-color: #F0B8CC; }
-    .domain-geometry { background: #F0FFF8; color: #448866; border-color: #AADDCC; }
-    .domain-ode      { background: #FFFAEE; color: #887733; border-color: #DDCC88; }
+
+    .domain-algebra {
+      background: #EEF0FF;
+      color: #4455AA;
+      border-color: #C8CCF0;
+    }
+
+    .domain-analysis {
+      background: #EEF8F2;
+      color: var(--ok);
+      border-color: #AADDC0;
+    }
+
+    .domain-calculus {
+      background: #FFF8E6;
+      color: var(--warn);
+      border-color: #E8D090;
+    }
+
+    .domain-linalg {
+      background: #FFF0EE;
+      color: var(--error);
+      border-color: #F0C0B8;
+    }
+
+    .domain-stats {
+      background: #F0F8FF;
+      color: #336699;
+      border-color: #AACCEE;
+    }
+
+    .domain-number {
+      background: #F8F0FF;
+      color: #7744AA;
+      border-color: #DDC0F0;
+    }
+
+    .domain-topology {
+      background: #FFF4F8;
+      color: #AA4466;
+      border-color: #F0B8CC;
+    }
+
+    .domain-geometry {
+      background: #F0FFF8;
+      color: #448866;
+      border-color: #AADDCC;
+    }
+
+    .domain-ode {
+      background: #FFFAEE;
+      color: #887733;
+      border-color: #DDCC88;
+    }
 
     /* ── TYPING INDICATOR ────────────────────────────────── */
-    .typing-wrap { display: flex; align-items: center; gap: 8px; padding: 10px 14px; }
-    .typing-label { font-size: .72rem; color: var(--ink-faint); font-style: italic; }
+    .typing-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+    }
+
+    .typing-label {
+      font-size: .72rem;
+      color: var(--ink-faint);
+      font-style: italic;
+    }
+
     .typing-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--ink-faint);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ink-faint);
       animation: bounce .9s ease infinite;
     }
-    .typing-dot:nth-child(2) { animation-delay: .15s; }
-    .typing-dot:nth-child(3) { animation-delay: .3s; }
-    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+
+    .typing-dot:nth-child(2) {
+      animation-delay: .15s;
+    }
+
+    .typing-dot:nth-child(3) {
+      animation-delay: .3s;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-5px)
+      }
+    }
 
     /* ── WELCOME STATE ───────────────────────────────────── */
     .welcome-state {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      flex: 1; text-align: center; padding: 40px 20px; gap: 16px; min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      text-align: center;
+      padding: 40px 20px;
+      gap: 16px;
+      min-height: 320px;
     }
+
     .welcome-orb {
-      width: 64px; height: 64px; border-radius: 16px;
-      background: var(--ink); display: grid; place-items: center;
-      font-size: 1.8rem; color: #fff;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: var(--ink);
+      display: grid;
+      place-items: center;
+      font-size: 1.8rem;
+      color: #fff;
     }
-    .welcome-state h2 { font-family: var(--font-serif); font-size: 1.8rem; color: var(--ink); }
-    .welcome-state h2 em { font-style: italic; }
-    .welcome-state p { font-size: .88rem; color: var(--ink-muted); max-width: 480px; line-height: 1.7; }
-    .capability-pills { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-top: 4px; }
+
+    .welcome-state h2 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--ink);
+    }
+
+    .welcome-state h2 em {
+      font-style: italic;
+    }
+
+    .welcome-state p {
+      font-size: .88rem;
+      color: var(--ink-muted);
+      max-width: 480px;
+      line-height: 1.7;
+    }
+
+    .capability-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
     .cap-pill {
-      font-size: .72rem; font-weight: 600; color: var(--ink-muted);
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 4px 10px; border-radius: var(--r-full);
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      border-radius: var(--r-full);
     }
 
     /* ── INPUT AREA ──────────────────────────────────────── */
     .input-area {
-      padding: 12px 16px 16px; border-top: 1px solid var(--border);
-      background: var(--surface); flex-shrink: 0;
+      padding: 12px 16px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
     }
-    .preview-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+
+    .preview-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
     .img-preview {
-      position: relative; width: 60px; height: 60px; border-radius: var(--r-md);
-      overflow: hidden; border: 1px solid var(--border); flex-shrink: 0;
+      position: relative;
+      width: 60px;
+      height: 60px;
+      border-radius: var(--r-md);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
     }
-    .img-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+    .img-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .img-preview button {
-      position: absolute; top: 2px; right: 2px;
-      background: rgba(0,0,0,.5); border: none; border-radius: 50%;
-      width: 16px; height: 16px; cursor: pointer; color: #fff; font-size: .6rem; line-height: 1;
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: rgba(0, 0, 0, .5);
+      border: none;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      color: #fff;
+      font-size: .6rem;
+      line-height: 1;
     }
+
     .user-img-preview {
-      max-width: 200px; max-height: 150px; border-radius: var(--r-md);
-      border: 1px solid var(--border); display: block; margin-top: 8px;
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--border);
+      display: block;
+      margin-top: 8px;
     }
-    .input-row { display: flex; gap: 10px; align-items: flex-end; }
-    .input-col { flex: 1; display: flex; flex-direction: column; gap: 6px; }
-    .input-toolbar { display: flex; gap: 4px; }
+
+    .input-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .input-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-toolbar {
+      display: flex;
+      gap: 4px;
+    }
+
     .tool-btn {
-      font-family: var(--font-sans); font-size: .72rem; font-weight: 600; letter-spacing: .02em;
-      color: var(--ink-muted); background: var(--surface-2);
-      border: 1.5px solid var(--border); border-radius: var(--r-sm);
-      padding: 4px 10px; cursor: pointer; display: flex; align-items: center; gap: 5px;
+      font-family: var(--font-sans);
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+      color: var(--ink-muted);
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 4px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
       transition: background var(--t), color var(--t), border-color var(--t);
     }
-    .tool-btn svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 1.8; }
-    .tool-btn:hover { background: var(--surface-3); color: var(--ink); border-color: var(--border-strong); }
+
+    .tool-btn svg {
+      width: 12px;
+      height: 12px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+    }
+
+    .tool-btn:hover {
+      background: var(--surface-3);
+      color: var(--ink);
+      border-color: var(--border-strong);
+    }
+
     #mathInput {
-      font-family: var(--font-sans); font-size: .88rem;
-      background: var(--surface); color: var(--ink);
-      border: 1.5px solid var(--border); border-radius: var(--r-md);
-      padding: 10px 14px; width: 100%; resize: none; outline: none; line-height: 1.5;
+      font-family: var(--font-sans);
+      font-size: .88rem;
+      background: var(--surface);
+      color: var(--ink);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 10px 14px;
+      width: 100%;
+      resize: none;
+      outline: none;
+      line-height: 1.5;
       transition: border-color var(--t), box-shadow var(--t);
-      min-height: 42px; max-height: 200px;
+      min-height: 42px;
+      max-height: 200px;
     }
-    #mathInput:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(0,0,0,.07); }
-    #mathInput::placeholder { color: var(--ink-faint); }
-    .input-hint { font-size: .68rem; color: var(--ink-faint); }
+
+    #mathInput:focus {
+      border-color: var(--ink);
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, .07);
+    }
+
+    #mathInput::placeholder {
+      color: var(--ink-faint);
+    }
+
+    .input-hint {
+      font-size: .68rem;
+      color: var(--ink-faint);
+    }
+
     .input-hint kbd {
-      font-family: var(--mono); background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: 3px; padding: 1px 4px; font-size: .65rem;
+      font-family: var(--mono);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 4px;
+      font-size: .65rem;
     }
+
     .send-btn {
-      width: 42px; height: 42px; border-radius: var(--r-md);
-      background: var(--ink); border: none; cursor: pointer; color: #fff;
-      display: grid; place-items: center; flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--r-md);
+      background: var(--ink);
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
       transition: background var(--t), transform .1s;
     }
-    .send-btn:hover { background: #2A2A2A; }
-    .send-btn:active { transform: scale(.95); }
-    .send-btn svg { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 2; }
-    .send-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    .send-btn:hover {
+      background: #2A2A2A;
+    }
+
+    .send-btn:active {
+      transform: scale(.95);
+    }
+
+    .send-btn svg {
+      width: 15px;
+      height: 15px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .send-btn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
 
     /* ── ICON BUTTON ─────────────────────────────────────── */
     .icon-btn {
-      width: 32px; height: 32px; border-radius: var(--r-sm);
-      background: none; border: 1px solid var(--border);
-      cursor: pointer; color: var(--ink-faint);
-      display: grid; place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r-sm);
+      background: none;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      color: var(--ink-faint);
+      display: grid;
+      place-items: center;
       transition: background var(--t), color var(--t), border-color var(--t);
     }
-    .icon-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
-    .icon-btn:hover { background: var(--surface-2); color: var(--ink); border-color: var(--border-strong); }
+
+    .icon-btn svg {
+      width: 13px;
+      height: 13px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .icon-btn:hover {
+      background: var(--surface-2);
+      color: var(--ink);
+      border-color: var(--border-strong);
+    }
 
     /* ── RIGHT SIDEBAR ───────────────────────────────────── */
     .sidebar-right {
-      width: 260px; flex-shrink: 0;
-      background: var(--surface); border-left: 1px solid var(--border);
-      display: flex; flex-direction: column; overflow: hidden;
+      width: 260px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
       transition: transform .25s var(--ease);
     }
-    .sidebar-right.closed { transform: translateX(260px); }
-    .panel-tabs {
-      display: flex; border-bottom: 1px solid var(--border); flex-shrink: 0;
+
+    .sidebar-right.closed {
+      transform: translateX(260px);
     }
+
+    .panel-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
     .panel-tab {
-      flex: 1; font-family: var(--font-sans); font-size: .75rem; font-weight: 600;
-      color: var(--ink-faint); background: none; border: none;
-      padding: 11px 0; cursor: pointer; letter-spacing: .04em;
-      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      flex: 1;
+      font-family: var(--font-sans);
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--ink-faint);
+      background: none;
+      border: none;
+      padding: 11px 0;
+      cursor: pointer;
+      letter-spacing: .04em;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
       transition: color var(--t), border-color var(--t);
     }
-    .panel-tab:hover { color: var(--ink); }
-    .panel-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
-    .panel-pane { display: none; flex: 1; overflow-y: auto; flex-direction: column; }
-    .panel-pane.active { display: flex; }
+
+    .panel-tab:hover {
+      color: var(--ink);
+    }
+
+    .panel-tab.active {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
+
+    .panel-pane {
+      display: none;
+      flex: 1;
+      overflow-y: auto;
+      flex-direction: column;
+    }
+
+    .panel-pane.active {
+      display: flex;
+    }
+
     .panel-section {
-      padding: 14px; border-bottom: 1px solid var(--border);
-      display: flex; flex-direction: column; gap: 8px;
+      padding: 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
+
     .panel-label {
-      font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-      color: var(--ink-faint); margin-bottom: 2px;
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 2px;
     }
-    .setting-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-    .setting-label { font-size: .78rem; color: var(--ink-muted); }
-    .setting-toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .setting-label {
+      font-size: .78rem;
+      color: var(--ink-muted);
+    }
+
+    .setting-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3px 0;
+    }
+
     .setting-select {
-      font-family: var(--font-sans); font-size: .75rem; color: var(--ink);
-      background: var(--surface-2); border: 1.5px solid var(--border);
-      border-radius: var(--r-sm); padding: 4px 8px; outline: none;
+      font-family: var(--font-sans);
+      font-size: .75rem;
+      color: var(--ink);
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 4px 8px;
+      outline: none;
       transition: border-color var(--t);
     }
-    .setting-select:focus { border-color: var(--ink); }
+
+    .setting-select:focus {
+      border-color: var(--ink);
+    }
 
     /* Toggle switch */
     .toggle {
-      width: 34px; height: 18px; border-radius: var(--r-full);
-      background: var(--surface-3); border: 1.5px solid var(--border-strong);
-      cursor: pointer; position: relative; transition: background var(--t), border-color var(--t);
+      width: 34px;
+      height: 18px;
+      border-radius: var(--r-full);
+      background: var(--surface-3);
+      border: 1.5px solid var(--border-strong);
+      cursor: pointer;
+      position: relative;
+      transition: background var(--t), border-color var(--t);
       flex-shrink: 0;
     }
+
     .toggle::after {
-      content: ''; position: absolute; top: 1px; left: 1px;
-      width: 13px; height: 13px; border-radius: 50%; background: var(--ink-faint);
+      content: '';
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--ink-faint);
       transition: transform var(--t), background var(--t);
     }
-    .toggle.on { background: var(--ink); border-color: var(--ink); }
-    .toggle.on::after { transform: translateX(16px); background: #fff; }
+
+    .toggle.on {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .toggle.on::after {
+      transform: translateX(16px);
+      background: #fff;
+    }
 
     /* Range input */
-    .range-row { display: flex; align-items: center; gap: 8px; flex: 1; }
-    .range-row input[type=range] { flex: 1; accent-color: var(--ink); }
-    .range-val { font-size: .7rem; font-family: var(--mono); color: var(--ink-muted); min-width: 28px; text-align: right; }
+    .range-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .range-row input[type=range] {
+      flex: 1;
+      accent-color: var(--ink);
+    }
+
+    .range-val {
+      font-size: .7rem;
+      font-family: var(--mono);
+      color: var(--ink-muted);
+      min-width: 28px;
+      text-align: right;
+    }
 
     /* Examples grid */
-    .examples-grid { padding: 10px; display: flex; flex-direction: column; gap: 6px; }
-    .ex-btn {
-      font-family: var(--font-sans); font-size: .75rem; text-align: left;
-      background: var(--surface-2); border: 1.5px solid var(--border);
-      border-radius: var(--r-md); padding: 10px 12px; cursor: pointer;
-      transition: background var(--t), border-color var(--t);
-      display: flex; align-items: flex-start; gap: 8px;
+    .examples-grid {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
     }
-    .ex-btn:hover { background: var(--surface-3); border-color: var(--border-strong); }
-    .ex-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
-    .ex-text { color: var(--ink-muted); line-height: 1.4; }
-    .ex-text strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; }
+
+    .ex-btn {
+      font-family: var(--font-sans);
+      font-size: .75rem;
+      text-align: left;
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: background var(--t), border-color var(--t);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .ex-btn:hover {
+      background: var(--surface-3);
+      border-color: var(--border-strong);
+    }
+
+    .ex-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .ex-text {
+      color: var(--ink-muted);
+      line-height: 1.4;
+    }
+
+    .ex-text strong {
+      color: var(--ink);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
 
     /* Stats grid */
     .stats-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 12px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 12px;
     }
+
     .stat-card {
-      background: var(--surface-2); border: 1px solid var(--border);
-      border-radius: var(--r-md); padding: 12px; text-align: center;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 12px;
+      text-align: center;
     }
-    .stat-label { font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-faint); }
-    .stat-val { font-family: var(--font-serif); font-size: 1.4rem; color: var(--ink); margin: 4px 0 2px; line-height: 1; }
-    .stat-sub { font-size: .62rem; color: var(--ink-faint); }
+
+    .stat-label {
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+
+    .stat-val {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--ink);
+      margin: 4px 0 2px;
+      line-height: 1;
+    }
+
+    .stat-sub {
+      font-size: .62rem;
+      color: var(--ink-faint);
+    }
 
     /* History list */
-    .hist-list { flex: 1; overflow-y: auto; padding: 6px 12px 10px; }
-    .hist-item {
-      font-size: .75rem; color: var(--ink-muted); padding: 7px 10px;
-      border-radius: var(--r-sm); cursor: pointer; transition: background var(--t), color var(--t);
-      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-      background: none; border: none; width: 100%; text-align: left; font-family: var(--font-sans);
+    .hist-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 6px 12px 10px;
     }
-    .hist-item:hover { background: var(--surface-2); color: var(--ink); }
+
+    .hist-item {
+      font-size: .75rem;
+      color: var(--ink-muted);
+      padding: 7px 10px;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      transition: background var(--t), color var(--t);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-sans);
+    }
+
+    .hist-item:hover {
+      background: var(--surface-2);
+      color: var(--ink);
+    }
+
     .hist-item-domain {
-      font-size: .6rem; font-weight: 700; letter-spacing: .06em;
-      text-transform: uppercase; opacity: .5; margin-right: 6px;
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      opacity: .5;
+      margin-right: 6px;
     }
 
     /* ── CAMERA MODAL ────────────────────────────────────── */
     .modal-overlay {
-      position: fixed; inset: 0; z-index: 1000;
-      background: rgba(0,0,0,.6); backdrop-filter: blur(6px);
-      display: flex; align-items: center; justify-content: center;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, .6);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .modal-overlay.hidden { display: none; }
+
+    .modal-overlay.hidden {
+      display: none;
+    }
+
     .camera-modal {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--r-xl); width: min(480px, 94vw);
-      box-shadow: var(--shadow-lg); overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-xl);
+      width: min(480px, 94vw);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
     }
+
     .modal-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
     }
-    .modal-header h3 { font-family: var(--font-serif); font-size: 1.1rem; color: var(--ink); }
+
+    .modal-header h3 {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+
     .modal-close {
-      background: none; border: none; cursor: pointer; color: var(--ink-faint);
-      font-size: 1rem; line-height: 1; padding: 4px; transition: color var(--t);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--ink-faint);
+      font-size: 1rem;
+      line-height: 1;
+      padding: 4px;
+      transition: color var(--t);
     }
-    .modal-close:hover { color: var(--ink); }
-    .camera-view { position: relative; background: #000; aspect-ratio: 4/3; overflow: hidden; }
-    .camera-view video, .camera-view canvas { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-    .camera-overlay { position: absolute; inset: 0; }
+
+    .modal-close:hover {
+      color: var(--ink);
+    }
+
+    .camera-view {
+      position: relative;
+      background: #000;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+
+    .camera-view video,
+    .camera-view canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+
+    .camera-overlay {
+      position: absolute;
+      inset: 0;
+    }
+
     .scan-line {
-      position: absolute; left: 0; right: 0; height: 2px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
       background: linear-gradient(90deg, transparent, var(--ink), transparent);
       animation: scan 2s ease infinite;
     }
-    @keyframes scan { 0%{top:10%} 100%{top:90%} }
+
+    @keyframes scan {
+      0% {
+        top: 10%
+      }
+
+      100% {
+        top: 90%
+      }
+    }
+
     .corner {
-      position: absolute; width: 20px; height: 20px;
-      border-color: var(--ink); border-style: solid; border-width: 0;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: var(--ink);
+      border-style: solid;
+      border-width: 0;
     }
-    .corner.tl { top: 12px; left: 12px; border-top-width: 2px; border-left-width: 2px; }
-    .corner.tr { top: 12px; right: 12px; border-top-width: 2px; border-right-width: 2px; }
-    .corner.bl { bottom: 12px; left: 12px; border-bottom-width: 2px; border-left-width: 2px; }
-    .corner.br { bottom: 12px; right: 12px; border-bottom-width: 2px; border-right-width: 2px; }
-    .modal-body { padding: 16px 20px; }
-    .modal-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+    .corner.tl {
+      top: 12px;
+      left: 12px;
+      border-top-width: 2px;
+      border-left-width: 2px;
+    }
+
+    .corner.tr {
+      top: 12px;
+      right: 12px;
+      border-top-width: 2px;
+      border-right-width: 2px;
+    }
+
+    .corner.bl {
+      bottom: 12px;
+      left: 12px;
+      border-bottom-width: 2px;
+      border-left-width: 2px;
+    }
+
+    .corner.br {
+      bottom: 12px;
+      right: 12px;
+      border-bottom-width: 2px;
+      border-right-width: 2px;
+    }
+
+    .modal-body {
+      padding: 16px 20px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
     .modal-btn {
-      font-family: var(--font-sans); font-size: .82rem; font-weight: 600;
-      padding: 8px 18px; border-radius: var(--r-md); cursor: pointer;
-      border: none; transition: background var(--t), transform .1s;
+      font-family: var(--font-sans);
+      font-size: .82rem;
+      font-weight: 600;
+      padding: 8px 18px;
+      border-radius: var(--r-md);
+      cursor: pointer;
+      border: none;
+      transition: background var(--t), transform .1s;
     }
-    .modal-btn.primary { background: var(--ink); color: #fff; }
-    .modal-btn.primary:hover { background: #2A2A2A; }
+
+    .modal-btn.primary {
+      background: var(--ink);
+      color: #fff;
+    }
+
+    .modal-btn.primary:hover {
+      background: #2A2A2A;
+    }
+
     .modal-btn.secondary {
-      background: var(--surface-2); color: var(--ink);
+      background: var(--surface-2);
+      color: var(--ink);
       border: 1.5px solid var(--border);
     }
-    .modal-btn.secondary:hover { background: var(--surface-3); }
-    .modal-hint { font-size: .72rem; color: var(--ink-faint); margin-top: 10px; line-height: 1.5; }
+
+    .modal-btn.secondary:hover {
+      background: var(--surface-3);
+    }
+
+    .modal-hint {
+      font-size: .72rem;
+      color: var(--ink-faint);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
     .camera-thumb {
-      width: 56px; height: 56px; object-fit: cover;
-      border-radius: var(--r-sm); border: 1px solid var(--border);
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border);
     }
 
     /* ── KATEX OVERRIDES ─────────────────────────────────── */
-    .katex { font-size: 1em !important; }
-    .katex-display { margin: 12px 0 !important; overflow-x: auto; }
+    .katex {
+      font-size: 1em !important;
+    }
+
+    .katex-display {
+      margin: 12px 0 !important;
+      overflow-x: auto;
+    }
 
     /* ── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 900px) {
-      .sidebar-right { position: absolute; right: 0; top: 0; height: 100%; z-index: 100; }
-      .sidebar-right.closed { transform: translateX(100%); }
+      .sidebar-right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        z-index: 100;
+      }
+
+      .sidebar-right.closed {
+        transform: translateX(100%);
+      }
     }
+
     @media (max-width: 600px) {
-      .nav { padding: 0 16px; }
-      .mode-bar { padding: 8px 12px; }
-      #chatMessages { padding: 14px 14px 8px; }
-      .input-area { padding: 10px 12px 14px; }
-      .subject-bar { display: none; }
+      .nav {
+        padding: 0 16px;
+      }
+
+      .mode-bar {
+        padding: 8px 12px;
+      }
+
+      #chatMessages {
+        padding: 14px 14px 8px;
+      }
+
+      .input-area {
+        padding: 10px 12px 14px;
+      }
+
+      .subject-bar {
+        display: none;
+      }
     }
 
     /* ── DARK MODE OVERRIDES ─────────────────────────────── */
-    html.dark .nav { background: #0C0C0C; border-bottom-color: #222; }
-    html.dark .nav-user-btn { background: #1E1E1E; border-color: #2A2A2A; }
-    html.dark .mode-btn.active { background: #F0F0F0; color: #0C0C0C; border-color: #F0F0F0; }
-    html.dark .send-btn { background: #F0F0F0; color: #0C0C0C; }
-    html.dark .send-btn:hover { background: #fff; }
-    html.dark .nav-brand-icon { background: #F0F0F0; }
-    html.dark .nav-brand-icon svg { stroke: #0C0C0C; }
-    html.dark .nav-avatar { background: #F0F0F0; color: #0C0C0C; }
-    html.dark .agent-icon { background: #F0F0F0; color: #0C0C0C; }
-    html.dark .step-num { background: #F0F0F0; color: #0C0C0C; }
-    html.dark .toggle.on { background: #F0F0F0; border-color: #F0F0F0; }
-    html.dark .toggle.on::after { background: #0C0C0C; }
-    html.dark .welcome-orb { background: #F0F0F0; color: #0C0C0C; }
-    html.dark .user-bubble { background: #F0F0F0; color: #0C0C0C; border-color: #F0F0F0; }
-    html.dark .nav-pill { background: rgba(34,170,102,.15); border-color: rgba(34,170,102,.25); }
+    html.dark .nav {
+      background: #0C0C0C;
+      border-bottom-color: #222;
+    }
+
+    html.dark .nav-user-btn {
+      background: #1E1E1E;
+      border-color: #2A2A2A;
+    }
+
+    html.dark .mode-btn.active {
+      background: #F0F0F0;
+      color: #0C0C0C;
+      border-color: #F0F0F0;
+    }
+
+    html.dark .send-btn {
+      background: #F0F0F0;
+      color: #0C0C0C;
+    }
+
+    html.dark .send-btn:hover {
+      background: #fff;
+    }
+
+    html.dark .nav-brand-icon {
+      background: #F0F0F0;
+    }
+
+    html.dark .nav-brand-icon svg {
+      stroke: #0C0C0C;
+    }
+
+    html.dark .nav-avatar {
+      background: #F0F0F0;
+      color: #0C0C0C;
+    }
+
+    html.dark .agent-icon {
+      background: #F0F0F0;
+      color: #0C0C0C;
+    }
+
+    html.dark .step-num {
+      background: #F0F0F0;
+      color: #0C0C0C;
+    }
+
+    html.dark .toggle.on {
+      background: #F0F0F0;
+      border-color: #F0F0F0;
+    }
+
+    html.dark .toggle.on::after {
+      background: #0C0C0C;
+    }
+
+    html.dark .welcome-orb {
+      background: #F0F0F0;
+      color: #0C0C0C;
+    }
+
+    html.dark .user-bubble {
+      background: #F0F0F0;
+      color: #0C0C0C;
+      border-color: #F0F0F0;
+    }
+
+    html.dark .nav-pill {
+      background: rgba(34, 170, 102, .15);
+      border-color: rgba(34, 170, 102, .25);
+    }
 
     /* ── EMBED MODE (when loaded as dashboard iframe) ─────── */
-    html.embed-mode .nav { display: none !important; }
+    html.embed-mode .nav {
+      display: none !important;
+    }
+
     html.embed-mode .layout {
       height: 100dvh;
     }
+
     html.embed-mode body {
       overflow: hidden;
     }
   </style>
 </head>
+
 <body>
 
-<!-- ══ NAVBAR ══ -->
-<nav class="nav">
-  <a href="dashboard.html" class="nav-brand">
-    <span class="nav-brand-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
-    <span class="nav-brand-name">Zenspace</span>
-  </a>
-  <span class="nav-badge">Zenlab</span>
-  <div class="nav-spacer"></div>
-  <div class="nav-pill"><div class="dot"></div>Agent Active</div>
-  <button class="dark-toggle" id="darkToggle" onclick="toggleTheme()" title="Toggle dark mode">
-    <svg id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-  </button>
-  <a href="dashboard.html" class="nav-user-btn" id="navUserBtn">
-    <div class="nav-avatar" id="navAvatar">U</div>
-    <span id="navName">Dashboard</span>
-  </a>
-</nav>
-
-<!-- ══ LAYOUT ══ -->
-<div class="layout">
-
-  <!-- MAIN CHAT -->
-  <main class="main">
-    <!-- History Popover -->
-    <div class="history-popover" id="historyPopover">
-      <div class="history-popover-header">
-        <span>Recent Problems</span>
-        <button class="icon-btn" onclick="toggleHistoryPopover(event)" style="padding:4px;border:none;background:none;cursor:pointer;">
-          <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <div class="hist-list" id="histList" style="flex:1;overflow-y:auto;padding:8px 12px 12px;">
-        <div style="font-size:.72rem;color:var(--ink-4);padding:4px 10px;font-family:var(--font)">No history yet</div>
-      </div>
-      <div class="history-popover-footer" style="padding:8px 12px;border-top:1px solid var(--border);">
-        <button class="nav-link" style="color:var(--red);width:100%;justify-content:center;font-size:.75rem;display:flex;align-items:center;gap:6px;padding:6px;border-radius:6px;border:none;background:none;cursor:pointer;" onclick="clearAll()">
-          <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
-          Clear All
-        </button>
-      </div>
+  <!-- ══ NAVBAR ══ -->
+  <nav class="nav">
+    <a href="dashboard.html" class="nav-brand">
+      <span class="nav-brand-icon"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z" />
+          <path d="M2 17l10 5 10-5" />
+          <path d="M2 12l10 5 10-5" />
+        </svg></span>
+      <span class="nav-brand-name">Zenspace</span>
+    </a>
+    <span class="nav-badge">Zenlab</span>
+    <div class="nav-spacer"></div>
+    <div class="nav-pill">
+      <div class="dot"></div>Agent Active
     </div>
+    <button class="dark-toggle" id="darkToggle" onclick="toggleTheme()" title="Toggle dark mode">
+      <svg id="themeIcon" viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+      </svg>
+    </button>
+    <a href="dashboard.html" class="nav-user-btn" id="navUserBtn">
+      <div class="nav-avatar" id="navAvatar">U</div>
+      <span id="navName">Dashboard</span>
+    </a>
+  </nav>
 
-    <!-- Topbar -->
-    <div class="chat-topbar">
-      <div class="agent-icon">∑</div>
-      <div class="topbar-info">
-        <h3>Zenlab</h3>
-        <p id="agentStatus">PhD-level solver · Vision enabled · Step-by-step reasoning</p>
-      </div>
-      <div class="topbar-actions">
-        <button class="icon-btn" title="Recent History" onclick="toggleHistoryPopover(event)" id="historyBtn">
-          <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </button>
-        <button class="icon-btn" title="Download conversation" onclick="downloadChat()">
-          <svg viewBox="0 0 24 24"><polyline points="8 17 12 21 16 17"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29"/></svg>
-        </button>
-        <button class="icon-btn" title="Clear chat" onclick="clearChat()">
-          <svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
-        </button>
-        <button class="icon-btn" title="Toggle Settings & Examples" onclick="toggleRightSidebar()" id="toggleSettingsBtn">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-        </button>
-        <button class="icon-btn" title="Toggle Light/Dark Theme" onclick="toggleTheme()" id="themeToggleBtn">
-          <svg viewBox="0 0 24 24" id="themeIcon" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"/></svg>
-        </button>
-      </div>
-    </div>
+  <!-- ══ LAYOUT ══ -->
+  <div class="layout">
 
-    <!-- Mode bar -->
-    <div class="mode-bar">
-      <button class="mode-btn active" onclick="setMode('step-by-step',this)">Step-by-Step</button>
-      <button class="mode-btn" onclick="setMode('direct',this)">Direct Answer</button>
-      <button class="mode-btn" onclick="setMode('proof',this)">Formal Proof</button>
-      <button class="mode-btn" onclick="setMode('verify',this)">Verify</button>
-      <button class="mode-btn" onclick="setMode('explore',this)">Deep Explore</button>
-      <button class="mode-btn" onclick="setMode('phd',this)">⚡ PhD Mode</button>
-    </div>
-
-    <!-- Subject Selector Bar -->
-    <div class="subject-bar" id="subjectBar">
-      <div class="subject-row">
-        <span class="subject-label">Subject</span>
-        <button class="subj-pill active" data-subj="math" onclick="selectSubject('math',this)">📐 Mathematics</button>
-        <button class="subj-pill" data-subj="physics" onclick="selectSubject('physics',this)">⚛️ Physics</button>
-        <button class="subj-pill" data-subj="chemistry" onclick="selectSubject('chemistry',this)">🧪 Chemistry</button>
-        <button class="subj-pill" data-subj="biology" onclick="selectSubject('biology',this)">🧬 Biology</button>
-        <button class="subj-pill" data-subj="cs" onclick="selectSubject('cs',this)">💻 Comp. Sci</button>
-        <button class="subj-pill" data-subj="economics" onclick="selectSubject('economics',this)">📊 Economics</button>
-      </div>
-      <div class="topic-row show" id="topicRow">
-        <span class="subject-label">Topic</span>
-      </div>
-    </div>
-
-    <!-- Messages -->
-    <div id="chatMessages">
-      <div class="welcome-state" id="welcomeState">
-        <div class="welcome-orb">∑</div>
-        <h2>Zen<em>lab</em></h2>
-        <p>PhD-level mathematics powered by Llama 3.3. Handles everything from undergraduate calculus to graduate-level real analysis, algebraic topology, measure theory, abstract algebra, and beyond. Now with vision — scan or photograph any problem.</p>
-        <div class="capability-pills">
-          <span class="cap-pill">∫ Analysis</span>
-          <span class="cap-pill">∑ Algebra</span>
-          <span class="cap-pill">⊗ Linear Algebra</span>
-          <span class="cap-pill">σ Probability</span>
-          <span class="cap-pill">∂ PDEs / ODEs</span>
-          <span class="cap-pill">ℕ Number Theory</span>
-          <span class="cap-pill">⌂ Topology</span>
-          <span class="cap-pill">∇ Differential Geometry</span>
-          <span class="cap-pill">∀ Logic & Proofs</span>
-          <span class="cap-pill">∞ Measure Theory</span>
-          <span class="cap-pill">📸 Vision OCR</span>
+    <!-- MAIN CHAT -->
+    <main class="main">
+      <!-- History Popover -->
+      <div class="history-popover" id="historyPopover">
+        <div class="history-popover-header">
+          <span>Recent Problems</span>
+          <button class="icon-btn" onclick="toggleHistoryPopover(event)"
+            style="padding:4px;border:none;background:none;cursor:pointer;">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+        <div class="hist-list" id="histList" style="flex:1;overflow-y:auto;padding:8px 12px 12px;">
+          <div style="font-size:.72rem;color:var(--ink-4);padding:4px 10px;font-family:var(--font)">No history yet</div>
+        </div>
+        <div class="history-popover-footer" style="padding:8px 12px;border-top:1px solid var(--border);">
+          <button class="nav-link"
+            style="color:var(--red);width:100%;justify-content:center;font-size:.75rem;display:flex;align-items:center;gap:6px;padding:6px;border-radius:6px;border:none;background:none;cursor:pointer;"
+            onclick="clearAll()">
+            <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2;">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+            </svg>
+            Clear All
+          </button>
         </div>
       </div>
-    </div>
 
-    <!-- Input area -->
-    <div class="input-area">
-      <!-- Image preview strip -->
-      <div class="preview-strip" id="previewStrip" style="display:none"></div>
-
-      <div class="input-row">
-        <div class="input-col">
-          <div class="input-toolbar">
-            <button class="tool-btn" id="cameraBtn" onclick="openCamera()" title="Scan with camera">
-              <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              Scan
-            </button>
-            <label class="tool-btn" for="imageUpload" title="Upload image of problem">
-              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              Upload
-              <input type="file" id="imageUpload" accept="image/*" multiple style="display:none" onchange="handleImageUpload(event)">
-            </label>
-            <button class="tool-btn" id="latexBtn" onclick="toggleLatexHelper()" title="LaTeX helper">
-              <svg viewBox="0 0 24 24"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg>
-              LaTeX
-            </button>
-          </div>
-          <textarea
-            id="mathInput"
-            rows="1"
-            placeholder="Ask any math problem… e.g. Prove the Riemann hypothesis is equivalent to… or Solve the Navier–Stokes… or just snap a photo ↑"
-            onkeydown="handleKey(event)"
-            oninput="autoResize(this)"
-          ></textarea>
-          <div class="input-hint">
-            <kbd>Enter</kbd> send · <kbd>Shift+Enter</kbd> newline · Supports LaTeX $…$ and $$…$$
-          </div>
+      <!-- Topbar -->
+      <div class="chat-topbar">
+        <div class="agent-icon">∑</div>
+        <div class="topbar-info">
+          <h3>Zenlab</h3>
+          <p id="agentStatus">PhD-level solver · Vision enabled · Step-by-step reasoning</p>
         </div>
-        <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="Send">
-          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
+        <div class="topbar-actions">
+          <button class="icon-btn" title="Recent History" onclick="toggleHistoryPopover(event)" id="historyBtn">
+            <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </button>
+          <button class="icon-btn" title="Download conversation" onclick="downloadChat()">
+            <svg viewBox="0 0 24 24">
+              <polyline points="8 17 12 21 16 17" />
+              <line x1="12" y1="12" x2="12" y2="21" />
+              <path d="M20.88 18.09A5 5 0 0018 9h-1.26A8 8 0 103 16.29" />
+            </svg>
+          </button>
+          <button class="icon-btn" title="Clear chat" onclick="clearChat()">
+            <svg viewBox="0 0 24 24">
+              <polyline points="1 4 1 10 7 10" />
+              <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
+            </svg>
+          </button>
+          <button class="icon-btn" title="Toggle Settings & Examples" onclick="toggleRightSidebar()"
+            id="toggleSettingsBtn">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
+            </svg>
+          </button>
+          <button class="icon-btn" title="Toggle Light/Dark Theme" onclick="toggleTheme()" id="themeToggleBtn">
+            <svg viewBox="0 0 24 24" id="themeIcon"
+              style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;">
+              <path
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z" />
+            </svg>
+          </button>
+        </div>
       </div>
-    </div>
-  </main>
 
-  <!-- RIGHT PANEL -->
-  <aside class="sidebar-right">
-    <div class="panel-tabs">
-      <button class="panel-tab active" onclick="switchPanel('settings',this)">Settings</button>
-      <button class="panel-tab" onclick="switchPanel('examples',this)">Examples</button>
-      <button class="panel-tab" onclick="switchPanel('stats',this)">Stats</button>
-    </div>
+      <!-- Mode bar -->
+      <div class="mode-bar">
+        <button class="mode-btn active" onclick="setMode('step-by-step',this)">Step-by-Step</button>
+        <button class="mode-btn" onclick="setMode('direct',this)">Direct Answer</button>
+        <button class="mode-btn" onclick="setMode('proof',this)">Formal Proof</button>
+        <button class="mode-btn" onclick="setMode('verify',this)">Verify</button>
+        <button class="mode-btn" onclick="setMode('explore',this)">Deep Explore</button>
+        <button class="mode-btn" onclick="setMode('phd',this)">⚡ PhD Mode</button>
+      </div>
 
-    <!-- Settings pane -->
-    <div class="panel-pane active" id="pane-settings">
-
-      <!-- ── API KEY ────────────────────────────────────── -->
-      <div class="panel-section" style="background:rgba(139,92,246,.08);border-radius:10px;padding:12px 14px;margin-bottom:2px">
-        <div class="panel-label" style="color:var(--accent-2);margin-bottom:6px">⚡ AI Engine</div>
-        <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(139,92,246,.25);border-radius:8px;padding:8px 12px">
-          <span style="font-size:1.1rem">🤖</span>
-          <div>
-            <div style="font-size:.78rem;font-weight:600;color:var(--ink-1)">Advanced AI Engine</div>
-            <div style="font-size:.67rem;color:var(--ink-4)">PhD-level math · Ultra-fast inference</div>
-          </div>
-          <span style="margin-left:auto;font-size:.65rem;background:rgba(74,222,128,.15);color:#4ade80;border-radius:20px;padding:2px 8px;font-weight:600">FREE</span>
+      <!-- Subject Selector Bar -->
+      <div class="subject-bar" id="subjectBar">
+        <div class="subject-row">
+          <span class="subject-label">Subject</span>
+          <button class="subj-pill active" data-subj="math" onclick="selectSubject('math',this)">📐 Mathematics</button>
+          <button class="subj-pill" data-subj="physics" onclick="selectSubject('physics',this)">⚛️ Physics</button>
+          <button class="subj-pill" data-subj="chemistry" onclick="selectSubject('chemistry',this)">🧪
+            Chemistry</button>
+          <button class="subj-pill" data-subj="biology" onclick="selectSubject('biology',this)">🧬 Biology</button>
+          <button class="subj-pill" data-subj="cs" onclick="selectSubject('cs',this)">💻 Comp. Sci</button>
+          <button class="subj-pill" data-subj="economics" onclick="selectSubject('economics',this)">📊
+            Economics</button>
         </div>
-        <div style="margin-top:12px; border-top:1px solid rgba(139,92,246,.15); padding-top:12px">
-          <div class="setting-toggle-row" style="padding:0">
-            <span class="setting-label" style="font-size:.76rem; font-weight: 600;">Add API Key</span>
-            <button class="toggle" id="togCustomKey" onclick="toggleCustomKey()"></button>
+        <div class="topic-row show" id="topicRow">
+          <span class="subject-label">Topic</span>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div id="chatMessages">
+        <div class="welcome-state" id="welcomeState">
+          <div class="welcome-orb">∑</div>
+          <h2>Zen<em>lab</em></h2>
+          <p>PhD-level mathematics powered by Llama 3.3. Handles everything from undergraduate calculus to
+            graduate-level real analysis, algebraic topology, measure theory, abstract algebra, and beyond. Now with
+            vision — scan or photograph any problem.</p>
+          <div class="capability-pills">
+            <span class="cap-pill">∫ Analysis</span>
+            <span class="cap-pill">∑ Algebra</span>
+            <span class="cap-pill">⊗ Linear Algebra</span>
+            <span class="cap-pill">σ Probability</span>
+            <span class="cap-pill">∂ PDEs / ODEs</span>
+            <span class="cap-pill">ℕ Number Theory</span>
+            <span class="cap-pill">⌂ Topology</span>
+            <span class="cap-pill">∇ Differential Geometry</span>
+            <span class="cap-pill">∀ Logic & Proofs</span>
+            <span class="cap-pill">∞ Measure Theory</span>
+            <span class="cap-pill">📸 Vision OCR</span>
           </div>
-          <div id="customKeyContainer" style="display:none; margin-top:8px">
-            <div style="font-size:.72rem;color:var(--ink-3);margin-bottom:8px;padding:8px 10px;background:rgba(139,92,246,.08);border-radius:7px;border:1px solid rgba(139,92,246,.2)">
-              🔑 Use a <strong style="color:var(--ink-2)">Groq API key</strong> — get one free at <a href="https://console.groq.com" target="_blank" style="color:var(--accent);text-decoration:none">console.groq.com</a>
+        </div>
+      </div>
+
+      <!-- Input area -->
+      <div class="input-area">
+        <!-- Image preview strip -->
+        <div class="preview-strip" id="previewStrip" style="display:none"></div>
+
+        <div class="input-row">
+          <div class="input-col">
+            <div class="input-toolbar">
+              <button class="tool-btn" id="cameraBtn" onclick="openCamera()" title="Scan with camera">
+                <svg viewBox="0 0 24 24">
+                  <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
+                  <circle cx="12" cy="13" r="4" />
+                </svg>
+                Scan
+              </button>
+              <label class="tool-btn" for="imageUpload" title="Upload image of problem">
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+                Upload
+                <input type="file" id="imageUpload" accept="image/*" multiple style="display:none"
+                  onchange="handleImageUpload(event)">
+              </label>
+              <button class="tool-btn" id="latexBtn" onclick="toggleLatexHelper()" title="LaTeX helper">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 7V4h16v3" />
+                  <path d="M9 20h6" />
+                  <path d="M12 4v16" />
+                </svg>
+                LaTeX
+              </button>
             </div>
-            <div style="position:relative">
-              <input
-                type="password"
-                id="customApiKeyInput"
-                placeholder="gsk_…"
-                oninput="saveCustomApiKey()"
-                style="width:100%;box-sizing:border-box;background:var(--surface-2);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:8px 36px 8px 10px;font-size:.78rem;color:var(--ink-2);font-family:var(--mono);outline:none;transition:border-color .2s"
-                onfocus="this.style.borderColor='var(--accent)'"
-                onblur="this.style.borderColor='var(--border-2)'"
-              />
-              <button onclick="toggleCustomKeyVis()" title="Show/hide key" id="customApiVisBtn" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-3);font-size:.9rem;padding:0;line-height:1">👁</button>
+            <textarea id="mathInput" rows="1"
+              placeholder="Ask any math problem… e.g. Prove the Riemann hypothesis is equivalent to… or Solve the Navier–Stokes… or just snap a photo ↑"
+              onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+            <div class="input-hint">
+              <kbd>Enter</kbd> send · <kbd>Shift+Enter</kbd> newline · Supports LaTeX $…$ and $$…$$
             </div>
-            <div id="customKeyStatus" style="font-size:.66rem;margin-top:5px;color:var(--ink-3)">Paste your Groq API key above (starts with gsk_).</div>
+          </div>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="Send">
+            <svg viewBox="0 0 24 24">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="sidebar-right">
+      <div class="panel-tabs">
+        <button class="panel-tab active" onclick="switchPanel('settings',this)">Settings</button>
+        <button class="panel-tab" onclick="switchPanel('examples',this)">Examples</button>
+        <button class="panel-tab" onclick="switchPanel('stats',this)">Stats</button>
+      </div>
+
+      <!-- Settings pane -->
+      <div class="panel-pane active" id="pane-settings">
+
+        <!-- ── API KEY ────────────────────────────────────── -->
+        <div class="panel-section"
+          style="background:rgba(139,92,246,.08);border-radius:10px;padding:12px 14px;margin-bottom:2px">
+          <div class="panel-label" style="color:var(--accent-2);margin-bottom:6px">⚡ AI Engine</div>
+          <div
+            style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.04);border:1px solid rgba(139,92,246,.25);border-radius:8px;padding:8px 12px">
+            <span style="font-size:1.1rem">🤖</span>
+            <div>
+              <div style="font-size:.78rem;font-weight:600;color:var(--ink-1)">Advanced AI Engine</div>
+              <div style="font-size:.67rem;color:var(--ink-4)">PhD-level math · Ultra-fast inference</div>
+            </div>
+            <span
+              style="margin-left:auto;font-size:.65rem;background:rgba(74,222,128,.15);color:#4ade80;border-radius:20px;padding:2px 8px;font-weight:600">FREE</span>
+          </div>
+          <div style="margin-top:12px; border-top:1px solid rgba(139,92,246,.15); padding-top:12px">
+            <div class="setting-toggle-row" style="padding:0">
+              <span class="setting-label" style="font-size:.76rem; font-weight: 600;">Add API Key</span>
+              <button class="toggle" id="togCustomKey" onclick="toggleCustomKey()"></button>
+            </div>
+            <div id="customKeyContainer" style="display:none; margin-top:8px">
+              <div
+                style="font-size:.72rem;color:var(--ink-3);margin-bottom:8px;padding:8px 10px;background:rgba(139,92,246,.08);border-radius:7px;border:1px solid rgba(139,92,246,.2)">
+                🔑 Use a <strong style="color:var(--ink-2)">Groq API key</strong> — get one free at <a
+                  href="https://console.groq.com" target="_blank"
+                  style="color:var(--accent);text-decoration:none">console.groq.com</a>
+              </div>
+              <div style="position:relative">
+                <input type="password" id="customApiKeyInput" placeholder="gsk_…" oninput="saveCustomApiKey()"
+                  style="width:100%;box-sizing:border-box;background:var(--surface-2);border:1px solid var(--border-2);border-radius:var(--r-sm);padding:8px 36px 8px 10px;font-size:.78rem;color:var(--ink-2);font-family:var(--mono);outline:none;transition:border-color .2s"
+                  onfocus="this.style.borderColor='var(--accent)'" onblur="this.style.borderColor='var(--border-2)'" />
+                <button onclick="toggleCustomKeyVis()" title="Show/hide key" id="customApiVisBtn"
+                  style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--ink-3);font-size:.9rem;padding:0;line-height:1">👁</button>
+              </div>
+              <div id="customKeyStatus" style="font-size:.66rem;margin-top:5px;color:var(--ink-3)">Paste your Groq API
+                key above (starts with gsk_).</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <div class="panel-label">Solver Settings</div>
+          <div class="setting-row">
+            <div class="setting-label">Response Detail</div>
+            <select class="setting-select" id="settingDetail">
+              <option value="comprehensive">Comprehensive</option>
+              <option value="concise">Concise</option>
+              <option value="minimal">Minimal</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <div class="setting-label">Domain Focus</div>
+            <select class="setting-select" id="settingDomain">
+              <option value="auto">Auto-detect</option>
+              <option value="algebra">Abstract Algebra</option>
+              <option value="analysis">Real Analysis</option>
+              <option value="complex">Complex Analysis</option>
+              <option value="topology">Topology</option>
+              <option value="diff_geo">Differential Geometry</option>
+              <option value="calculus">Calculus</option>
+              <option value="linear_algebra">Linear Algebra</option>
+              <option value="statistics">Probability & Stats</option>
+              <option value="number_theory">Number Theory</option>
+              <option value="pde">PDEs</option>
+              <option value="combinatorics">Combinatorics</option>
+              <option value="logic">Mathematical Logic</option>
+            </select>
+          </div>
+          <div class="setting-row">
+            <div class="setting-label">Temperature</div>
+            <div class="range-row">
+              <input type="range" min="0" max="100" value="15" id="settingTemp"
+                oninput="document.getElementById('tempVal').textContent=(this.value/100).toFixed(2)">
+              <span class="range-val" id="tempVal">0.15</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-section">
+          <div class="panel-label">Display Options</div>
+          <div class="setting-toggle-row">
+            <span class="setting-label">Show Reasoning</span>
+            <button class="toggle on" id="togReasoning" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="setting-toggle-row">
+            <span class="setting-label">LaTeX Rendering</span>
+            <button class="toggle on" id="togLatex" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="setting-toggle-row">
+            <span class="setting-label">Show Confidence</span>
+            <button class="toggle" id="togConf" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="setting-toggle-row">
+            <span class="setting-label">Auto-verify</span>
+            <button class="toggle" id="togVerify" onclick="this.classList.toggle('on')"></button>
+          </div>
+        </div>
+        <div class="panel-section" style="border-bottom:none">
+          <div class="panel-label">PhD Mode Options</div>
+          <div class="setting-toggle-row">
+            <span class="setting-label">Cite Theorems</span>
+            <button class="toggle on" id="togCite" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="setting-toggle-row">
+            <span class="setting-label">Show Generalizations</span>
+            <button class="toggle" id="togGen" onclick="this.classList.toggle('on')"></button>
+          </div>
+          <div class="setting-toggle-row">
+            <span class="setting-label">Open Problems</span>
+            <button class="toggle" id="togOpen" onclick="this.classList.toggle('on')"></button>
           </div>
         </div>
       </div>
 
-      <div class="panel-section">
-        <div class="panel-label">Solver Settings</div>
-        <div class="setting-row">
-          <div class="setting-label">Response Detail</div>
-          <select class="setting-select" id="settingDetail">
-            <option value="comprehensive">Comprehensive</option>
-            <option value="concise">Concise</option>
-            <option value="minimal">Minimal</option>
-          </select>
+      <!-- Examples pane -->
+      <div class="panel-pane" id="pane-examples">
+        <div class="examples-grid" id="examplesGrid"></div>
+      </div>
+
+      <!-- Stats pane -->
+      <div class="panel-pane" id="pane-stats">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Solved</div>
+            <div class="stat-val" id="statSolved">0</div>
+            <div class="stat-sub">this session</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg Time</div>
+            <div class="stat-val" id="statTime">—</div>
+            <div class="stat-sub">seconds</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Images</div>
+            <div class="stat-val" id="statImages">0</div>
+            <div class="stat-sub">scanned</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Mode</div>
+            <div class="stat-val" style="font-size:.75rem;margin-top:2px" id="statMode">Step</div>
+            <div class="stat-sub">active</div>
+          </div>
         </div>
-        <div class="setting-row">
-          <div class="setting-label">Domain Focus</div>
-          <select class="setting-select" id="settingDomain">
-            <option value="auto">Auto-detect</option>
-            <option value="algebra">Abstract Algebra</option>
-            <option value="analysis">Real Analysis</option>
-            <option value="complex">Complex Analysis</option>
-            <option value="topology">Topology</option>
-            <option value="diff_geo">Differential Geometry</option>
-            <option value="calculus">Calculus</option>
-            <option value="linear_algebra">Linear Algebra</option>
-            <option value="statistics">Probability & Stats</option>
-            <option value="number_theory">Number Theory</option>
-            <option value="pde">PDEs</option>
-            <option value="combinatorics">Combinatorics</option>
-            <option value="logic">Mathematical Logic</option>
-          </select>
-        </div>
-        <div class="setting-row">
-          <div class="setting-label">Temperature</div>
-          <div class="range-row">
-            <input type="range" min="0" max="100" value="15" id="settingTemp" oninput="document.getElementById('tempVal').textContent=(this.value/100).toFixed(2)">
-            <span class="range-val" id="tempVal">0.15</span>
+        <div class="panel-section" style="border-bottom:none">
+          <div class="panel-label">Session Domains</div>
+          <div id="domainStats" style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
+            <div style="font-size:.72rem;color:var(--ink-4);font-family:var(--font)">No problems solved yet</div>
           </div>
         </div>
       </div>
-      <div class="panel-section">
-        <div class="panel-label">Display Options</div>
-        <div class="setting-toggle-row">
-          <span class="setting-label">Show Reasoning</span>
-          <button class="toggle on" id="togReasoning" onclick="this.classList.toggle('on')"></button>
-        </div>
-        <div class="setting-toggle-row">
-          <span class="setting-label">LaTeX Rendering</span>
-          <button class="toggle on" id="togLatex" onclick="this.classList.toggle('on')"></button>
-        </div>
-        <div class="setting-toggle-row">
-          <span class="setting-label">Show Confidence</span>
-          <button class="toggle" id="togConf" onclick="this.classList.toggle('on')"></button>
-        </div>
-        <div class="setting-toggle-row">
-          <span class="setting-label">Auto-verify</span>
-          <button class="toggle" id="togVerify" onclick="this.classList.toggle('on')"></button>
-        </div>
-      </div>
-      <div class="panel-section" style="border-bottom:none">
-        <div class="panel-label">PhD Mode Options</div>
-        <div class="setting-toggle-row">
-          <span class="setting-label">Cite Theorems</span>
-          <button class="toggle on" id="togCite" onclick="this.classList.toggle('on')"></button>
-        </div>
-        <div class="setting-toggle-row">
-          <span class="setting-label">Show Generalizations</span>
-          <button class="toggle" id="togGen" onclick="this.classList.toggle('on')"></button>
-        </div>
-        <div class="setting-toggle-row">
-          <span class="setting-label">Open Problems</span>
-          <button class="toggle" id="togOpen" onclick="this.classList.toggle('on')"></button>
-        </div>
-      </div>
-    </div>
+    </aside>
+  </div>
 
-    <!-- Examples pane -->
-    <div class="panel-pane" id="pane-examples">
-      <div class="examples-grid" id="examplesGrid"></div>
-    </div>
-
-    <!-- Stats pane -->
-    <div class="panel-pane" id="pane-stats">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Solved</div>
-          <div class="stat-val" id="statSolved">0</div>
-          <div class="stat-sub">this session</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Avg Time</div>
-          <div class="stat-val" id="statTime">—</div>
-          <div class="stat-sub">seconds</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Images</div>
-          <div class="stat-val" id="statImages">0</div>
-          <div class="stat-sub">scanned</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Mode</div>
-          <div class="stat-val" style="font-size:.75rem;margin-top:2px" id="statMode">Step</div>
-          <div class="stat-sub">active</div>
+  <!-- ══ CAMERA MODAL ══ -->
+  <div class="modal-overlay hidden" id="cameraOverlay" onclick="closeCameraOnBackdrop(event)">
+    <div class="camera-modal">
+      <div class="modal-header">
+        <h3>📸 Scan Math Problem</h3>
+        <button class="modal-close" onclick="closeCamera()">✕</button>
+      </div>
+      <div class="camera-view" id="cameraView">
+        <video id="cameraVideo" autoplay playsinline muted></video>
+        <canvas id="captureCanvas"></canvas>
+        <div class="camera-overlay scanning" id="camOverlay">
+          <div class="scan-line"></div>
+          <div class="corner tl"></div>
+          <div class="corner tr"></div>
+          <div class="corner bl"></div>
+          <div class="corner br"></div>
         </div>
       </div>
-      <div class="panel-section" style="border-bottom:none">
-        <div class="panel-label">Session Domains</div>
-        <div id="domainStats" style="display:flex;flex-direction:column;gap:4px;margin-top:4px">
-          <div style="font-size:.72rem;color:var(--ink-4);font-family:var(--font)">No problems solved yet</div>
+      <div class="modal-body">
+        <div class="modal-actions">
+          <button class="modal-btn secondary" onclick="closeCamera()">Cancel</button>
+          <button class="modal-btn primary" id="captureBtn" onclick="capturePhoto()">
+            📸 Capture
+          </button>
         </div>
-      </div>
-    </div>
-  </aside>
-</div>
-
-<!-- ══ CAMERA MODAL ══ -->
-<div class="modal-overlay hidden" id="cameraOverlay" onclick="closeCameraOnBackdrop(event)">
-  <div class="camera-modal">
-    <div class="modal-header">
-      <h3>📸 Scan Math Problem</h3>
-      <button class="modal-close" onclick="closeCamera()">✕</button>
-    </div>
-    <div class="camera-view" id="cameraView">
-      <video id="cameraVideo" autoplay playsinline muted></video>
-      <canvas id="captureCanvas"></canvas>
-      <div class="camera-overlay scanning" id="camOverlay">
-        <div class="scan-line"></div>
-        <div class="corner tl"></div>
-        <div class="corner tr"></div>
-        <div class="corner bl"></div>
-        <div class="corner br"></div>
-      </div>
-    </div>
-    <div class="modal-body">
-      <div class="modal-actions">
-        <button class="modal-btn secondary" onclick="closeCamera()">Cancel</button>
-        <button class="modal-btn primary" id="captureBtn" onclick="capturePhoto()">
-          📸 Capture
-        </button>
-      </div>
-      <div class="modal-hint" id="cameraHint">
-        Position the math problem clearly in frame · Good lighting helps · Works with handwritten or printed text
+        <div class="modal-hint" id="cameraHint">
+          Position the math problem clearly in frame · Good lighting helps · Works with handwritten or printed text
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<script>
-/* ══════════════════════════════════════════════════════════════
-   APEX MATH AGENT — PhD-Level AI Solver with Vision
-   Claude claude-sonnet-4-20250514 + vision for image problems
-   Features:
-   • Multi-turn conversation with full history
-   • Camera capture & image upload → base64 → Claude vision
-   • 6 solver modes including PhD Mode
-   • Cubic-spline-like system prompt engineering
-   • Per-domain expertise routing
-   • KaTeX rendering with fallback
-   • Bilateral-filter-style response parsing
-══════════════════════════════════════════════════════════════ */
+  <script>
+    /* ══════════════════════════════════════════════════════════════
+       APEX MATH AGENT — PhD-Level AI Solver with Vision
+       Claude claude-sonnet-4-20250514 + vision for image problems
+       Features:
+       • Multi-turn conversation with full history
+       • Camera capture & image upload → base64 → Claude vision
+       • 6 solver modes including PhD Mode
+       • Cubic-spline-like system prompt engineering
+       • Per-domain expertise routing
+       • KaTeX rendering with fallback
+       • Bilateral-filter-style response parsing
+    ══════════════════════════════════════════════════════════════ */
 
-const STATE = {
-  mode: 'step-by-step',
-  messages: [],       // API message history
-  history: [],        // sidebar problem history
-  pendingImages: [],  // { dataUrl, base64, mimeType }
-  solved: 0,
-  totalTime: 0,
-  imagesScanned: 0,
-  isLoading: false,
-  domainCounts: {},
-};
+    const STATE = {
+      mode: 'step-by-step',
+      messages: [],       // API message history
+      history: [],        // sidebar problem history
+      pendingImages: [],  // { dataUrl, base64, mimeType }
+      solved: 0,
+      totalTime: 0,
+      imagesScanned: 0,
+      isLoading: false,
+      domainCounts: {},
+    };
 
-// ── EXAMPLES ──────────────────────────────────────────────────
-const EXAMPLES = [
-  { icon:'∫', title:'Stokes\' Theorem', prompt:'State and prove Stokes\' theorem in the context of differential forms on smooth manifolds.' },
-  { icon:'⊗', title:'Spectral Theorem', prompt:'Prove the spectral theorem for compact self-adjoint operators on a Hilbert space.' },
-  { icon:'ℕ', title:'Quadratic Reciprocity', prompt:'Prove the law of quadratic reciprocity using Gauss\'s lemma.' },
-  { icon:'∂', title:'Heat Equation', prompt:'Solve the heat equation u_t = α·u_xx on [0,L] with u(0,t)=u(L,t)=0 and u(x,0)=f(x) using separation of variables.' },
-  { icon:'⌂', title:'Fundamental Group', prompt:'Compute the fundamental group of the torus T² and prove it is ℤ×ℤ.' },
-  { icon:'σ', title:'Central Limit Theorem', prompt:'Prove the Lindeberg–Lévy central limit theorem using characteristic functions.' },
-  { icon:'∀', title:'Gödel Incompleteness', prompt:'Explain the proof strategy of Gödel\'s first incompleteness theorem, including the construction of the Gödel sentence.' },
-  { icon:'∇', title:'Riemann Curvature', prompt:'Derive the Riemann curvature tensor and explain its geometric significance in terms of parallel transport.' },
-  { icon:'∞', title:'Lebesgue Integration', prompt:'Prove the Dominated Convergence Theorem for Lebesgue integration.' },
-  { icon:'∑', title:'Galois Theory', prompt:'Prove that a polynomial is solvable by radicals if and only if its Galois group is solvable.' },
-  { icon:'ℂ', title:'Residue Theorem', prompt:'State and prove the residue theorem and use it to evaluate ∫₋∞^∞ (sin x)/x dx.' },
-  { icon:'📐', title:'PhD Problem', prompt:'Let f: ℝⁿ → ℝ be a smooth function with ∇f(x) ≠ 0 for all x in a level set S = f⁻¹(c). Prove S is a smooth manifold of dimension n−1 and compute its tangent space.' },
-];
+    // ── EXAMPLES ──────────────────────────────────────────────────
+    const EXAMPLES = [
+      { icon: '∫', title: 'Stokes\' Theorem', prompt: 'State and prove Stokes\' theorem in the context of differential forms on smooth manifolds.' },
+      { icon: '⊗', title: 'Spectral Theorem', prompt: 'Prove the spectral theorem for compact self-adjoint operators on a Hilbert space.' },
+      { icon: 'ℕ', title: 'Quadratic Reciprocity', prompt: 'Prove the law of quadratic reciprocity using Gauss\'s lemma.' },
+      { icon: '∂', title: 'Heat Equation', prompt: 'Solve the heat equation u_t = α·u_xx on [0,L] with u(0,t)=u(L,t)=0 and u(x,0)=f(x) using separation of variables.' },
+      { icon: '⌂', title: 'Fundamental Group', prompt: 'Compute the fundamental group of the torus T² and prove it is ℤ×ℤ.' },
+      { icon: 'σ', title: 'Central Limit Theorem', prompt: 'Prove the Lindeberg–Lévy central limit theorem using characteristic functions.' },
+      { icon: '∀', title: 'Gödel Incompleteness', prompt: 'Explain the proof strategy of Gödel\'s first incompleteness theorem, including the construction of the Gödel sentence.' },
+      { icon: '∇', title: 'Riemann Curvature', prompt: 'Derive the Riemann curvature tensor and explain its geometric significance in terms of parallel transport.' },
+      { icon: '∞', title: 'Lebesgue Integration', prompt: 'Prove the Dominated Convergence Theorem for Lebesgue integration.' },
+      { icon: '∑', title: 'Galois Theory', prompt: 'Prove that a polynomial is solvable by radicals if and only if its Galois group is solvable.' },
+      { icon: 'ℂ', title: 'Residue Theorem', prompt: 'State and prove the residue theorem and use it to evaluate ∫₋∞^∞ (sin x)/x dx.' },
+      { icon: '📐', title: 'PhD Problem', prompt: 'Let f: ℝⁿ → ℝ be a smooth function with ∇f(x) ≠ 0 for all x in a level set S = f⁻¹(c). Prove S is a smooth manifold of dimension n−1 and compute its tangent space.' },
+    ];
 
-// ── API KEY MANAGEMENT ────────────────────────────────────────
-const GROQ_MODEL = 'llama-3.3-70b-versatile';
+    // ── API KEY MANAGEMENT ────────────────────────────────────────
+    const GROQ_MODEL = 'llama-3.3-70b-versatile';
+    // Vision-capable model — automatically used when images are attached
+    const GROQ_VISION_MODEL = 'meta-llama/llama-4-scout-17b-16e-instruct';
 
 
-// ── INIT ──────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', async () => {
-  // ── EMBED MODE DETECTION ──────────────────────────────────
-  const urlParams = new URLSearchParams(location.search);
-  if (urlParams.get('embed') === '1') {
-    document.documentElement.classList.add('embed-mode');
-    // Apply theme from parent if provided
-    const theme = urlParams.get('theme');
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else if (theme === 'light') {
-      document.documentElement.classList.remove('dark');
-    }
-  }
-  // ── END EMBED MODE ───────────────────────────────────────
-  loadThemeSetting();
-  loadCustomKeySettings();
-  buildExamples();
-  loadHistory();
-  renderTopics(STATE.subject);
-  updateAgentStatus();
-
-  if (typeof ZenAuth !== 'undefined') {
-    try {
-      await ZenAuth.initSupabase();
-      const p = await ZenAuth.getUserProfile();
-      if (p) {
-        document.getElementById('navName').textContent = p.name || p.email;
-        document.getElementById('navAvatar').textContent = (p.name || p.email || 'U')[0].toUpperCase();
+    // ── INIT ──────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', async () => {
+      // ── EMBED MODE DETECTION ──────────────────────────────────
+      const urlParams = new URLSearchParams(location.search);
+      if (urlParams.get('embed') === '1') {
+        document.documentElement.classList.add('embed-mode');
+        // Apply theme from parent if provided
+        const theme = urlParams.get('theme');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else if (theme === 'light') {
+          document.documentElement.classList.remove('dark');
+        }
       }
-    } catch(e) {}
-  }
-});
+      // ── END EMBED MODE ───────────────────────────────────────
+      loadThemeSetting();
+      loadCustomKeySettings();
+      buildExamples();
+      loadHistory();
+      renderTopics(STATE.subject);
+      updateAgentStatus();
 
-function buildExamples() {
-  const grid = document.getElementById('examplesGrid');
-  grid.innerHTML = EXAMPLES.map((ex, i) => `
+      if (typeof ZenAuth !== 'undefined') {
+        try {
+          await ZenAuth.initSupabase();
+          const p = await ZenAuth.getUserProfile();
+          if (p) {
+            document.getElementById('navName').textContent = p.name || p.email;
+            document.getElementById('navAvatar').textContent = (p.name || p.email || 'U')[0].toUpperCase();
+          }
+        } catch (e) { }
+      }
+    });
+
+    function buildExamples() {
+      const grid = document.getElementById('examplesGrid');
+      grid.innerHTML = EXAMPLES.map((ex, i) => `
     <button class="ex-btn" onclick="useExample(${i})">
       <div class="ex-icon">${ex.icon}</div>
       <div class="ex-text">
@@ -1078,298 +2177,298 @@ function buildExamples() {
         ${ex.prompt.substring(0, 60)}…
       </div>
     </button>`).join('');
-}
-
-function useExample(i) {
-  const ex = EXAMPLES[i];
-  document.getElementById('mathInput').value = ex.prompt;
-  autoResize(document.getElementById('mathInput'));
-  document.getElementById('mathInput').focus();
-}
-
-// ── SUBJECT / TOPIC DATA ──────────────────────────────────────
-const SUBJECT_DATA = {
-  math: {
-    label: '📐 Mathematics',
-    prompt: 'You are an expert PhD-level mathematics professor.',
-    topics: [
-      { id:'algebra',       label:'Algebra',             prompt:'Focus on abstract algebra, group theory, ring theory, and field theory.' },
-      { id:'calculus',      label:'Calculus',             prompt:'Focus on differential and integral calculus, limits, and series.' },
-      { id:'linear_algebra',label:'Linear Algebra',       prompt:'Focus on vectors, matrices, linear transformations, eigenvalues, and eigenvectors.' },
-      { id:'statistics',    label:'Statistics & Probability', prompt:'Focus on probability theory, distributions, statistical inference, and stochastic processes.' },
-      { id:'number_theory', label:'Number Theory',        prompt:'Focus on primes, divisibility, modular arithmetic, and Diophantine equations.' },
-      { id:'topology',      label:'Topology',             prompt:'Focus on topological spaces, homeomorphisms, compactness, and connectedness.' },
-      { id:'analysis',      label:'Real Analysis',        prompt:'Focus on limits, continuity, differentiation, integration, and measure theory.' },
-      { id:'complex',       label:'Complex Analysis',     prompt:'Focus on complex functions, contour integration, residues, and conformal mappings.' },
-      { id:'odes',          label:'Differential Equations', prompt:'Focus on ODEs, PDEs, initial value problems, and boundary value problems.' },
-      { id:'discrete',      label:'Discrete Math',        prompt:'Focus on combinatorics, graph theory, logic, and set theory.' },
-    ]
-  },
-  physics: {
-    label: '⚛️ Physics',
-    prompt: 'You are an expert PhD-level physics professor with deep knowledge of theoretical and experimental physics.',
-    topics: [
-      { id:'mechanics',     label:'Classical Mechanics',  prompt:'Focus on Newtonian mechanics, Lagrangian/Hamiltonian mechanics, rotational dynamics, and rigid body motion.' },
-      { id:'electro',       label:'Electromagnetism',     prompt:'Focus on Maxwell\'s equations, electric/magnetic fields, electromagnetic waves, and circuits.' },
-      { id:'quantum',       label:'Quantum Mechanics',    prompt:'Focus on wave functions, Schrödinger equation, operators, quantum states, and uncertainty principle.' },
-      { id:'thermo',        label:'Thermodynamics',       prompt:'Focus on laws of thermodynamics, entropy, heat engines, statistical mechanics, and phase transitions.' },
-      { id:'relativity',    label:'Relativity',           prompt:'Focus on special and general relativity, Lorentz transformations, spacetime, and Einstein field equations.' },
-      { id:'optics',        label:'Optics & Waves',       prompt:'Focus on wave optics, geometric optics, interference, diffraction, and polarization.' },
-      { id:'nuclear',       label:'Nuclear & Particle Physics', prompt:'Focus on nuclear reactions, radioactivity, particle physics, and the Standard Model.' },
-      { id:'solid_state',   label:'Solid State Physics',  prompt:'Focus on crystal structures, band theory, semiconductors, superconductivity, and condensed matter.' },
-      { id:'astro',         label:'Astrophysics',         prompt:'Focus on stellar physics, cosmology, black holes, and gravitational waves.' },
-    ]
-  },
-  chemistry: {
-    label: '🧪 Chemistry',
-    prompt: 'You are an expert PhD-level chemistry professor with mastery of all branches of chemistry.',
-    topics: [
-      { id:'organic',       label:'Organic Chemistry',    prompt:'Focus on organic reactions, mechanisms, functional groups, stereochemistry, and synthesis.' },
-      { id:'inorganic',     label:'Inorganic Chemistry',  prompt:'Focus on coordination chemistry, transition metals, ionic compounds, and crystal field theory.' },
-      { id:'physical',      label:'Physical Chemistry',   prompt:'Focus on thermodynamics, kinetics, quantum chemistry, and spectroscopy.' },
-      { id:'analytical',    label:'Analytical Chemistry', prompt:'Focus on titrations, chromatography, spectroscopic methods, and quantitative analysis.' },
-      { id:'biochemistry',  label:'Biochemistry',         prompt:'Focus on biomolecules, enzymes, metabolic pathways, and molecular biology.' },
-      { id:'electrochemistry', label:'Electrochemistry',  prompt:'Focus on redox reactions, electrochemical cells, Nernst equation, and electrolysis.' },
-      { id:'polymer',       label:'Polymer Chemistry',    prompt:'Focus on polymerization mechanisms, polymer properties, and materials science.' },
-    ]
-  },
-  biology: {
-    label: '🧬 Biology',
-    prompt: 'You are an expert PhD-level biologist with comprehensive knowledge across all biological sciences.',
-    topics: [
-      { id:'cell_bio',      label:'Cell Biology',         prompt:'Focus on cell structure, organelles, cell signaling, cell division, and the cell cycle.' },
-      { id:'genetics',      label:'Genetics & Genomics',  prompt:'Focus on Mendelian genetics, molecular genetics, gene expression, mutations, and genomics.' },
-      { id:'evolution',     label:'Evolution',            prompt:'Focus on natural selection, phylogenetics, speciation, adaptation, and population genetics.' },
-      { id:'ecology',       label:'Ecology',              prompt:'Focus on ecosystems, population dynamics, food webs, biodiversity, and environmental interactions.' },
-      { id:'microbiology',  label:'Microbiology',         prompt:'Focus on bacteria, viruses, fungi, microbial metabolism, and infectious diseases.' },
-      { id:'physiology',    label:'Human Physiology',     prompt:'Focus on organ systems, homeostasis, nervous system, cardiovascular, and endocrine systems.' },
-      { id:'molecular_bio', label:'Molecular Biology',    prompt:'Focus on DNA replication, transcription, translation, gene regulation, and recombinant DNA.' },
-      { id:'neuroscience',  label:'Neuroscience',         prompt:'Focus on neural circuits, synaptic transmission, brain function, and neurological disorders.' },
-    ]
-  },
-  cs: {
-    label: '💻 Computer Science',
-    prompt: 'You are an expert PhD-level computer scientist with deep knowledge of theory and practice.',
-    topics: [
-      { id:'algorithms',    label:'Algorithms & DSA',     prompt:'Focus on algorithm design, data structures, time/space complexity, and optimization.' },
-      { id:'theory',        label:'Theory of Computation', prompt:'Focus on automata theory, formal languages, Turing machines, computability, and complexity theory.' },
-      { id:'ml',            label:'Machine Learning',     prompt:'Focus on supervised/unsupervised learning, neural networks, optimization, and statistical learning.' },
-      { id:'systems',       label:'Systems Programming',  prompt:'Focus on operating systems, memory management, concurrency, and low-level programming.' },
-      { id:'databases',     label:'Databases',            prompt:'Focus on relational algebra, SQL, query optimization, transactions, and NoSQL systems.' },
-      { id:'networking',    label:'Computer Networks',    prompt:'Focus on network protocols, TCP/IP, routing algorithms, and distributed systems.' },
-      { id:'cryptography',  label:'Cryptography',         prompt:'Focus on symmetric/asymmetric encryption, hash functions, digital signatures, and number theory.' },
-      { id:'ai',            label:'Artificial Intelligence', prompt:'Focus on search algorithms, knowledge representation, planning, and AI reasoning.' },
-    ]
-  },
-  economics: {
-    label: '📊 Economics',
-    prompt: 'You are an expert PhD-level economist with deep knowledge of economic theory and quantitative methods.',
-    topics: [
-      { id:'micro',         label:'Microeconomics',       prompt:'Focus on supply and demand, consumer theory, firm behavior, market structures, and game theory.' },
-      { id:'macro',         label:'Macroeconomics',       prompt:'Focus on GDP, inflation, monetary policy, fiscal policy, and business cycles.' },
-      { id:'econometrics',  label:'Econometrics',         prompt:'Focus on regression analysis, time series, panel data, and causal inference.' },
-      { id:'finance',       label:'Financial Economics',  prompt:'Focus on asset pricing, portfolio theory, derivatives, risk management, and market efficiency.' },
-      { id:'behavioral',    label:'Behavioral Economics', prompt:'Focus on cognitive biases, prospect theory, decision-making under uncertainty, and nudges.' },
-      { id:'intl_trade',    label:'International Trade',  prompt:'Focus on comparative advantage, trade policy, exchange rates, and global supply chains.' },
-    ]
-  }
-};
-
-// ── SUBJECT SELECTOR LOGIC ────────────────────────────────────
-STATE.subject = 'math';
-STATE.topic = null;
-
-function selectSubject(subjId, btn) {
-  STATE.subject = subjId;
-  STATE.topic = null;
-  document.querySelectorAll('.subj-pill').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  renderTopics(subjId);
-  updateAgentStatus();
-}
-
-function selectTopic(topicId, btn) {
-  STATE.topic = topicId === STATE.topic ? null : topicId; // toggle off if already selected
-  document.querySelectorAll('.topic-pill').forEach(p => p.classList.remove('active'));
-  if (STATE.topic) btn.classList.add('active');
-  updateAgentStatus();
-}
-
-function renderTopics(subjId) {
-  const row = document.getElementById('topicRow');
-  const subj = SUBJECT_DATA[subjId];
-  if (!subj || !subj.topics.length) { row.classList.remove('show'); return; }
-  row.innerHTML = `<span class="subject-label">Topic</span>` +
-    subj.topics.map(t =>
-      `<button class="topic-pill" data-topic="${t.id}" onclick="selectTopic('${t.id}',this)">${t.label}</button>`
-    ).join('');
-  row.classList.add('show');
-}
-
-function updateAgentStatus() {
-  const subj = SUBJECT_DATA[STATE.subject];
-  const topicObj = subj?.topics?.find(t => t.id === STATE.topic);
-  const status = topicObj ? `${subj.label} · ${topicObj.label}` : (subj?.label || 'PhD-level solver');
-  document.getElementById('agentStatus').textContent = `${status} · Vision enabled`;
-}
-
-// ── MODE ──────────────────────────────────────────────────────
-function setMode(mode, btn) {
-  STATE.mode = mode;
-  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const labels = {
-    'step-by-step': 'Step',
-    'direct': 'Direct',
-    'proof': 'Proof',
-    'verify': 'Verify',
-    'explore': 'Explore',
-    'phd': 'PhD⚡',
-  };
-  document.getElementById('statMode').textContent = labels[mode] || mode;
-}
-
-function switchPanel(name, btn) {
-  document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.panel-pane').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('pane-' + name).classList.add('active');
-}
-
-function toggleRightSidebar() {
-  const sidebar = document.querySelector('.sidebar-right');
-  const btn = document.getElementById('toggleSettingsBtn');
-  const isClosed = sidebar.classList.toggle('closed');
-  btn.classList.toggle('active', !isClosed);
-}
-
-// ── THEME & CUSTOM KEY HELPERS ────────────────────────────────
-function toggleTheme() {
-  const html = document.documentElement;
-  const isDark = html.classList.toggle('dark');
-  localStorage.setItem('zs-theme', isDark ? 'dark' : 'light');
-  updateThemeIcon(isDark);
-}
-
-function updateThemeIcon(isDark) {
-  const icon = document.getElementById('themeIcon');
-  if (!icon) return;
-  if (isDark) {
-    // Sun icon when dark (click to go light)
-    icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"/>';
-  } else {
-    // Moon icon when light (click to go dark)
-    icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
-  }
-}
-
-function loadThemeSetting() {
-  // In embed mode, theme is set from URL params before this runs — skip localStorage override
-  if (document.documentElement.classList.contains('embed-mode')) {
-    updateThemeIcon(document.documentElement.classList.contains('dark'));
-    return;
-  }
-  const saved = localStorage.getItem('zs-theme');
-  const isDark = saved === 'dark';
-  if (isDark) document.documentElement.classList.add('dark');
-  updateThemeIcon(isDark);
-}
-
-function toggleCustomKey() {
-  const btn = document.getElementById('togCustomKey');
-  const container = document.getElementById('customKeyContainer');
-  const isOn = btn.classList.toggle('on');
-  container.style.display = isOn ? 'block' : 'none';
-  localStorage.setItem('zs-math-use-custom-key', isOn ? 'true' : 'false');
-  updateCustomKeyStatus();
-}
-
-function saveCustomApiKey() {
-  const key = document.getElementById('customApiKeyInput').value.trim();
-  localStorage.setItem('zs-math-custom-groq-key', key);
-  updateCustomKeyStatus();
-}
-
-function updateCustomKeyStatus() {
-  const key = localStorage.getItem('zs-math-custom-groq-key') || '';
-  const status = document.getElementById('customKeyStatus');
-  if (!status) return;
-  if (key) {
-    status.textContent = '✅ Custom API key saved!';
-    status.style.color = 'var(--green)';
-  } else {
-    status.innerHTML = '⚠️ No key — enter one or turn off to use default.';
-    status.style.color = 'var(--red)';
-  }
-}
-
-function toggleCustomKeyVis() {
-  const inp = document.getElementById('customApiKeyInput');
-  if (inp) {
-    inp.type = inp.type === 'password' ? 'text' : 'password';
-  }
-}
-
-function loadCustomKeySettings() {
-  const useCustom = localStorage.getItem('zs-math-use-custom-key') === 'true';
-  const key = localStorage.getItem('zs-math-custom-groq-key') || '';
-  
-  const btn = document.getElementById('togCustomKey');
-  const container = document.getElementById('customKeyContainer');
-  const inp = document.getElementById('customApiKeyInput');
-  
-  if (btn && container && inp) {
-    if (useCustom) {
-      btn.classList.add('on');
-      container.style.display = 'block';
-    } else {
-      btn.classList.remove('on');
-      container.style.display = 'none';
     }
-    inp.value = key;
-    updateCustomKeyStatus();
-  }
-}
 
-// ── SYSTEM PROMPT (the engine) ────────────────────────────────
-function buildSystemPrompt() {
-  // Resolve subject + topic
-  const subj = SUBJECT_DATA[STATE.subject] || SUBJECT_DATA.math;
-  const topicObj = subj.topics.find(t => t.id === STATE.topic);
-  const subjectRole = subj.prompt;
-  const topicContext = topicObj ? topicObj.prompt : '';
+    function useExample(i) {
+      const ex = EXAMPLES[i];
+      document.getElementById('mathInput').value = ex.prompt;
+      autoResize(document.getElementById('mathInput'));
+      document.getElementById('mathInput').focus();
+    }
 
-  const modeMap = {
-    'step-by-step': `${subjectRole} Solve problems methodically with clearly numbered steps. Label each step descriptively. Show ALL intermediate work. Explain the intuition behind each step. Never skip steps.`,
-    'direct': `${subjectRole} Give the direct answer with essential key steps only. State the final answer prominently. Be precise and complete, but not verbose.`,
-    'proof': `${subjectRole} Write completely formal proofs. Use correct logical structure. State all hypotheses, definitions needed, and justify EVERY inference with a named theorem, law, or principle. Match the standard of a top academic journal.`,
-    'verify': `${subjectRole} Carefully verify the given expression or solution. Check each logical step for errors. Point out any mistakes with clear explanation. If correct, confirm with a concise justification. If wrong, provide the correct solution.`,
-    'explore': `${subjectRole} Don't just solve — build deep understanding. Explain the intuition, historical context, connections to related areas, generalizations, and open problems. Make the subject come alive.`,
-    'phd': `${subjectRole} Solve at the level of a top PhD dissertation or research paper. Use the full power of modern methods. Name and apply deep theorems and seminal results. Discuss connections to current research. Format proofs and derivations rigorously.`,
-  };
+    // ── SUBJECT / TOPIC DATA ──────────────────────────────────────
+    const SUBJECT_DATA = {
+      math: {
+        label: '📐 Mathematics',
+        prompt: 'You are an expert PhD-level mathematics professor.',
+        topics: [
+          { id: 'algebra', label: 'Algebra', prompt: 'Focus on abstract algebra, group theory, ring theory, and field theory.' },
+          { id: 'calculus', label: 'Calculus', prompt: 'Focus on differential and integral calculus, limits, and series.' },
+          { id: 'linear_algebra', label: 'Linear Algebra', prompt: 'Focus on vectors, matrices, linear transformations, eigenvalues, and eigenvectors.' },
+          { id: 'statistics', label: 'Statistics & Probability', prompt: 'Focus on probability theory, distributions, statistical inference, and stochastic processes.' },
+          { id: 'number_theory', label: 'Number Theory', prompt: 'Focus on primes, divisibility, modular arithmetic, and Diophantine equations.' },
+          { id: 'topology', label: 'Topology', prompt: 'Focus on topological spaces, homeomorphisms, compactness, and connectedness.' },
+          { id: 'analysis', label: 'Real Analysis', prompt: 'Focus on limits, continuity, differentiation, integration, and measure theory.' },
+          { id: 'complex', label: 'Complex Analysis', prompt: 'Focus on complex functions, contour integration, residues, and conformal mappings.' },
+          { id: 'odes', label: 'Differential Equations', prompt: 'Focus on ODEs, PDEs, initial value problems, and boundary value problems.' },
+          { id: 'discrete', label: 'Discrete Math', prompt: 'Focus on combinatorics, graph theory, logic, and set theory.' },
+        ]
+      },
+      physics: {
+        label: '⚛️ Physics',
+        prompt: 'You are an expert PhD-level physics professor with deep knowledge of theoretical and experimental physics.',
+        topics: [
+          { id: 'mechanics', label: 'Classical Mechanics', prompt: 'Focus on Newtonian mechanics, Lagrangian/Hamiltonian mechanics, rotational dynamics, and rigid body motion.' },
+          { id: 'electro', label: 'Electromagnetism', prompt: 'Focus on Maxwell\'s equations, electric/magnetic fields, electromagnetic waves, and circuits.' },
+          { id: 'quantum', label: 'Quantum Mechanics', prompt: 'Focus on wave functions, Schrödinger equation, operators, quantum states, and uncertainty principle.' },
+          { id: 'thermo', label: 'Thermodynamics', prompt: 'Focus on laws of thermodynamics, entropy, heat engines, statistical mechanics, and phase transitions.' },
+          { id: 'relativity', label: 'Relativity', prompt: 'Focus on special and general relativity, Lorentz transformations, spacetime, and Einstein field equations.' },
+          { id: 'optics', label: 'Optics & Waves', prompt: 'Focus on wave optics, geometric optics, interference, diffraction, and polarization.' },
+          { id: 'nuclear', label: 'Nuclear & Particle Physics', prompt: 'Focus on nuclear reactions, radioactivity, particle physics, and the Standard Model.' },
+          { id: 'solid_state', label: 'Solid State Physics', prompt: 'Focus on crystal structures, band theory, semiconductors, superconductivity, and condensed matter.' },
+          { id: 'astro', label: 'Astrophysics', prompt: 'Focus on stellar physics, cosmology, black holes, and gravitational waves.' },
+        ]
+      },
+      chemistry: {
+        label: '🧪 Chemistry',
+        prompt: 'You are an expert PhD-level chemistry professor with mastery of all branches of chemistry.',
+        topics: [
+          { id: 'organic', label: 'Organic Chemistry', prompt: 'Focus on organic reactions, mechanisms, functional groups, stereochemistry, and synthesis.' },
+          { id: 'inorganic', label: 'Inorganic Chemistry', prompt: 'Focus on coordination chemistry, transition metals, ionic compounds, and crystal field theory.' },
+          { id: 'physical', label: 'Physical Chemistry', prompt: 'Focus on thermodynamics, kinetics, quantum chemistry, and spectroscopy.' },
+          { id: 'analytical', label: 'Analytical Chemistry', prompt: 'Focus on titrations, chromatography, spectroscopic methods, and quantitative analysis.' },
+          { id: 'biochemistry', label: 'Biochemistry', prompt: 'Focus on biomolecules, enzymes, metabolic pathways, and molecular biology.' },
+          { id: 'electrochemistry', label: 'Electrochemistry', prompt: 'Focus on redox reactions, electrochemical cells, Nernst equation, and electrolysis.' },
+          { id: 'polymer', label: 'Polymer Chemistry', prompt: 'Focus on polymerization mechanisms, polymer properties, and materials science.' },
+        ]
+      },
+      biology: {
+        label: '🧬 Biology',
+        prompt: 'You are an expert PhD-level biologist with comprehensive knowledge across all biological sciences.',
+        topics: [
+          { id: 'cell_bio', label: 'Cell Biology', prompt: 'Focus on cell structure, organelles, cell signaling, cell division, and the cell cycle.' },
+          { id: 'genetics', label: 'Genetics & Genomics', prompt: 'Focus on Mendelian genetics, molecular genetics, gene expression, mutations, and genomics.' },
+          { id: 'evolution', label: 'Evolution', prompt: 'Focus on natural selection, phylogenetics, speciation, adaptation, and population genetics.' },
+          { id: 'ecology', label: 'Ecology', prompt: 'Focus on ecosystems, population dynamics, food webs, biodiversity, and environmental interactions.' },
+          { id: 'microbiology', label: 'Microbiology', prompt: 'Focus on bacteria, viruses, fungi, microbial metabolism, and infectious diseases.' },
+          { id: 'physiology', label: 'Human Physiology', prompt: 'Focus on organ systems, homeostasis, nervous system, cardiovascular, and endocrine systems.' },
+          { id: 'molecular_bio', label: 'Molecular Biology', prompt: 'Focus on DNA replication, transcription, translation, gene regulation, and recombinant DNA.' },
+          { id: 'neuroscience', label: 'Neuroscience', prompt: 'Focus on neural circuits, synaptic transmission, brain function, and neurological disorders.' },
+        ]
+      },
+      cs: {
+        label: '💻 Computer Science',
+        prompt: 'You are an expert PhD-level computer scientist with deep knowledge of theory and practice.',
+        topics: [
+          { id: 'algorithms', label: 'Algorithms & DSA', prompt: 'Focus on algorithm design, data structures, time/space complexity, and optimization.' },
+          { id: 'theory', label: 'Theory of Computation', prompt: 'Focus on automata theory, formal languages, Turing machines, computability, and complexity theory.' },
+          { id: 'ml', label: 'Machine Learning', prompt: 'Focus on supervised/unsupervised learning, neural networks, optimization, and statistical learning.' },
+          { id: 'systems', label: 'Systems Programming', prompt: 'Focus on operating systems, memory management, concurrency, and low-level programming.' },
+          { id: 'databases', label: 'Databases', prompt: 'Focus on relational algebra, SQL, query optimization, transactions, and NoSQL systems.' },
+          { id: 'networking', label: 'Computer Networks', prompt: 'Focus on network protocols, TCP/IP, routing algorithms, and distributed systems.' },
+          { id: 'cryptography', label: 'Cryptography', prompt: 'Focus on symmetric/asymmetric encryption, hash functions, digital signatures, and number theory.' },
+          { id: 'ai', label: 'Artificial Intelligence', prompt: 'Focus on search algorithms, knowledge representation, planning, and AI reasoning.' },
+        ]
+      },
+      economics: {
+        label: '📊 Economics',
+        prompt: 'You are an expert PhD-level economist with deep knowledge of economic theory and quantitative methods.',
+        topics: [
+          { id: 'micro', label: 'Microeconomics', prompt: 'Focus on supply and demand, consumer theory, firm behavior, market structures, and game theory.' },
+          { id: 'macro', label: 'Macroeconomics', prompt: 'Focus on GDP, inflation, monetary policy, fiscal policy, and business cycles.' },
+          { id: 'econometrics', label: 'Econometrics', prompt: 'Focus on regression analysis, time series, panel data, and causal inference.' },
+          { id: 'finance', label: 'Financial Economics', prompt: 'Focus on asset pricing, portfolio theory, derivatives, risk management, and market efficiency.' },
+          { id: 'behavioral', label: 'Behavioral Economics', prompt: 'Focus on cognitive biases, prospect theory, decision-making under uncertainty, and nudges.' },
+          { id: 'intl_trade', label: 'International Trade', prompt: 'Focus on comparative advantage, trade policy, exchange rates, and global supply chains.' },
+        ]
+      }
+    };
 
-  const detailMap = {
-    'comprehensive': 'Be thorough. Explain every step\'s intuition. Include examples where helpful.',
-    'concise': 'Be clear and efficient. Omit only truly trivial steps.',
-    'minimal': 'Give essential steps and the final answer. No elaboration.',
-  };
+    // ── SUBJECT SELECTOR LOGIC ────────────────────────────────────
+    STATE.subject = 'math';
+    STATE.topic = null;
 
-  const domainVal = document.getElementById('settingDomain').value;
-  const domainHint = domainVal !== 'auto'
-    ? `Domain context: ${domainVal.replace('_',' ')}. Apply domain-specific techniques and terminology.`
-    : (topicContext || 'Apply the most appropriate techniques and domain-specific methods for this problem.');
+    function selectSubject(subjId, btn) {
+      STATE.subject = subjId;
+      STATE.topic = null;
+      document.querySelectorAll('.subj-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      renderTopics(subjId);
+      updateAgentStatus();
+    }
 
-  const subjectLine = topicObj
-    ? `Subject: ${subj.label} › ${topicObj.label}. ${topicContext}`
-    : `Subject: ${subj.label}.`;
+    function selectTopic(topicId, btn) {
+      STATE.topic = topicId === STATE.topic ? null : topicId; // toggle off if already selected
+      document.querySelectorAll('.topic-pill').forEach(p => p.classList.remove('active'));
+      if (STATE.topic) btn.classList.add('active');
+      updateAgentStatus();
+    }
 
-  const showConf = document.getElementById('togConf').classList.contains('on');
-  const citeTh = document.getElementById('togCite').classList.contains('on');
-  const showGen = document.getElementById('togGen').classList.contains('on');
-  const showOpen = document.getElementById('togOpen').classList.contains('on');
-  const autoVerify = document.getElementById('togVerify').classList.contains('on');
+    function renderTopics(subjId) {
+      const row = document.getElementById('topicRow');
+      const subj = SUBJECT_DATA[subjId];
+      if (!subj || !subj.topics.length) { row.classList.remove('show'); return; }
+      row.innerHTML = `<span class="subject-label">Topic</span>` +
+        subj.topics.map(t =>
+          `<button class="topic-pill" data-topic="${t.id}" onclick="selectTopic('${t.id}',this)">${t.label}</button>`
+        ).join('');
+      row.classList.add('show');
+    }
 
-  return `${modeMap[STATE.mode] || modeMap['step-by-step']}
+    function updateAgentStatus() {
+      const subj = SUBJECT_DATA[STATE.subject];
+      const topicObj = subj?.topics?.find(t => t.id === STATE.topic);
+      const status = topicObj ? `${subj.label} · ${topicObj.label}` : (subj?.label || 'PhD-level solver');
+      document.getElementById('agentStatus').textContent = `${status} · Vision enabled`;
+    }
+
+    // ── MODE ──────────────────────────────────────────────────────
+    function setMode(mode, btn) {
+      STATE.mode = mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const labels = {
+        'step-by-step': 'Step',
+        'direct': 'Direct',
+        'proof': 'Proof',
+        'verify': 'Verify',
+        'explore': 'Explore',
+        'phd': 'PhD⚡',
+      };
+      document.getElementById('statMode').textContent = labels[mode] || mode;
+    }
+
+    function switchPanel(name, btn) {
+      document.querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.panel-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('pane-' + name).classList.add('active');
+    }
+
+    function toggleRightSidebar() {
+      const sidebar = document.querySelector('.sidebar-right');
+      const btn = document.getElementById('toggleSettingsBtn');
+      const isClosed = sidebar.classList.toggle('closed');
+      btn.classList.toggle('active', !isClosed);
+    }
+
+    // ── THEME & CUSTOM KEY HELPERS ────────────────────────────────
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('zs-theme', isDark ? 'dark' : 'light');
+      updateThemeIcon(isDark);
+    }
+
+    function updateThemeIcon(isDark) {
+      const icon = document.getElementById('themeIcon');
+      if (!icon) return;
+      if (isDark) {
+        // Sun icon when dark (click to go light)
+        icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 7a5 5 0 100 10 5 5 0 000-10z"/>';
+      } else {
+        // Moon icon when light (click to go dark)
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+      }
+    }
+
+    function loadThemeSetting() {
+      // In embed mode, theme is set from URL params before this runs — skip localStorage override
+      if (document.documentElement.classList.contains('embed-mode')) {
+        updateThemeIcon(document.documentElement.classList.contains('dark'));
+        return;
+      }
+      const saved = localStorage.getItem('zs-theme');
+      const isDark = saved === 'dark';
+      if (isDark) document.documentElement.classList.add('dark');
+      updateThemeIcon(isDark);
+    }
+
+    function toggleCustomKey() {
+      const btn = document.getElementById('togCustomKey');
+      const container = document.getElementById('customKeyContainer');
+      const isOn = btn.classList.toggle('on');
+      container.style.display = isOn ? 'block' : 'none';
+      localStorage.setItem('zs-math-use-custom-key', isOn ? 'true' : 'false');
+      updateCustomKeyStatus();
+    }
+
+    function saveCustomApiKey() {
+      const key = document.getElementById('customApiKeyInput').value.trim();
+      localStorage.setItem('zs-math-custom-groq-key', key);
+      updateCustomKeyStatus();
+    }
+
+    function updateCustomKeyStatus() {
+      const key = localStorage.getItem('zs-math-custom-groq-key') || '';
+      const status = document.getElementById('customKeyStatus');
+      if (!status) return;
+      if (key) {
+        status.textContent = '✅ Custom API key saved!';
+        status.style.color = 'var(--green)';
+      } else {
+        status.innerHTML = '⚠️ No key — enter one or turn off to use default.';
+        status.style.color = 'var(--red)';
+      }
+    }
+
+    function toggleCustomKeyVis() {
+      const inp = document.getElementById('customApiKeyInput');
+      if (inp) {
+        inp.type = inp.type === 'password' ? 'text' : 'password';
+      }
+    }
+
+    function loadCustomKeySettings() {
+      const useCustom = localStorage.getItem('zs-math-use-custom-key') === 'true';
+      const key = localStorage.getItem('zs-math-custom-groq-key') || '';
+
+      const btn = document.getElementById('togCustomKey');
+      const container = document.getElementById('customKeyContainer');
+      const inp = document.getElementById('customApiKeyInput');
+
+      if (btn && container && inp) {
+        if (useCustom) {
+          btn.classList.add('on');
+          container.style.display = 'block';
+        } else {
+          btn.classList.remove('on');
+          container.style.display = 'none';
+        }
+        inp.value = key;
+        updateCustomKeyStatus();
+      }
+    }
+
+    // ── SYSTEM PROMPT (the engine) ────────────────────────────────
+    function buildSystemPrompt() {
+      // Resolve subject + topic
+      const subj = SUBJECT_DATA[STATE.subject] || SUBJECT_DATA.math;
+      const topicObj = subj.topics.find(t => t.id === STATE.topic);
+      const subjectRole = subj.prompt;
+      const topicContext = topicObj ? topicObj.prompt : '';
+
+      const modeMap = {
+        'step-by-step': `${subjectRole} Solve problems methodically with clearly numbered steps. Label each step descriptively. Show ALL intermediate work. Explain the intuition behind each step. Never skip steps.`,
+        'direct': `${subjectRole} Give the direct answer with essential key steps only. State the final answer prominently. Be precise and complete, but not verbose.`,
+        'proof': `${subjectRole} Write completely formal proofs. Use correct logical structure. State all hypotheses, definitions needed, and justify EVERY inference with a named theorem, law, or principle. Match the standard of a top academic journal.`,
+        'verify': `${subjectRole} Carefully verify the given expression or solution. Check each logical step for errors. Point out any mistakes with clear explanation. If correct, confirm with a concise justification. If wrong, provide the correct solution.`,
+        'explore': `${subjectRole} Don't just solve — build deep understanding. Explain the intuition, historical context, connections to related areas, generalizations, and open problems. Make the subject come alive.`,
+        'phd': `${subjectRole} Solve at the level of a top PhD dissertation or research paper. Use the full power of modern methods. Name and apply deep theorems and seminal results. Discuss connections to current research. Format proofs and derivations rigorously.`,
+      };
+
+      const detailMap = {
+        'comprehensive': 'Be thorough. Explain every step\'s intuition. Include examples where helpful.',
+        'concise': 'Be clear and efficient. Omit only truly trivial steps.',
+        'minimal': 'Give essential steps and the final answer. No elaboration.',
+      };
+
+      const domainVal = document.getElementById('settingDomain').value;
+      const domainHint = domainVal !== 'auto'
+        ? `Domain context: ${domainVal.replace('_', ' ')}. Apply domain-specific techniques and terminology.`
+        : (topicContext || 'Apply the most appropriate techniques and domain-specific methods for this problem.');
+
+      const subjectLine = topicObj
+        ? `Subject: ${subj.label} › ${topicObj.label}. ${topicContext}`
+        : `Subject: ${subj.label}.`;
+
+      const showConf = document.getElementById('togConf').classList.contains('on');
+      const citeTh = document.getElementById('togCite').classList.contains('on');
+      const showGen = document.getElementById('togGen').classList.contains('on');
+      const showOpen = document.getElementById('togOpen').classList.contains('on');
+      const autoVerify = document.getElementById('togVerify').classList.contains('on');
+
+      return `${modeMap[STATE.mode] || modeMap['step-by-step']}
 
 ${subjectLine}
 ${detailMap[document.getElementById('settingDetail').value] || detailMap['comprehensive']}
@@ -1394,260 +2493,253 @@ ${autoVerify ? '- After the main solution, add a **Verification:** section check
 You have access to vision — if images of math problems are provided, carefully transcribe and solve them exactly as written. If handwriting is unclear, state your interpretation.
 
 Be mathematically precise and rigorous. Never make computational errors. Double-check your work.`;
-}
+    }
 
-// ── CAMERA ────────────────────────────────────────────────────
-let cameraStream = null;
+    // ── CAMERA ────────────────────────────────────────────────────
+    let cameraStream = null;
 
-async function openCamera() {
-  const overlay = document.getElementById('cameraOverlay');
-  overlay.classList.remove('hidden');
+    async function openCamera() {
+      const overlay = document.getElementById('cameraOverlay');
+      overlay.classList.remove('hidden');
 
-  try {
-    cameraStream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } }
-    });
-    document.getElementById('cameraVideo').srcObject = cameraStream;
-    document.getElementById('cameraHint').textContent = 'Camera active · Position math problem in frame · Tap Capture';
-  } catch(err) {
-    document.getElementById('cameraHint').textContent = 'Camera access denied. Please use the Upload button instead.';
-    document.getElementById('captureBtn').disabled = true;
-  }
-}
+      try {
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } }
+        });
+        document.getElementById('cameraVideo').srcObject = cameraStream;
+        document.getElementById('cameraHint').textContent = 'Camera active · Position math problem in frame · Tap Capture';
+      } catch (err) {
+        document.getElementById('cameraHint').textContent = 'Camera access denied. Please use the Upload button instead.';
+        document.getElementById('captureBtn').disabled = true;
+      }
+    }
 
-function closeCamera() {
-  if (cameraStream) {
-    cameraStream.getTracks().forEach(t => t.stop());
-    cameraStream = null;
-  }
-  document.getElementById('cameraOverlay').classList.add('hidden');
-  document.getElementById('captureBtn').disabled = false;
-  document.getElementById('cameraVideo').srcObject = null;
-}
+    function closeCamera() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(t => t.stop());
+        cameraStream = null;
+      }
+      document.getElementById('cameraOverlay').classList.add('hidden');
+      document.getElementById('captureBtn').disabled = false;
+      document.getElementById('cameraVideo').srcObject = null;
+    }
 
-function closeCameraOnBackdrop(e) {
-  if (e.target === document.getElementById('cameraOverlay')) closeCamera();
-}
+    function closeCameraOnBackdrop(e) {
+      if (e.target === document.getElementById('cameraOverlay')) closeCamera();
+    }
 
-function capturePhoto() {
-  const video = document.getElementById('cameraVideo');
-  const canvas = document.getElementById('captureCanvas');
-  canvas.width = video.videoWidth || 640;
-  canvas.height = video.videoHeight || 480;
-  const ctx = canvas.getContext('2d');
-  ctx.drawImage(video, 0, 0);
+    function capturePhoto() {
+      const video = document.getElementById('cameraVideo');
+      const canvas = document.getElementById('captureCanvas');
+      canvas.width = video.videoWidth || 640;
+      canvas.height = video.videoHeight || 480;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0);
 
-  const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-  const base64 = dataUrl.split(',')[1];
-
-  STATE.pendingImages.push({ dataUrl, base64, mimeType: 'image/jpeg', source: 'camera' });
-  STATE.imagesScanned++;
-  document.getElementById('statImages').textContent = STATE.imagesScanned;
-
-  addPreviewThumb(dataUrl, STATE.pendingImages.length - 1);
-  closeCamera();
-
-  // Auto-suggest prompt
-  if (!document.getElementById('mathInput').value.trim()) {
-    document.getElementById('mathInput').value = 'Please solve this math problem shown in the image.';
-    autoResize(document.getElementById('mathInput'));
-  }
-  document.getElementById('mathInput').focus();
-}
-
-// ── IMAGE UPLOAD ──────────────────────────────────────────────
-function handleImageUpload(e) {
-  const files = Array.from(e.target.files);
-  files.forEach(file => {
-    if (!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      const dataUrl = ev.target.result;
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
       const base64 = dataUrl.split(',')[1];
-      STATE.pendingImages.push({ dataUrl, base64, mimeType: file.type, source: 'upload' });
+
+      STATE.pendingImages.push({ dataUrl, base64, mimeType: 'image/jpeg', source: 'camera' });
+      STATE.imagesScanned++;
+      document.getElementById('statImages').textContent = STATE.imagesScanned;
+
       addPreviewThumb(dataUrl, STATE.pendingImages.length - 1);
-    };
-    reader.readAsDataURL(file);
-  });
-  e.target.value = '';
+      closeCamera();
+      document.getElementById('mathInput').focus();
+    }
 
-  if (!document.getElementById('mathInput').value.trim()) {
-    document.getElementById('mathInput').value = 'Please solve the math problem shown in the uploaded image.';
-    autoResize(document.getElementById('mathInput'));
-  }
-}
+    // ── IMAGE UPLOAD ──────────────────────────────────────────────
+    function handleImageUpload(e) {
+      const files = Array.from(e.target.files);
+      files.forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          const dataUrl = ev.target.result;
+          const base64 = dataUrl.split(',')[1];
+          STATE.pendingImages.push({ dataUrl, base64, mimeType: file.type, source: 'upload' });
+          addPreviewThumb(dataUrl, STATE.pendingImages.length - 1);
+        };
+        reader.readAsDataURL(file);
+      });
+      e.target.value = '';
+    }
 
-function addPreviewThumb(dataUrl, idx) {
-  const strip = document.getElementById('previewStrip');
-  strip.style.display = 'flex';
-  const thumb = document.createElement('div');
-  thumb.className = 'preview-thumb';
-  thumb.id = `thumb-${idx}`;
-  thumb.innerHTML = `
+    function addPreviewThumb(dataUrl, idx) {
+      const strip = document.getElementById('previewStrip');
+      strip.style.display = 'flex';
+      const thumb = document.createElement('div');
+      thumb.className = 'preview-thumb';
+      thumb.id = `thumb-${idx}`;
+      thumb.innerHTML = `
     <img src="${dataUrl}" alt="Math problem">
     <button class="remove-btn" onclick="removeImage(${idx})">✕</button>`;
-  strip.appendChild(thumb);
-}
+      strip.appendChild(thumb);
+    }
 
-function removeImage(idx) {
-  STATE.pendingImages.splice(idx, 1);
-  document.getElementById(`thumb-${idx}`)?.remove();
-  // Rebuild strip
-  const strip = document.getElementById('previewStrip');
-  if (!STATE.pendingImages.length) strip.style.display = 'none';
-}
+    function removeImage(idx) {
+      STATE.pendingImages.splice(idx, 1);
+      document.getElementById(`thumb-${idx}`)?.remove();
+      // Rebuild strip
+      const strip = document.getElementById('previewStrip');
+      if (!STATE.pendingImages.length) strip.style.display = 'none';
+    }
 
-// ── SEND MESSAGE ──────────────────────────────────────────────
-async function sendMessage() {
-  const input = document.getElementById('mathInput');
-  const text = input.value.trim();
-  const hasImages = STATE.pendingImages.length > 0;
+    // ── SEND MESSAGE ──────────────────────────────────────────────
+    async function sendMessage() {
+      const input = document.getElementById('mathInput');
+      const text = input.value.trim();
+      const hasImages = STATE.pendingImages.length > 0;
 
-  if ((!text && !hasImages) || STATE.isLoading) return;
+      if ((!text && !hasImages) || STATE.isLoading) return;
 
-  // Hide welcome
-  document.getElementById('welcomeState')?.remove();
+      // Hide welcome
+      document.getElementById('welcomeState')?.remove();
 
-  const sendBtn = document.getElementById('sendBtn');
-  input.value = '';
-  autoResize(input);
-  STATE.isLoading = true;
-  sendBtn.disabled = true;
-  document.getElementById('agentStatus').textContent = 'Solving…';
+      const sendBtn = document.getElementById('sendBtn');
+      input.value = '';
+      autoResize(input);
+      STATE.isLoading = true;
+      sendBtn.disabled = true;
+      document.getElementById('agentStatus').textContent = 'Solving…';
 
-  // Build user message content (OpenAI-compatible for Groq)
-  const msgContent = hasImages
-    ? [
-        ...STATE.pendingImages.map(img => ({ type:'image_url', image_url:{ url:`data:${img.mimeType};base64,${img.base64}` } })),
-        { type:'text', text: text || 'Please solve the math problem shown in the image(s). Show full working.' },
-      ]
-    : (text || '');
+      // Build user message content (OpenAI-compatible for Groq)
+      const msgContent = hasImages
+        ? [
+          ...STATE.pendingImages.map(img => ({ type: 'image_url', image_url: { url: `data:${img.mimeType};base64,${img.base64}` } })),
+          ...(text ? [{ type: 'text', text }] : []),
+        ]
+        : (text || '');
 
-  const displayText = text || '(Image of math problem)';
-  const displayImages = [...STATE.pendingImages];
+      const displayText = text || '(Image of math problem)';
+      const displayImages = [...STATE.pendingImages];
 
-  // Clear pending images
-  STATE.pendingImages = [];
-  document.getElementById('previewStrip').style.display = 'none';
-  document.getElementById('previewStrip').innerHTML = '';
+      // Clear pending images
+      STATE.pendingImages = [];
+      document.getElementById('previewStrip').style.display = 'none';
+      document.getElementById('previewStrip').innerHTML = '';
 
-  // Add to conversation history
-  STATE.messages.push({ role: 'user', content: msgContent });
+      // Add to conversation history
+      STATE.messages.push({ role: 'user', content: msgContent });
 
-  // Render user bubble
-  appendUserMessage(displayText, displayImages);
+      // Render user bubble
+      appendUserMessage(displayText, displayImages);
 
-  // Detect domain for stats
-  const domain = detectDomain(displayText);
-  if (domain) {
-    STATE.domainCounts[domain.label] = (STATE.domainCounts[domain.label] || 0) + 1;
-    updateDomainStats();
-  }
+      // Detect domain for stats
+      const domain = detectDomain(displayText);
+      if (domain) {
+        STATE.domainCounts[domain.label] = (STATE.domainCounts[domain.label] || 0) + 1;
+        updateDomainStats();
+      }
 
-  const typingId = showTyping();
-  const startTime = Date.now();
+      const typingId = showTyping();
+      const startTime = Date.now();
 
-  try {
-    // Build OpenAI-compatible messages, stripping images from older turns
-    const messages = [
-      { role: 'system', content: buildSystemPrompt() },
-      ...STATE.messages.map((m, idx) => {
-        if (Array.isArray(m.content) && idx < STATE.messages.length - 1) {
-          const t = m.content.find(c => c.type === 'text');
-          return { role: m.role, content: t ? t.text : '[Image — earlier context]' };
+      try {
+        // Build OpenAI-compatible messages, stripping images from older turns
+        const messages = [
+          { role: 'system', content: buildSystemPrompt() },
+          ...STATE.messages.map((m, idx) => {
+            if (Array.isArray(m.content) && idx < STATE.messages.length - 1) {
+              const t = m.content.find(c => c.type === 'text');
+              return { role: m.role, content: t ? t.text : '[Image — earlier context]' };
+            }
+            return { role: m.role, content: m.content };
+          }),
+        ];
+        const temp = parseFloat(document.getElementById('settingTemp').value) / 100;
+        // Auto-select vision model when images are included — the text model doesn't support image_url
+        const activeModel = hasImages ? GROQ_VISION_MODEL : GROQ_MODEL;
+        const payload = { model: activeModel, messages, max_tokens: 8192, temperature: temp };
+
+        const useCustom = localStorage.getItem('zs-math-use-custom-key') === 'true';
+        const customKey = (localStorage.getItem('zs-math-custom-groq-key') || '').trim();
+
+        if (useCustom && !customKey) {
+          removeTyping(typingId);
+          appendError('API key is enabled in Settings, but no key has been entered. Please enter your API key (starts with gsk_) or disable the toggle to use the free engine.');
+          document.getElementById('agentStatus').textContent = 'API key required';
+          STATE.isLoading = false; sendBtn.disabled = false; input.focus();
+          return;
         }
-        return { role: m.role, content: m.content };
-      }),
-    ];
-    const temp = parseFloat(document.getElementById('settingTemp').value) / 100;
-    const payload = { model: GROQ_MODEL, messages, max_tokens: 8192, temperature: temp };
 
-    const useCustom = localStorage.getItem('zs-math-use-custom-key') === 'true';
-    const customKey = (localStorage.getItem('zs-math-custom-groq-key') || '').trim();
+        let response;
+        if (useCustom && customKey) {
+          // Direct call to Groq's official completions endpoint
+          response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${customKey}`
+            },
+            body: JSON.stringify(payload),
+          });
+        } else {
+          // Call the local proxy — no API key in the browser
+          response = await fetch('/api/math', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+        }
 
-    if (useCustom && !customKey) {
-      removeTyping(typingId);
-      appendError('API key is enabled in Settings, but no key has been entered. Please enter your API key (starts with gsk_) or disable the toggle to use the free engine.');
-      document.getElementById('agentStatus').textContent = 'API key required';
-      STATE.isLoading = false; sendBtn.disabled = false; input.focus();
-      return;
+        if (!response.ok) {
+          const err = await response.json().catch(() => ({}));
+          throw new Error(err.error?.message || `API error ${response.status}`);
+        }
+
+        const data = await response.json();
+        const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+        removeTyping(typingId);
+
+        const assistantText = data.choices?.[0]?.message?.content || '';
+        if (!assistantText) throw new Error('Empty response from AI engine. Please try again.');
+
+        STATE.messages.push({ role: 'assistant', content: assistantText });
+        appendAssistantMessage(assistantText, elapsed, displayText, domain);
+
+        STATE.solved++;
+        STATE.totalTime += parseFloat(elapsed);
+        addToHistory(displayText, domain);
+        document.getElementById('statSolved').textContent = STATE.solved;
+        document.getElementById('statTime').textContent = (STATE.totalTime / STATE.solved).toFixed(1) + 's';
+        document.getElementById('agentStatus').textContent = `Solved in ${elapsed}s · ${STATE.solved} problems this session`;
+
+      } catch (err) {
+        removeTyping(typingId);
+        let msg = err.message;
+        if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
+          msg = 'Network error — make sure the Zenspace server is running (Start Zenspace.bat) and you are accessing via http://localhost:3000.';
+        } else if (msg.includes('401') || msg.includes('403') || msg.toLowerCase().includes('api key')) {
+          msg = 'Server API key error — add your Groq API key to GROQ_API_KEY in the .env file, then restart the server.';
+        } else if (msg.includes('405')) {
+          msg = 'Model error (405) — the vision model may be temporarily unavailable. Try again in a moment, or enter your own Groq API key in Settings.';
+        } else if (msg.includes('429')) {
+          msg = 'Rate limit hit — wait a moment and try again, or use your own Groq API key in Settings for higher limits.';
+        } else if (msg.includes('503') || msg.includes('overloaded')) {
+          msg = 'AI engine is temporarily busy — please try again in a moment.';
+        }
+        appendError(msg);
+        document.getElementById('agentStatus').textContent = 'Error — see message below';
+        console.error('Apex Math Agent:', err);
+      }
+
+      STATE.isLoading = false;
+      sendBtn.disabled = false;
+      input.focus();
     }
 
-    let response;
-    if (useCustom && customKey) {
-      // Direct call to Groq's official completions endpoint
-      response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-        method: 'POST',
-        headers: { 
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${customKey}`
-        },
-        body: JSON.stringify(payload),
-      });
-    } else {
-      // Call the local proxy — no API key in the browser
-      response = await fetch('/api/math', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-    }
+    // ── RENDER USER MESSAGE ───────────────────────────────────────
+    function appendUserMessage(text, images = []) {
+      const container = document.getElementById('chatMessages');
+      const row = document.createElement('div');
+      row.className = 'msg-row user';
+      const initials = document.getElementById('navAvatar').textContent || 'U';
+      const imagesHtml = images.map(img =>
+        `<img src="${img.dataUrl}" class="user-img-preview" alt="Problem image">`
+      ).join('');
 
-    if (!response.ok) {
-      const err = await response.json().catch(() => ({}));
-      throw new Error(err.error?.message || `API error ${response.status}`);
-    }
-
-    const data = await response.json();
-    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-    removeTyping(typingId);
-
-    const assistantText = data.choices?.[0]?.message?.content || '';
-    if (!assistantText) throw new Error('Empty response from AI engine. Please try again.');
-
-    STATE.messages.push({ role: 'assistant', content: assistantText });
-    appendAssistantMessage(assistantText, elapsed, displayText, domain);
-
-    STATE.solved++;
-    STATE.totalTime += parseFloat(elapsed);
-    addToHistory(displayText, domain);
-    document.getElementById('statSolved').textContent = STATE.solved;
-    document.getElementById('statTime').textContent = (STATE.totalTime / STATE.solved).toFixed(1) + 's';
-    document.getElementById('agentStatus').textContent = `Solved in ${elapsed}s · ${STATE.solved} problems this session`;
-
-  } catch(err) {
-    removeTyping(typingId);
-    let msg = err.message;
-    if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
-      msg = 'Network error — check internet connection and ensure the page is served from a web server.';
-    } else if (msg.includes('401') || msg.includes('403') || msg.toLowerCase().includes('api key')) {
-      msg = 'Server API key error. Check GROQ_API_KEY in the .env file and restart the server.';
-    } else if (msg.includes('429')) {
-      msg = 'Rate limit hit. Wait a moment and try again.';
-    } else if (msg.includes('503') || msg.includes('overloaded')) {
-      msg = 'AI engine is temporarily busy. Please try again in a moment.';
-    }
-    appendError(msg);
-    document.getElementById('agentStatus').textContent = 'Error — see message below';
-    console.error('Apex Math Agent:', err);
-  }
-
-  STATE.isLoading = false;
-  sendBtn.disabled = false;
-  input.focus();
-}
-
-// ── RENDER USER MESSAGE ───────────────────────────────────────
-function appendUserMessage(text, images = []) {
-  const container = document.getElementById('chatMessages');
-  const row = document.createElement('div');
-  row.className = 'msg-row user';
-  const initials = document.getElementById('navAvatar').textContent || 'U';
-  const imagesHtml = images.map(img =>
-    `<img src="${img.dataUrl}" class="user-img-preview" alt="Problem image">`
-  ).join('');
-
-  row.innerHTML = `
+      row.innerHTML = `
     <div class="msg-av user">${initials}</div>
     <div class="msg-body">
       <div class="msg-meta">${timestamp()}</div>
@@ -1656,25 +2748,25 @@ function appendUserMessage(text, images = []) {
         ${text ? escHtml(text) : ''}
       </div>
     </div>`;
-  container.appendChild(row);
-  scrollBottom();
-}
+      container.appendChild(row);
+      scrollBottom();
+    }
 
-// ── RENDER ASSISTANT MESSAGE ──────────────────────────────────
-function appendAssistantMessage(text, elapsed, userQ, domain) {
-  const container = document.getElementById('chatMessages');
-  const row = document.createElement('div');
-  row.className = 'msg-row';
-  const bubbleId = 'bubble-' + Date.now();
-  const showReasoning = document.getElementById('togReasoning').classList.contains('on');
+    // ── RENDER ASSISTANT MESSAGE ──────────────────────────────────
+    function appendAssistantMessage(text, elapsed, userQ, domain) {
+      const container = document.getElementById('chatMessages');
+      const row = document.createElement('div');
+      row.className = 'msg-row';
+      const bubbleId = 'bubble-' + Date.now();
+      const showReasoning = document.getElementById('togReasoning').classList.contains('on');
 
-  const formattedHtml = formatResponse(text);
-  const thinkHtml = showReasoning ? buildThinkBlock(text, userQ) : '';
-  const domainTag = domain
-    ? `<span class="domain-tag domain-${domain.key}">${domain.label}</span>`
-    : '';
+      const formattedHtml = formatResponse(text);
+      const thinkHtml = showReasoning ? buildThinkBlock(text, userQ) : '';
+      const domainTag = domain
+        ? `<span class="domain-tag domain-${domain.key}">${domain.label}</span>`
+        : '';
 
-  row.innerHTML = `
+      row.innerHTML = `
     <div class="msg-av agent">∑</div>
     <div class="msg-body" style="max-width:90%">
       <div class="msg-meta">
@@ -1700,37 +2792,37 @@ function appendAssistantMessage(text, elapsed, userQ, domain) {
       </div>
     </div>`;
 
-  container.appendChild(row);
+      container.appendChild(row);
 
-  // KaTeX rendering
-  if (document.getElementById('togLatex').classList.contains('on') && window.renderMathInElement) {
-    setTimeout(() => {
-      try {
-        renderMathInElement(document.getElementById(bubbleId), {
-          delimiters: [
-            { left: '$$', right: '$$', display: true },
-            { left: '$', right: '$', display: false },
-            { left: '\\[', right: '\\]', display: true },
-            { left: '\\(', right: '\\)', display: false },
-          ],
-          throwOnError: false,
-        });
-      } catch(e) {}
-    }, 80);
-  }
+      // KaTeX rendering
+      if (document.getElementById('togLatex').classList.contains('on') && window.renderMathInElement) {
+        setTimeout(() => {
+          try {
+            renderMathInElement(document.getElementById(bubbleId), {
+              delimiters: [
+                { left: '$$', right: '$$', display: true },
+                { left: '$', right: '$', display: false },
+                { left: '\\[', right: '\\]', display: true },
+                { left: '\\(', right: '\\)', display: false },
+              ],
+              throwOnError: false,
+            });
+          } catch (e) { }
+        }, 80);
+      }
 
-  scrollBottom();
-}
+      scrollBottom();
+    }
 
-// ── THINKING BLOCK ────────────────────────────────────────────
-function buildThinkBlock(text, userQ) {
-  const id = 'th-' + Date.now();
-  const steps = (text.match(/\*\*Step/g) || []).length;
-  const equations = Math.floor((text.match(/\$\$/g) || []).length / 2);
-  const words = text.split(/\s+/).length;
-  const preview = userQ.substring(0, 72) + (userQ.length > 72 ? '…' : '');
+    // ── THINKING BLOCK ────────────────────────────────────────────
+    function buildThinkBlock(text, userQ) {
+      const id = 'th-' + Date.now();
+      const steps = (text.match(/\*\*Step/g) || []).length;
+      const equations = Math.floor((text.match(/\$\$/g) || []).length / 2);
+      const words = text.split(/\s+/).length;
+      const preview = userQ.substring(0, 72) + (userQ.length > 72 ? '…' : '');
 
-  return `
+      return `
     <div class="think-block">
       <button class="think-header" id="${id}-hdr" onclick="toggleThink('${id}')">
         <div class="think-spinner"></div>
@@ -1739,9 +2831,9 @@ function buildThinkBlock(text, userQ) {
         <span class="think-chevron">›</span>
       </button>
       <div class="think-body" id="${id}-body">
-        <strong>Solver mode:</strong> ${STATE.mode.replace('-',' ')} ·
-        <strong>Domain:</strong> ${document.getElementById('settingDomain').value.replace('_',' ')} ·
-        <strong>Temperature:</strong> ${(parseFloat(document.getElementById('settingTemp').value)/100).toFixed(2)}
+        <strong>Solver mode:</strong> ${STATE.mode.replace('-', ' ')} ·
+        <strong>Domain:</strong> ${document.getElementById('settingDomain').value.replace('_', ' ')} ·
+        <strong>Temperature:</strong> ${(parseFloat(document.getElementById('settingTemp').value) / 100).toFixed(2)}
         <br><br>
         Solution contains <strong>${steps}</strong> explicit steps,
         <strong>${equations}</strong> display equations,
@@ -1749,106 +2841,106 @@ function buildThinkBlock(text, userQ) {
         <br><br>
         <em>The agent applied ${STATE.mode === 'phd' ? 'graduate-level mathematical techniques with full rigor' :
           STATE.mode === 'proof' ? 'formal proof structure with named theorems' :
-          STATE.mode === 'explore' ? 'expository deep-dive with connections to broader theory' :
-          'systematic step-by-step solution methodology'}.</em>
+            STATE.mode === 'explore' ? 'expository deep-dive with connections to broader theory' :
+              'systematic step-by-step solution methodology'}.</em>
       </div>
     </div>`;
-}
+    }
 
-function toggleThink(id) {
-  document.getElementById(id + '-hdr').classList.toggle('open');
-  document.getElementById(id + '-body').classList.toggle('open');
-}
+    function toggleThink(id) {
+      document.getElementById(id + '-hdr').classList.toggle('open');
+      document.getElementById(id + '-body').classList.toggle('open');
+    }
 
-// ── FORMAT RESPONSE ───────────────────────────────────────────
-function formatResponse(text) {
-  let h = text;
+    // ── FORMAT RESPONSE ───────────────────────────────────────────
+    function formatResponse(text) {
+      let h = text;
 
-  // Bold and italic
-  h = h.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
-  h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  h = h.replace(/\*(?!\*)(.+?)(?<!\*)\*/g, '<em>$1</em>');
+      // Bold and italic
+      h = h.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+      h = h.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      h = h.replace(/\*(?!\*)(.+?)(?<!\*)\*/g, '<em>$1</em>');
 
-  // Step labels
-  h = h.replace(/\*\*Step\s+(\d+):\*\*/g, '<strong><span class="step-num">$1</span></strong>');
-  h = h.replace(/^Step\s+(\d+):/gm, '<span class="step-num">$1</span>');
+      // Step labels
+      h = h.replace(/\*\*Step\s+(\d+):\*\*/g, '<strong><span class="step-num">$1</span></strong>');
+      h = h.replace(/^Step\s+(\d+):/gm, '<span class="step-num">$1</span>');
 
-  // Final answer block
-  h = h.replace(/(Final Answer:|Final Answer\s*:)/gi,
-    '<div class="answer-block"><div class="answer-label">✓ Final Answer</div>');
-  // Close answer block on double newline after
-  h = h.replace(/(<div class="answer-block">[\s\S]*?)(\n\n|\n(?=\*\*Step|\n))/,
-    '$1</div>$2');
+      // Final answer block
+      h = h.replace(/(Final Answer:|Final Answer\s*:)/gi,
+        '<div class="answer-block"><div class="answer-label">✓ Final Answer</div>');
+      // Close answer block on double newline after
+      h = h.replace(/(<div class="answer-block">[\s\S]*?)(\n\n|\n(?=\*\*Step|\n))/,
+        '$1</div>$2');
 
-  // Proof QED
-  h = h.replace(/\s*□\s*/g, ' <span style="float:right;font-size:1.1em">□</span>');
+      // Proof QED
+      h = h.replace(/\s*□\s*/g, ' <span style="float:right;font-size:1.1em">□</span>');
 
-  // Code blocks
-  h = h.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
-  h = h.replace(/`([^`]+)`/g, '<code>$1</code>');
+      // Code blocks
+      h = h.replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+      h = h.replace(/`([^`]+)`/g, '<code>$1</code>');
 
-  // Horizontal rule for sections
-  h = h.replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid var(--border);margin:14px 0">');
+      // Horizontal rule for sections
+      h = h.replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid var(--border);margin:14px 0">');
 
-  // Paragraphs
-  h = h.replace(/\n\n/g, '</p><p style="margin:10px 0 0">');
-  h = h.replace(/\n/g, '<br>');
+      // Paragraphs
+      h = h.replace(/\n\n/g, '</p><p style="margin:10px 0 0">');
+      h = h.replace(/\n/g, '<br>');
 
-  return `<p style="margin:0">${h}</p>`;
-}
+      return `<p style="margin:0">${h}</p>`;
+    }
 
-// ── DOMAIN DETECTION ──────────────────────────────────────────
-function detectDomain(text) {
-  const t = text.toLowerCase();
-  if (/\bmanifold|\btopolog|\bhomotop|\bhomeomorphi|\bfundamental group|\bfiber bundle|\bcovering space/.test(t))
-    return { key: 'topology', label: 'Topology' };
-  if (/\bcurvature|\bgeodesic|\bdifferential form|\bde rham|\blie group|\briemannian/.test(t))
-    return { key: 'analysis', label: 'Diff. Geometry' };
-  if (/\bmeasure|\blebesgue|\bborel|\bsigma.algebra|\balmost everywhere|\bintegrable/.test(t))
-    return { key: 'analysis', label: 'Measure Theory' };
-  if (/\bholomorphic|\bmeromorphic|\banalytic|\bresidue|\bcontour|\bcomplex/.test(t))
-    return { key: 'analysis', label: 'Complex Analysis' };
-  if (/\bintegral|\bderivative|\blimit|\blim\b|\bdifferential|\bconverge|\bseries/.test(t))
-    return { key: 'calculus', label: 'Analysis/Calculus' };
-  if (/\bmatrix|eigenvalue|\bdeterminant|\bvector space|\blinear map|\brank|\bnull space/.test(t))
-    return { key: 'linalg', label: 'Linear Algebra' };
-  if (/\bprobabilit|\bnormal dist|\bvariance|\bexpected value|\brandom variable|\bmarkov/.test(t))
-    return { key: 'stats', label: 'Probability' };
-  if (/\bprime|\bmodular|\bcongruence|\bgalois|\bfield extension|\bring|\bgroup theory/.test(t))
-    return { key: 'number', label: 'Abstract Algebra' };
-  if (/\bode|\bpde|\bpartial differential|\blaplacian|\bheat equation|\bwave equation/.test(t))
-    return { key: 'ode', label: 'Diff. Equations' };
-  if (/\bproof|\btheorem|\blemma|\bcorollar|\baxiom|\binduction|\bimplication/.test(t))
-    return { key: 'number', label: 'Proof / Logic' };
-  if (/\bsolve|\bequation|\bfactor|\bquadratic|\bpolynomial/.test(t))
-    return { key: 'algebra', label: 'Algebra' };
-  if (/\bangle|\btriangle|\bcircle|\bgeometr/.test(t))
-    return { key: 'geometry', label: 'Geometry' };
-  return null;
-}
+    // ── DOMAIN DETECTION ──────────────────────────────────────────
+    function detectDomain(text) {
+      const t = text.toLowerCase();
+      if (/\bmanifold|\btopolog|\bhomotop|\bhomeomorphi|\bfundamental group|\bfiber bundle|\bcovering space/.test(t))
+        return { key: 'topology', label: 'Topology' };
+      if (/\bcurvature|\bgeodesic|\bdifferential form|\bde rham|\blie group|\briemannian/.test(t))
+        return { key: 'analysis', label: 'Diff. Geometry' };
+      if (/\bmeasure|\blebesgue|\bborel|\bsigma.algebra|\balmost everywhere|\bintegrable/.test(t))
+        return { key: 'analysis', label: 'Measure Theory' };
+      if (/\bholomorphic|\bmeromorphic|\banalytic|\bresidue|\bcontour|\bcomplex/.test(t))
+        return { key: 'analysis', label: 'Complex Analysis' };
+      if (/\bintegral|\bderivative|\blimit|\blim\b|\bdifferential|\bconverge|\bseries/.test(t))
+        return { key: 'calculus', label: 'Analysis/Calculus' };
+      if (/\bmatrix|eigenvalue|\bdeterminant|\bvector space|\blinear map|\brank|\bnull space/.test(t))
+        return { key: 'linalg', label: 'Linear Algebra' };
+      if (/\bprobabilit|\bnormal dist|\bvariance|\bexpected value|\brandom variable|\bmarkov/.test(t))
+        return { key: 'stats', label: 'Probability' };
+      if (/\bprime|\bmodular|\bcongruence|\bgalois|\bfield extension|\bring|\bgroup theory/.test(t))
+        return { key: 'number', label: 'Abstract Algebra' };
+      if (/\bode|\bpde|\bpartial differential|\blaplacian|\bheat equation|\bwave equation/.test(t))
+        return { key: 'ode', label: 'Diff. Equations' };
+      if (/\bproof|\btheorem|\blemma|\bcorollar|\baxiom|\binduction|\bimplication/.test(t))
+        return { key: 'number', label: 'Proof / Logic' };
+      if (/\bsolve|\bequation|\bfactor|\bquadratic|\bpolynomial/.test(t))
+        return { key: 'algebra', label: 'Algebra' };
+      if (/\bangle|\btriangle|\bcircle|\bgeometr/.test(t))
+        return { key: 'geometry', label: 'Geometry' };
+      return null;
+    }
 
-function updateDomainStats() {
-  const el = document.getElementById('domainStats');
-  const entries = Object.entries(STATE.domainCounts).sort((a,b) => b[1]-a[1]);
-  if (!entries.length) {
-    el.innerHTML = '<div style="font-size:.72rem;color:var(--ink-4);font-family:var(--font)">No problems solved yet</div>';
-    return;
-  }
-  el.innerHTML = entries.map(([label, count]) => `
+    function updateDomainStats() {
+      const el = document.getElementById('domainStats');
+      const entries = Object.entries(STATE.domainCounts).sort((a, b) => b[1] - a[1]);
+      if (!entries.length) {
+        el.innerHTML = '<div style="font-size:.72rem;color:var(--ink-4);font-family:var(--font)">No problems solved yet</div>';
+        return;
+      }
+      el.innerHTML = entries.map(([label, count]) => `
     <div style="display:flex;align-items:center;justify-content:space-between;font-size:.74rem;font-family:var(--font);color:var(--ink-2)">
       <span>${label}</span>
       <span style="color:var(--accent-2);font-weight:700;font-family:var(--mono)">${count}</span>
     </div>`).join('');
-}
+    }
 
-// ── TYPING INDICATOR ──────────────────────────────────────────
-function showTyping() {
-  const id = 'typing-' + Date.now();
-  const container = document.getElementById('chatMessages');
-  const row = document.createElement('div');
-  row.className = 'msg-row';
-  row.id = id;
-  row.innerHTML = `
+    // ── TYPING INDICATOR ──────────────────────────────────────────
+    function showTyping() {
+      const id = 'typing-' + Date.now();
+      const container = document.getElementById('chatMessages');
+      const row = document.createElement('div');
+      row.className = 'msg-row';
+      row.id = id;
+      row.innerHTML = `
     <div class="msg-av agent">∑</div>
     <div class="msg-body">
       <div class="typing-wrap">
@@ -1858,17 +2950,17 @@ function showTyping() {
         <span class="typing-label">Solving…</span>
       </div>
     </div>`;
-  container.appendChild(row);
-  scrollBottom();
-  return id;
-}
-function removeTyping(id) { document.getElementById(id)?.remove(); }
+      container.appendChild(row);
+      scrollBottom();
+      return id;
+    }
+    function removeTyping(id) { document.getElementById(id)?.remove(); }
 
-function appendError(msg) {
-  const container = document.getElementById('chatMessages');
-  const row = document.createElement('div');
-  row.className = 'msg-row';
-  row.innerHTML = `
+    function appendError(msg) {
+      const container = document.getElementById('chatMessages');
+      const row = document.createElement('div');
+      row.className = 'msg-row';
+      row.innerHTML = `
     <div class="msg-av agent">∑</div>
     <div class="msg-body">
       <div class="err-bubble">
@@ -1876,79 +2968,79 @@ function appendError(msg) {
         <span style="font-size:.75rem;opacity:.8">The page must be served from a web server. If running locally, try: <code>npx serve .</code></span>
       </div>
     </div>`;
-  container.appendChild(row);
-  scrollBottom();
-}
+      container.appendChild(row);
+      scrollBottom();
+    }
 
-// ── HISTORY ───────────────────────────────────────────────────
-function addToHistory(question, domain) {
-  STATE.history.unshift({ q: question, domain: domain?.label, ts: Date.now() });
-  if (STATE.history.length > 30) STATE.history.pop();
-  saveHistory();
-  renderHistList();
-}
+    // ── HISTORY ───────────────────────────────────────────────────
+    function addToHistory(question, domain) {
+      STATE.history.unshift({ q: question, domain: domain?.label, ts: Date.now() });
+      if (STATE.history.length > 30) STATE.history.pop();
+      saveHistory();
+      renderHistList();
+    }
 
-function renderHistList() {
-  const el = document.getElementById('histList');
-  if (!STATE.history.length) {
-    el.innerHTML = '<div style="font-size:.72rem;color:var(--ink-4);padding:4px 10px;font-family:var(--font)">No history yet</div>';
-    return;
-  }
-  el.innerHTML = STATE.history.slice(0, 12).map((h, i) => `
+    function renderHistList() {
+      const el = document.getElementById('histList');
+      if (!STATE.history.length) {
+        el.innerHTML = '<div style="font-size:.72rem;color:var(--ink-4);padding:4px 10px;font-family:var(--font)">No history yet</div>';
+        return;
+      }
+      el.innerHTML = STATE.history.slice(0, 12).map((h, i) => `
     <button class="hist-item" onclick="reuseQuestion(${i})" title="${escHtml(h.q)}">
       ${h.domain ? `<span class="hist-item-domain">${h.domain}</span>` : ''}
       ${escHtml(h.q.substring(0, 34))}${h.q.length > 34 ? '…' : ''}
     </button>`).join('');
-}
-
-function reuseQuestion(i) {
-  const h = STATE.history[i];
-  if (!h) return;
-  document.getElementById('mathInput').value = h.q;
-  autoResize(document.getElementById('mathInput'));
-  document.getElementById('mathInput').focus();
-  const popover = document.getElementById('historyPopover');
-  if (popover) popover.classList.remove('show');
-}
-
-function toggleHistoryPopover(e) {
-  if (e) e.stopPropagation();
-  const popover = document.getElementById('historyPopover');
-  if (popover) popover.classList.toggle('show');
-}
-
-document.addEventListener('click', e => {
-  const popover = document.getElementById('historyPopover');
-  const btn = document.getElementById('historyBtn');
-  if (popover && popover.classList.contains('show')) {
-    if (!popover.contains(e.target) && (!btn || !btn.contains(e.target))) {
-      popover.classList.remove('show');
     }
-  }
-});
 
-function saveHistory() {
-  try { localStorage.setItem('zs-math-hist-v2', JSON.stringify(STATE.history)); } catch(e) {}
-}
-function loadHistory() {
-  try {
-    const saved = localStorage.getItem('zs-math-hist-v2');
-    if (saved) STATE.history = JSON.parse(saved);
-    renderHistList();
-  } catch(e) {}
-}
+    function reuseQuestion(i) {
+      const h = STATE.history[i];
+      if (!h) return;
+      document.getElementById('mathInput').value = h.q;
+      autoResize(document.getElementById('mathInput'));
+      document.getElementById('mathInput').focus();
+      const popover = document.getElementById('historyPopover');
+      if (popover) popover.classList.remove('show');
+    }
 
-function clearAll() {
-  STATE.history = [];
-  saveHistory();
-  renderHistList();
-  clearChat();
-}
+    function toggleHistoryPopover(e) {
+      if (e) e.stopPropagation();
+      const popover = document.getElementById('historyPopover');
+      if (popover) popover.classList.toggle('show');
+    }
 
-function clearChat() {
-  STATE.messages = [];
-  const container = document.getElementById('chatMessages');
-  container.innerHTML = `
+    document.addEventListener('click', e => {
+      const popover = document.getElementById('historyPopover');
+      const btn = document.getElementById('historyBtn');
+      if (popover && popover.classList.contains('show')) {
+        if (!popover.contains(e.target) && (!btn || !btn.contains(e.target))) {
+          popover.classList.remove('show');
+        }
+      }
+    });
+
+    function saveHistory() {
+      try { localStorage.setItem('zs-math-hist-v2', JSON.stringify(STATE.history)); } catch (e) { }
+    }
+    function loadHistory() {
+      try {
+        const saved = localStorage.getItem('zs-math-hist-v2');
+        if (saved) STATE.history = JSON.parse(saved);
+        renderHistList();
+      } catch (e) { }
+    }
+
+    function clearAll() {
+      STATE.history = [];
+      saveHistory();
+      renderHistList();
+      clearChat();
+    }
+
+    function clearChat() {
+      STATE.messages = [];
+      const container = document.getElementById('chatMessages');
+      container.innerHTML = `
     <div class="welcome-state" id="welcomeState">
       <div class="welcome-orb">∑</div>
       <h2>Zen<em>lab</em></h2>
@@ -1967,96 +3059,97 @@ function clearChat() {
         <span class="cap-pill">📸 Vision OCR</span>
       </div>
     </div>`;
-  document.getElementById('agentStatus').textContent = 'PhD-level solver · Vision enabled · Step-by-step reasoning';
-}
+      document.getElementById('agentStatus').textContent = 'PhD-level solver · Vision enabled · Step-by-step reasoning';
+    }
 
-// ── FOLLOW UP ─────────────────────────────────────────────────
-function followUp(originalQ) {
-  const input = document.getElementById('mathInput');
-  input.value = `Regarding the previous problem: `;
-  autoResize(input);
-  input.focus();
-  input.setSelectionRange(input.value.length, input.value.length);
-}
+    // ── FOLLOW UP ─────────────────────────────────────────────────
+    function followUp(originalQ) {
+      const input = document.getElementById('mathInput');
+      input.value = `Regarding the previous problem: `;
+      autoResize(input);
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
 
-// ── DOWNLOAD ──────────────────────────────────────────────────
-function downloadChat() {
-  const lines = STATE.messages.map(m => {
-    const content = Array.isArray(m.content)
-      ? m.content.filter(b => b.type === 'text').map(b => b.text).join('\n')
-      : m.content;
-    return `[${m.role.toUpperCase()}]\n${content}\n`;
-  }).join('\n─────────────────────\n\n');
-  const blob = new Blob([lines], { type: 'text/plain' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `apex-math-${new Date().toISOString().slice(0,10)}.txt`;
-  a.click();
-  URL.revokeObjectURL(url);
-}
+    // ── DOWNLOAD ──────────────────────────────────────────────────
+    function downloadChat() {
+      const lines = STATE.messages.map(m => {
+        const content = Array.isArray(m.content)
+          ? m.content.filter(b => b.type === 'text').map(b => b.text).join('\n')
+          : m.content;
+        return `[${m.role.toUpperCase()}]\n${content}\n`;
+      }).join('\n─────────────────────\n\n');
+      const blob = new Blob([lines], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `apex-math-${new Date().toISOString().slice(0, 10)}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
 
-// ── COPY ──────────────────────────────────────────────────────
-function copyText(btn, text) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✓ Copied';
-    setTimeout(() => { btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`; }, 1500);
-  });
-}
-function copyLatex(btn, text) {
-  const matches = text.match(/\$\$[\s\S]*?\$\$|\$[^$]*?\$/g) || [];
-  navigator.clipboard.writeText(matches.join('\n') || text).then(() => {
-    btn.textContent = '✓ LaTeX Copied';
-    setTimeout(() => { btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg> Copy LaTeX`; }, 1500);
-  });
-}
+    // ── COPY ──────────────────────────────────────────────────────
+    function copyText(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Copied';
+        setTimeout(() => { btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`; }, 1500);
+      });
+    }
+    function copyLatex(btn, text) {
+      const matches = text.match(/\$\$[\s\S]*?\$\$|\$[^$]*?\$/g) || [];
+      navigator.clipboard.writeText(matches.join('\n') || text).then(() => {
+        btn.textContent = '✓ LaTeX Copied';
+        setTimeout(() => { btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:10px;height:10px;stroke:currentColor;fill:none;stroke-width:2"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/></svg> Copy LaTeX`; }, 1500);
+      });
+    }
 
-// ── LATEX HELPER ──────────────────────────────────────────────
-function toggleLatexHelper() {
-  const input = document.getElementById('mathInput');
-  const current = input.value;
-  if (!current.includes('$')) {
-    input.value = current + ' $';
-    input.focus();
-  }
-}
+    // ── LATEX HELPER ──────────────────────────────────────────────
+    function toggleLatexHelper() {
+      const input = document.getElementById('mathInput');
+      const current = input.value;
+      if (!current.includes('$')) {
+        input.value = current + ' $';
+        input.focus();
+      }
+    }
 
-// ── UTILITIES ─────────────────────────────────────────────────
-function handleKey(e) {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-}
+    // ── UTILITIES ─────────────────────────────────────────────────
+    function handleKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    }
 
-function autoResize(el) {
-  el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 160) + 'px';
-}
+    function autoResize(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 160) + 'px';
+    }
 
-function scrollBottom() {
-  const c = document.getElementById('chatMessages');
-  requestAnimationFrame(() => { c.scrollTop = c.scrollHeight; });
-}
+    function scrollBottom() {
+      const c = document.getElementById('chatMessages');
+      requestAnimationFrame(() => { c.scrollTop = c.scrollHeight; });
+    }
 
-function timestamp() {
-  return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
+    function timestamp() {
+      return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
 
-function escHtml(s) {
-  return String(s)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
+    function escHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
 
-function escAttr(s) {
-  return String(s).replace(/\\/g,'\\\\').replace(/`/g,'\\`').replace(/'/g,"\\'").replace(/\$/g,'\\$');
-}
+    function escAttr(s) {
+      return String(s).replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/'/g, "\\'").replace(/\$/g, '\\$');
+    }
 
-// Hide navbar and maximize layout if loaded in iframe
-if (window.self !== window.top) {
-  const navEl = document.querySelector('.nav');
-  if (navEl) navEl.style.display = 'none';
-  const layoutEl = document.querySelector('.layout');
-  if (layoutEl) layoutEl.style.height = '100dvh';
-}
-</script>
+    // Hide navbar and maximize layout if loaded in iframe
+    if (window.self !== window.top) {
+      const navEl = document.querySelector('.nav');
+      if (navEl) navEl.style.display = 'none';
+      const layoutEl = document.querySelector('.layout');
+      if (layoutEl) layoutEl.style.height = '100dvh';
+    }
+  </script>
 </body>
+
 </html>
